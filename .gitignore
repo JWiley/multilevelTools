@@ -1,0 +1,10 @@
+desktop.ini
+.Rhistory
+.RData
+*~
+
+# artifacts of R CMD check/build
+*.Rcheck
+*.tar.gz
+Rplots.pdf
+inst/doc

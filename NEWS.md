@@ -1,0 +1,37 @@
+# multilevelTools 0.1.0
+
+## Ported Features
+
+* `omegaSEM()` Function that calculates coefficient omega for 
+  measuring internal consistency reliability. Works for two 
+  level models and returns within and between level omega 
+  values.
+  
+* `R2.merMod()` A method to calculate the marginal and
+  conditional variance accounted for by a model estimated by 
+  `lmer()`.
+
+* `modelCompare.merMod()` A method to compare two models estimated by 
+   `lmer()` include significance tests and effect sizes 
+   for estimates of the variance explained.
+          
+* `iccMixed()` A function to calculate the intraclass correlation 
+	coefficient using mixed effects models.  Works with either 
+	normally distributed outcomes or binary outcomes, in which case 
+	the latent variable estimate of the ICC is computed.
+	
+* `nEffective()` Calculates the effective sample size based on 
+    the number of independent units, number of observations per 
+	unit, and the intraclass correlation coefficient.
+	
+* `acfByID()` Calculates the lagged autocorrelation of a variable 
+    by an ID variable and returns a data.table for further use,
+	such as examination, summary, or plotting
+
+* `meanDecompose()` function added to decompose multilevel or 
+    repeated measures data into means and residuals.
+
+* `meanDeviations()` A simple function to calculate means and mean 
+	deviations, useful for creating between and within versions of 
+	a variable in a data.table
+		
