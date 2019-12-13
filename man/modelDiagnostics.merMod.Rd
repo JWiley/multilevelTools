@@ -49,14 +49,13 @@ class(md)
 
 plot(md)
 
-library(JWileymisc)
-data(aces_daily)
+data(aces_daily, package = "JWileymisc")
 m <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID), data = aces_daily)
 md <- modelDiagnostics(m, ev.perc = .1)
 
 #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #    data = lme4::cbpp, family = binomial)
-# residualDiagnostics(gm1) ## currently an error
+# modelDiagnostics(gm1) ## currently an error
 
 rm(m, md, sleep)
 

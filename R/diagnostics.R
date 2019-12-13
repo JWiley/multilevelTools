@@ -44,7 +44,7 @@ if(getRversion() >= "2.15.1") {
 residualDiagnostics.merMod <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
-  if (inherits(object, "glmerMod")) stop("currently glmer() models are not supported")
+  if (isGLMM(object)) stop("currently glmer() models are not supported")
   d.frame <- model.frame(object)
   naaction <- attr(d.frame, "na.action")
   if (isFALSE(is.null(naaction))) {
@@ -144,14 +144,13 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #'
 #' plot(md)
 #'
-#' library(JWileymisc)
-#' data(aces_daily)
+#' data(aces_daily, package = "JWileymisc")
 #' m <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID), data = aces_daily)
 #' md <- modelDiagnostics(m, ev.perc = .1)
 #'
 #' #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #' #    data = lme4::cbpp, family = binomial)
-#' # residualDiagnostics(gm1) ## currently an error
+#' # modelDiagnostics(gm1) ## currently an error
 #'
 #' rm(m, md, sleep)
 #'
@@ -159,6 +158,8 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 modelDiagnostics.merMod <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
+  if (isGLMM(object)) stop("currently glmer() models are not supported")
+
   x <- residualDiagnostics(object,
                            ev.perc = ev.perc,
                            robust = robust,
@@ -202,7 +203,9 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
                      p.tmpranef)))
       if (any(p.tmpranef$Data[, isEV] == "Yes")) {
         d.extreme <- rbind(d.extreme,
-                           cbind(x$Frame[x$Frame[[n]] %in% rownames(tmp)[p.tmpranef$Data[isEV == "Yes", OriginalOrder]], c(x$Outcome, idvars, "OriginalOrder"), with = FALSE],
+                           cbind(x$Frame[x$Frame[[n]] %in% rownames(tmp)[
+                                                             p.tmpranef$Data[isEV == "Yes", OriginalOrder]],
+                                         c(x$Outcome, idvars, "OriginalOrder"), with = FALSE],
                                  EffectType = paste("Random Effect", n, ":", n2)))
       }
     }
@@ -217,7 +220,9 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
                      p.tmpranef)))
       if (any(p.tmpranef$Data[, isEV] == "Yes")) {
         d.extreme <- rbind(d.extreme,
-                           cbind(x$Frame[x$Frame[[n]] %in% rownames(tmp)[p.tmpranef$Data[isEV == "Yes", OriginalOrder]], c(x$Outcome, idvars, "OriginalOrder"), with = FALSE],
+                           cbind(x$Frame[x$Frame[[n]] %in% rownames(tmp)[
+                                                             p.tmpranef$Data[isEV == "Yes", OriginalOrder]],
+                                         c(x$Outcome, idvars, "OriginalOrder"), with = FALSE],
                                  EffectType = paste("Multivariate Random Effect", n)))
       }
     }
@@ -230,7 +235,5 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
 
   as.modelDiagnostics(out)
 }
-
-
 
 

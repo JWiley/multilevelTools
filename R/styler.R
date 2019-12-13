@@ -1,10 +1,9 @@
 ## clear R CMD CHECK notes
 if(getRversion() >= "2.15.1") {
   utils::globalVariables(c(
-           "Comp", "Num", "Labels", "Ref", "Term",
-           "B", "P", "LL", "UL", "SE",
-           "ID", "V2", "V1",
-           "value", "Est", "Pval",
+           ".",
+           "Term", "P", "LL", "UL",
+           "ID", "value", "Est", "Pval",
            "Variable", "Type",
            "MarginalF2", "ConditionalF2"))
 }
@@ -12,8 +11,6 @@ if(getRversion() >= "2.15.1") {
 #' Format results from a linear mixed model
 #'
 #' @param object A list of one (or more) models estimated from lmer
-#' @param modelnames An (optional) vector of names to use in
-#'   the column headings for each model.
 #' @param format A list giving the formatting style to be used for
 #'   the fixed effecvts, random effects, and effect sizes.
 #'   For the random effects, must be two options, one for when the
@@ -37,7 +34,7 @@ if(getRversion() >= "2.15.1") {
 #' @examples
 #'
 #' \dontrun{
-#' data(sleepstudy)
+#' data(sleepstudy, package = "lme4")
 #' m1 <- lme4::lmer(Reaction ~ Days + (1 + Days | Subject),
 #'   data = sleepstudy)
 #' m2 <- lme4::lmer(Reaction ~ Days + I(Days^2) + (1 + Days | Subject),
@@ -45,6 +42,7 @@ if(getRversion() >= "2.15.1") {
 #'
 #' testm1 <- modelTest(m1, method = "profile")
 #' testm2 <- modelTest(m2, method = "profile")
+#'
 #' APAStyler(testm1)
 #' APAStyler(testm1,
 #'   format = list(
@@ -54,8 +52,10 @@ if(getRversion() >= "2.15.1") {
 #'   pcontrol = list(digits = 3, stars = FALSE,
 #'                   includeP = TRUE, includeSign = TRUE,
 #'                   dropLeadingZero = TRUE))
+#'
+#' rm(m1, m2, testm1, testm2)
 #' }
-APAStyler.modelTest.merMod <- function(object, modelnames,
+APAStyler.modelTest.merMod <- function(object,
                        format = list(
                          FixedEffects = c("%s%s [%s, %s]"),
                          RandomEffects = c("%s", "%s [%s, %s]"),
@@ -103,27 +103,29 @@ APAStyler.modelTest.merMod <- function(object, modelnames,
       Est = sprintf(format$FixedEffects, Est, P, LL, UL))]
   }
   .formatMISC <- function(x, digits) {
-    ngrps <- gsub("^N_(.*)$", "\\1",
-                  grep("^N_.*$", names(x), value = TRUE)) %snin% "Obs"
     data.table(
       Term = c(
         "Model DF",
-        sprintf("N (%s)", ngrps),
+        "N (Groups)",
         "N (Observations)",
         "logLik",
         "AIC",
         "BIC",
         "Marginal R2",
-        "Conditional R2"),
+        "Marginal F2",
+        "Conditional R2",
+        "Conditional F2"),
       Est = c(
-        as.character(x$DF),
-        as.character(unlist(x[, paste0("N_", ngrps), with = FALSE])),
+        as.character(x$LLDF),
+        as.character(x$N_Groups),
         as.character(x$N_Obs),
-        formround(x$logLik, digits = digits),
+        formround(x$LL, digits = digits),
         formround(x$AIC, digits = digits),
         formround(x$BIC, digits = digits),
         formround(x$MarginalR2, digits = digits),
-        formround(x$ConditionalR2, digits = digits)))
+        formround(x$MarginalF2, digits = digits),
+        formround(x$ConditionalR2, digits = digits),
+        formround(x$ConditionalF2, digits = digits)))
   }
 
   .formatEFFECT <- function(x, digits) {
@@ -136,48 +138,26 @@ APAStyler.modelTest.merMod <- function(object, modelnames,
                               includeP = TRUE, includeSign = TRUE)))])
   }
 
+  fe <- .formatFE(object[["FixedEffects"]], digits)
+  re <- .formatRE(object[["RandomEffects"]], digits)
+  misc <- .formatMISC(object[["OverallModel"]]$Performance, digits)
+  ef <- .formatEFFECT(object[["EffectSizes"]], digits)
 
+  index.fe <- data.table(
+    Index = 1:nrow(fe),
+    Section = 1)
+  index.re <- data.table(
+    Index = 1:nrow(re),
+    Section = 2)
+  index.misc <- data.table(
+    Index = 1:nrow(misc),
+    Section = 3)
+  index.ef <- data.table(
+    Index = 1:nrow(ef),
+    Section = 4)
 
-  k <- length(list)
-  if (missing(modelnames)) {
-    modelnames <- paste0("Model ", 1:k)
-  }
+  out <- rbind(fe, re, misc, ef)
+  attr(out, "index") <- rbind(index.fe, index.re, index.misc, index.ef)
 
-  mergeIt <- function(z, func, term) {
-    res <- lapply(z, function(mod) func(mod[[term]], digits = digits))
-    for (i in 1:k) {
-      setnames(res[[i]], old = "Est", new = modelnames[i])
-    }
-
-    if (k == 1) {
-      final <- res[[1]]
-    } else if (k > 1) {
-      final <- merge(res[[1]], res[[2]], by = "Term", all = TRUE)
-    } else if (k > 2) {
-      for (i in 3:k) {
-        final <- merge(final, res[[i]], by = "Term", all = TRUE)
-      }
-    }
-    return(final)
-  }
-
-  final.fe <- mergeIt(list, .formatFE, "FixedEffects")
-  final.re <- mergeIt(list, .formatRE, "RandomEffects")
-  final.misc <- mergeIt(list, .formatMISC, "OverallModel")
-  final.ef <- mergeIt(list, .formatEFFECT, "EffectSizes")
-
-  placeholder <- final.fe[1]
-  for (i in names(placeholder)) {
-    placeholder[, (i) := ""]
-  }
-  place.fe <- copy(placeholder)[, Term := "Fixed Effects"]
-  place.re <- copy(placeholder)[, Term := "Random Effects"]
-  place.misc <- copy(placeholder)[, Term := "Overall Model"]
-  place.ef <- copy(placeholder)[, Term := "Effect Sizes"]
-
-  rbind(
-    place.fe, final.fe,
-    place.re, final.re,
-    place.misc, final.misc,
-    place.ef, final.ef)
+  return(out)
 }

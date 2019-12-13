@@ -4,17 +4,14 @@
 \alias{APAStyler.modelTest.merMod}
 \title{Format results from a linear mixed model}
 \usage{
-\method{APAStyler}{modelTest.merMod}(object, modelnames,
-  format = list(FixedEffects = c("\%s\%s [\%s, \%s]"), RandomEffects =
-  c("\%s", "\%s [\%s, \%s]"), EffectSizes = c("\%s/\%s, \%s")),
-  digits = 2, pcontrol = list(digits = 3, stars = TRUE, includeP =
-  FALSE, includeSign = FALSE, dropLeadingZero = TRUE), ...)
+\method{APAStyler}{modelTest.merMod}(object, format = list(FixedEffects =
+  c("\%s\%s [\%s, \%s]"), RandomEffects = c("\%s", "\%s [\%s, \%s]"),
+  EffectSizes = c("\%s/\%s, \%s")), digits = 2, pcontrol = list(digits
+  = 3, stars = TRUE, includeP = FALSE, includeSign = FALSE, dropLeadingZero
+  = TRUE), ...)
 }
 \arguments{
 \item{object}{A list of one (or more) models estimated from lmer}
-
-\item{modelnames}{An (optional) vector of names to use in
-the column headings for each model.}
 
 \item{format}{A list giving the formatting style to be used for
 the fixed effecvts, random effects, and effect sizes.
@@ -41,7 +38,7 @@ Format results from a linear mixed model
 \examples{
 
 \dontrun{
-data(sleepstudy)
+data(sleepstudy, package = "lme4")
 m1 <- lme4::lmer(Reaction ~ Days + (1 + Days | Subject),
   data = sleepstudy)
 m2 <- lme4::lmer(Reaction ~ Days + I(Days^2) + (1 + Days | Subject),
@@ -49,6 +46,7 @@ m2 <- lme4::lmer(Reaction ~ Days + I(Days^2) + (1 + Days | Subject),
 
 testm1 <- modelTest(m1, method = "profile")
 testm2 <- modelTest(m2, method = "profile")
+
 APAStyler(testm1)
 APAStyler(testm1,
   format = list(
@@ -58,6 +56,8 @@ APAStyler(testm1,
   pcontrol = list(digits = 3, stars = FALSE,
                   includeP = TRUE, includeSign = TRUE,
                   dropLeadingZero = TRUE))
+
+rm(m1, m2, testm1, testm2)
 }
 }
 \keyword{misc}

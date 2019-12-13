@@ -1,6 +1,7 @@
 language: r
 sudo: false
 cache: packages
-
+env:
+  - NOT_CRAN=true
 after_success:
   - Rscript -e 'covr::codecov()'

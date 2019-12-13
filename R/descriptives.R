@@ -16,6 +16,7 @@
 #' meanDecompose(mpg ~ vs, data = mtcars)
 #' meanDecompose(mpg ~ vs + cyl, data = mtcars)
 #'
+#' \dontrun{
 #' ## Example plotting the results
 #' tmp <- meanDecompose(Sepal.Length ~ Species, data = iris)
 #' do.call(cowplot::plot_grid, c(lapply(names(tmp), function(x) {
@@ -23,6 +24,7 @@
 #' }), ncol = 1))
 #'
 #' rm(tmp)
+#' }
 meanDecompose <- function(formula, data) {
   v <- as.character(attr(terms(formula), "variables"))[-1]
 

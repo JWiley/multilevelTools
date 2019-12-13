@@ -1,7 +1,7 @@
 Package: multilevelTools
 Title: Tools for multilevel and mixed effects models diagnostics and effect sizes 
 Version: 0.1.0
-Date: 2019-12-11
+Date: 2019-12-12
 Authors@R: 
     person(given = "Joshua F.",
            family = "Wiley",

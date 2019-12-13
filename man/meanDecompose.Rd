@@ -24,6 +24,7 @@ factors, such as by ID.
 meanDecompose(mpg ~ vs, data = mtcars)
 meanDecompose(mpg ~ vs + cyl, data = mtcars)
 
+\dontrun{
 ## Example plotting the results
 tmp <- meanDecompose(Sepal.Length ~ Species, data = iris)
 do.call(cowplot::plot_grid, c(lapply(names(tmp), function(x) {
@@ -31,5 +32,6 @@ do.call(cowplot::plot_grid, c(lapply(names(tmp), function(x) {
 }), ncol = 1))
 
 rm(tmp)
+}
 }
 \keyword{multivariate}

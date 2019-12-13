@@ -489,6 +489,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("var1", "var2", "sdcor", 
 #' @importFrom lme4 ngrps lmer glmer refitML lmerControl glmerControl
 #' @importFrom stats family formula nobs update
 #' @importFrom lmerTest lsmeansLT
+#' @method modelTest merMod
 #' @export
 #' @examples
 #'
