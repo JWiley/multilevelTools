@@ -18,7 +18,9 @@ A list of data tables with the means or residuals
 }
 \description{
 This function decomposes a variable in a long data set by grouping
-factors, such as by ID.
+factors, such as by ID. If multiple grouping factors are listed,
+the decomposition is in order from left to right.
+Residuals from the lowest level are returned.
 }
 \examples{
 meanDecompose(mpg ~ vs, data = mtcars)

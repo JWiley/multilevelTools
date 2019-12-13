@@ -1,7 +1,9 @@
 #' Mean decomposition of a variable by group(s)
 #'
 #' This function decomposes a variable in a long data set by grouping
-#' factors, such as by ID.
+#' factors, such as by ID. If multiple grouping factors are listed,
+#' the decomposition is in order from left to right.
+#' Residuals from the lowest level are returned.
 #'
 #' @param formula A formula of the variables to be used in the analysis.
 #'   Should have the form: variable ~ groupingfactors.

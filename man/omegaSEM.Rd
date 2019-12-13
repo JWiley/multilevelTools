@@ -34,7 +34,7 @@ omega.
 \examples{
 
 \dontrun{
-  data(aces_daily)
+  data(aces_daily, package = "JWileymisc")
   omegaSEM(
     items = c("COPEPrb", "COPEPrc", "COPEExp"),
     id = "UserID",
