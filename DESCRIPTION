@@ -1,7 +1,7 @@
 Package: multilevelTools
 Title: Tools for multilevel and mixed effects models diagnostics and effect sizes 
 Version: 0.1.0
-Date: 2019-12-14
+Date: 2019-12-16
 Authors@R: 
     person(given = "Joshua F.",
            family = "Wiley",
@@ -9,7 +9,7 @@ Authors@R:
            email = "jwiley.psych@gmail.com",
            comment = c(ORCID = "0000-0002-0271-6702"))	   
 URL: http://joshuawiley.com/multilevelTools, https://github.com/JWiley/multilevelTools
-BugReports: https://github.com/JWiley/MixedTools/issues	   
+BugReports: https://github.com/JWiley/multilevelTools/issues	   
 Description: Effect sizes, diagnostics and performance metrics for
   multilevel and mixed effects models, primarily from lme4.
   Includes marginal and conditional R2 estimates for linear mixed models

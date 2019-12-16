@@ -1,0 +1,439 @@
+---
+title: "Multilevel Models using lmer"
+author: "Joshua F. Wiley"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{multilevel-lmer-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette shows how to use the `multilevelTools` package for
+further diagnostics and testing of mixed effects (a.k.a., multilevel)
+models using `lmer()` from the `lme4` package.
+
+To get started, load the `lme4` package, which actually fits the
+models, and the `multilevelTools` package. Although not required, we
+load the `lmerTest` package to get approximate degrees of freedom for
+use in calculating p-values for the fixed effects. Without `lmerTest`
+p-values are based on asymptotic normality.
+We'll also load an example dataset from the `JWileymisc` package,
+`aces_daily`, using the `data()` function. The `aces_daily` dataset is
+simulated data from a daily, ecological momentary assessment study of
+191 participants who completed ratings of **a**ctivity, **c**oping,
+**e**motions, and **s**tress (aces) up to three times per day for
+twelve days. Only a subset of variables were simulated, but it is a
+nice example of messy, real-world type data for mixed effects /
+multilevel models.
+
+```{r setup}
+
+## load lme4, JWileymisc, and multilevelTools packages
+## (i.e., "open the 'apps' ") 
+library(lme4)
+library(lmerTest)
+library(extraoperators)
+library(JWileymisc)
+library(multilevelTools)
+
+## load some sample data for examples
+data(aces_daily, package = "JWileymisc")
+
+```
+
+## A Quick View of the Data
+
+Let's start with a quick view of the **str**ucture of the data.
+
+```{r}
+
+## overall structure
+str(aces_daily, nchar.max = 30)
+
+```
+
+For this example, we will just work with negative affect, `NegAff`, as
+the outcome variable and stress, `STRESS`, as our predictor. Because
+observations are repeated per person, we also need to use a variable
+that indicates which observations belong to which person, `UserID`.
+The code that follows shows how many unique people and observations we
+have for each variable.
+
+```{r}
+
+## how many unique IDs (people) are there?
+length(unique(aces_daily$UserID))
+
+## how many not missing observations of negative affect are there?
+sum(!is.na(aces_daily$NegAff))
+
+## how many not missing observations of stress are there?
+sum(!is.na(aces_daily$STRESS))
+
+```
+
+Finally, we might explore each variable briefly, before jumping into
+analyzing them and examining diagnostics and effects of our models.
+Using the `summary()` function on each variable gives us some basic
+descriptive statistics in the form of a five number summary (minimum,
+first quartile, median (second quartile), third quartile, and
+maximum) as well as the arithmetic mean. The NA's tell us how many
+observations are missing negative affect. We can see that both
+variables are quite skewed as their minimum, first quartile and
+medians are all close together and far away from the maximum.
+
+```{r}
+
+summary(aces_daily$NegAff)
+
+summary(aces_daily$STRESS)
+
+```
+
+Because these are repeated measures data, another useful descriptive
+statistic is the intraclass correlation coefficient or ICC. The ICC is
+a measure of the proportion of variance that is between people versus
+the total variance (i.e., variance between people and variance within
+persons). `multilevelTools` provides a function, `iccMixed()` to
+estimate ICCs based off of mixed effects / multilevel models. The
+following code does this for negative affect and stress, first naming
+all the arguments and then using shorter unnamed approach, that is
+identical results, but easier to type. The relevant output is the ICC
+for the row named `UserID`. An ICC of 1 indicates that 100% of all
+variance exists between people, which would mean that 0% of variance
+exists within person, indicating that people have identical scores
+every time they are assessed. Conversely an ICC of 0 would indicate
+that everyone's average was identical and 100% of the variance exists
+within person. For negative affect and stress, we can see the ICCs
+fall between 0 and 1, indicating that some variance is between people
+(i.e., individuals have different average levels of negative affect
+and stress) but also that some variance is within person, meaning that
+people's negative affect and stress fluctuate or vary within a person
+across the day and the 12-days of the study.
+
+```{r}
+
+iccMixed(
+  dv = "NegAff",
+  id = "UserID",
+  data = aces_daily)
+
+iccMixed("STRESS", "UserID", aces_daily)
+
+``` 
+
+Finally, we might want to examine the distribution of the variables
+visually. Visual exploration is a great way to identify the
+distribution of variables, extreme values, and other potential issues
+that can be difficult to identify numerically, such as bimodal
+distributions. For multilevel data, it is helpful to examine between
+and within person aspects of a variable separately. `multilevelTools`
+makes this easy using the `meanDecompose()` function. This is
+important as, for example, if on 11 of 12 days, someone has a negative
+affect score of 5, and then one day a score of 1, the score of 1 may
+be an extreme value, for that person even though it is common for the
+rest of the participants in the study. `meanDecompose()` returns a
+list with `X` values at different levels, here by ID and the
+residuals, which in this case are within person effects.
+
+We make plots of the distributions using `testDistribution()`, which
+defaults to testing against a normal distribution, which is a common
+default and in our case appropriate for linear mixed effects /
+multilevel models. The graphs show a density plot in black lines, a
+normal distribution in dashed blue lines, a rug plot showing where
+individual observations fall, and the x-axis is a five number summary
+(minimum, first quartile, median, third quartile, maximum). The bottom
+plot is a Quantile-Quantile plot rotated to be horizontal instead of
+diagonal. Black dots / lines indicate extreme values, based on the
+expected theoretical distribution, here normal (gaussian), and
+specified percentile, `.001`. For more details, see 
+`help("testDistribution")`.
+
+The between person results for negative affect show about five people
+with relative extreme higher scores. Considering negative affect
+ranges from 1 to 5, they are not impossible scores, but they are
+extreme relative to the rest of this particular sample. At the within
+person level, there are thousands of observations and there are many
+extreme scores. Based on these results, we may suspect that when we
+get into our mixed effects / multilevel model, there will be more
+extreme residual scores to be dealt with (which roughly correspond to
+within person results) than extreme random effects (which roughly
+correspond to between person results).
+
+```{r} 
+
+tmp <- meanDecompose(NegAff ~ UserID, data = aces_daily)
+str(tmp, nchar.max = 30)
+
+plot(testDistribution(tmp[["NegAff by UserID"]]$X,
+                      extremevalues = "theoretical", ev.perc = .001),
+     varlab = "Between Person Negative Affect")
+
+plot(testDistribution(tmp[["NegAff by residual"]]$X,
+                      extremevalues = "theoretical", ev.perc = .001),
+     varlab = "Within Person Negative Affect")
+
+``` 
+
+The same exercise for stress shows a better between and within person
+distribution. Certainly there is some skew and its not a perfect
+normal distribution. However, neither of these are required for
+predictors in mixed effects models. The extreme values are not that
+extreme or that far away from the rest of the sample, so we might feel
+comfortable proceeding with the data as is.
+
+```{r}
+
+tmp <- meanDecompose(STRESS ~ UserID, data = aces_daily)
+
+plot(testDistribution(tmp[["STRESS by UserID"]]$X,
+                      extremevalues = "theoretical", ev.perc = .001),
+     varlab = "Between Person STRESS")
+
+plot(testDistribution(tmp[["STRESS by residual"]]$X,
+                      extremevalues = "theoretical", ev.perc = .001),
+     varlab = "Within Person STRESS")
+
+
+``` 
+
+# Mixed Effects (Multilevel) Model
+
+With a rough sense of our variables, we proceed to fitting a mixed
+effects model using the `lmer()` function from `lme4`. Here we use
+negative affect as the outcome predicted by stress. Both the intercept
+and linear slope of stress on negative affect are included as fixed
+and random effects. The random effects are allowed to be correlated,
+so that, for example, people who have higher negative affect under low
+stress may also have a flatter slope as thye may have less room to
+increase in negative affect at higher stress levels.
+
+At the time of writing, this model using the default optimizer and
+control criteria fails to converge (albeit the gradient is very
+close). These convergence warnings can be spurious but also may
+suggest either a too complex model or need to refine some other aspect
+of the model, such as scaling predictors or changing the optimizer or
+arguments to the optimizer.
+
+```{r, warning = TRUE, purl = FALSE}
+
+m <- lmer(NegAff ~ STRESS + (1 + STRESS | UserID),
+          data = aces_daily)
+
+```
+
+Here we use the `lmerControl()` function to specify a different
+optimization algorithm using the Nelder-Mead Method 
+(https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method). We also
+tighten the tolerance values. This is then passed to `lmer()` by
+setting the argument, `control = strictControl`. This converges
+without warning. 
+
+```{r}
+
+strictControl <- lmerControl(optCtrl = list(
+   algorithm = "NLOPT_LN_NELDERMEAD",
+   xtol_abs = 1e-12,
+   ftol_abs = 1e-12))
+
+m <- lmer(NegAff ~ STRESS + (1 + STRESS | UserID),
+          data = aces_daily, control = strictControl)
+
+```
+
+Now we move on to examine model diagnostics. For linear mixed effects
+/ multilevel models, the residuals should follow a normal
+distribution, the random effects should follow a multivariate normal
+distribution, and the residual variance should be homogenous (the
+same) as a single residual variance is estimated and used for the
+whole model. The `modelDiagnostics()` function in `multilevelTools`
+helps to evaluate these assumptions graphically.
+
+The first plot shows (top left) the distribution of residuals. It is
+somewhat too narrow for a normal distribution (i.e., leptokurtic) and
+consequently many of the residuals on both tails are considered
+extreme values. However, the distribution is fairly symmetrical and
+for the residuals we have over 6,000 observations which will tend to
+make results relatively robust to violations.
+
+The second plot (top right) shows the fitted (predicted) values for
+each observation against the residuals. The colour of the blocks
+indicates how many observations fall at a particular point. The solid
+blue line is a loess smooth line. Hopefully this line is about flat
+and stays consistently at residuals of 0 regardless of the predicted
+value, indicating no systematic bias. Finally the dashed blue lines
+indicate the 10th and 90th percentile (estimated from a quantile
+regression model) of the residuals across predicted values. If the
+residual variance is homogenous across the spread of predicted values,
+we would expect these dashed lines to be flat and parallel to each
+other. That is approximately true for all predicted values above about
+1.7. For low predicted values, the residuals are 0 or higher and the
+spread of the dashed lines is narrowed. This is because people cannot
+have negative affect scores below 1 and many people reported negative
+affect around 1. Therefore for predicted negative affect scores of 1,
+the residuals tend to be about 0. This pattern is not ideal, but also
+not indicative of a terrible violation of the assumption. Two possible
+approaches to relaxing the assumption given data like these would be
+to use a censored model, that assumes true negative affect scores may
+be lower but are censored at 1 due to limitations in the
+measurement. Another would be to use a location and scale mixed
+effects model that models not only the mean (location) but also the
+scale (variance) as a function of some variables, which would allow
+the residual variance to differ. These are beyond the scope of this
+document, however.
+
+The last three plots show the univariate distribution of the intercept
+and stress slope by `UserID`, the random intercept and slope and a
+test of whether the random intercept and slope are multivariate normal
+The multivariate normality test, based on the mahalonbis distances,
+suggests that there are a few, relatively extreme people. We might
+consider dropping these individuals from the analysis to examine
+whether results are sensitive to these extreme cases.
+
+```{r, fig.width = 7, fig.height = 10}
+
+md <- modelDiagnostics(m, ev.perc = .001)
+
+plot(md, ask = FALSE, ncol = 2, nrow = 3)
+
+```
+
+In order to drop people who were extreme on the multivariate normality
+test, we can access a data table of the extreme values from the
+`modelDiagnostics` object. We subset it to only include the
+multivariate effects and use the `head()` function to show the first
+few rows. The extreme value table shows the scores on the outcome, the
+`UserID`, the index (which row) in the dataset, and the effect type,
+here all multivariate since we subset for that. We can use the 
+`unique()` function to identify the IDs, which shows it is three IDs.
+
+```{r}
+
+mvextreme <- subset(md$extremeValues,
+  EffectType == "Multivariate Random Effect UserID")
+
+head(mvextreme)
+
+unique(mvextreme$UserID)
+
+```
+
+We can update the existing model using the `update()` function and in
+the data, just subset to exclude those three extreme IDs. We re-run
+the diagnostics and plot again revealing one new multivariate extreme
+value. 
+
+```{r, fig.width = 7, fig.height = 10}
+
+m2 <- update(m, data = subset(aces_daily,
+  UserID %!in% unique(mvextreme$UserID)))
+
+md2 <- modelDiagnostics(m2, ev.perc = .001)
+
+plot(md2, ask = FALSE, ncol = 2, nrow = 3)
+
+mvextreme2 <- subset(md2$extremeValues,
+  EffectType == "Multivariate Random Effect UserID")
+
+unique(mvextreme2$UserID)
+
+```
+
+Again removing this further extreme ID and plotting diagnostics
+suggests that now the random effects are fairly "clean".
+
+
+```{r, fig.width = 7, fig.height = 10}
+
+m3 <- update(m, data = subset(aces_daily,
+  UserID %!in% c(unique(mvextreme$UserID), unique(mvextreme2$UserID))))
+
+md3 <- modelDiagnostics(m3, ev.perc = .001)
+
+plot(md3, ask = FALSE, ncol = 2, nrow = 3)
+
+```
+
+Now that we have a model whose diagnostics we are reasonably happy
+with, we can examine the results. The `modelPerformance()` function
+from the `multilevelTools` package gives some fit indices for the
+overall model, including measures of the variance accounted for by the
+fixed effects (marginal R2) and from the fixed and random effects
+combined (conditional R2). We also get information criterion (AIC,
+BIC), although note that with a REML estimator, the log likelihood and
+thus information criterion are not comparable to if the ML estimator
+was used.
+
+```{r}
+
+modelPerformance(m3)
+
+```
+
+To see the results of individual variables, we can use the `summary()`
+function to get the default model summary. Note that this summary
+differs slightly from that produced by `lme4` as it is overridden by
+`lmerTest` which adds degrees of freedom and p-values.
+
+```{r}
+
+summary(m3)
+
+``` 
+
+This default summary gives quite a bit of key information. However, it
+does not provide some of the results that often are desired for
+scientific publication. Confidence intervals are commonly reported and
+t values often are not reported in preference for p-values. In
+addition, it is increasingly common to ask for effect sizes.
+The `modelTest()` function in `multilevelTools` provides further
+tests, including tests of the combined fixed + random effect for each
+variable and effect sizes based off the independent change in marginal
+and conditional R2, used to calculate a sort of cohen's F2.
+All of the results are available in a series of tables for any
+programattic use. However, for individual use or reporting, caling
+`APAStyler()` will produce a nicely formatted output for humans.
+Confidence intervals are added in brackets and the effect sizes at the
+bottom are listed for stress considering fixed + random effects
+together.
+
+
+```{r}
+
+mt3 <- modelTest(m3)
+
+names(mt3) ## list of all tables available
+
+APAStyler(mt3)
+
+``` 
+
+The output of `APAStyler()` can easily be copied and pasted into Excel
+or Word for formatting and publication. If the format is not as
+desired, some changes are fairly easy to make automatically.
+For example the following code uses 3 decimal points, lists exact
+p-values, and uses a semi colon instead of a comma for confidence
+intervals.
+
+```{r}
+
+APAStyler(mt3,
+          format = list(
+            FixedEffects = "%s, %s (%s; %s)",
+            RandomEffects = c("%s", "%s (%s, %s)"),
+            EffectSizes = "%s, %s; %s"),
+          digits = 3,
+          pcontrol = list(digits = 3, stars = FALSE,
+                          includeP = TRUE, includeSign = TRUE,
+                          dropLeadingZero = TRUE))
+
+```
+
