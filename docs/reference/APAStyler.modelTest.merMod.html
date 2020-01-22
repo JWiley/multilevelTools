@@ -130,11 +130,15 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for modelTest.merMod</span>
-<span class='fu'>APAStyler</span>(<span class='no'>object</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>FixedEffects</span> <span class='kw'>=</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s%s [%s, %s]"</span>), <span class='kw'>RandomEffects</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s"</span>, <span class='st'>"%s [%s, %s]"</span>),
-  <span class='kw'>EffectSizes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s/%s, %s"</span>)), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>pcontrol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>digits</span>
-  <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>includeP</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>includeSign</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dropLeadingZero</span>
-  <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>APAStyler</span>(
+  <span class='no'>object</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>FixedEffects</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s%s [%s, %s]"</span>), <span class='kw'>RandomEffects</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s"</span>,
+    <span class='st'>"%s [%s, %s]"</span>), <span class='kw'>EffectSizes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s/%s, %s"</span>)),
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>pcontrol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>includeP</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>includeSign</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <span class='kw'>dropLeadingZero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,6 +190,7 @@ APA style).</p></td>
 <span class='no'>testm2</span> <span class='kw'>&lt;-</span> <span class='fu'>modelTest</span>(<span class='no'>m2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)
 
 <span class='fu'>APAStyler</span>(<span class='no'>testm1</span>)
+<span class='fu'>APAStyler</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linear</span> <span class='kw'>=</span> <span class='no'>testm1</span>, <span class='kw'>Quadratic</span> <span class='kw'>=</span> <span class='no'>testm2</span>))
 <span class='fu'>APAStyler</span>(<span class='no'>testm1</span>,
   <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
     <span class='kw'>FixedEffects</span> <span class='kw'>=</span> <span class='st'>"%s, %s (%s, %s)"</span>,

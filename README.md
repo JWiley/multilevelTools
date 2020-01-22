@@ -18,6 +18,6 @@ To get the latest development version, use:
 
 ```
 #install.packages("devtools")
-devtools::install_github("JWiley/multilevelTools")
+edevtools::install_github("JWiley/multilevelTools")
 ```
 

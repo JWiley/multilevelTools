@@ -85,9 +85,9 @@
       <h1>Multilevel Models using lmer</h1>
                         <h4 class="author">Joshua F. Wiley</h4>
             
-            <h4 class="date">2019-12-16</h4>
+            <h4 class="date">2020-01-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/JWiley/multilevelTools/blob/master/vignettes/vignettes/lmer-vignette.Rmd"><code>vignettes/vignettes/lmer-vignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/JWiley/multilevelTools/blob/master/vignettes/lmer-vignette.Rmd"><code>vignettes/lmer-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>lmer-vignette.Rmd</code></div>
 
     </div>
@@ -225,9 +225,8 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2"></a>m &lt;-<span class="st"> </span><span class="kw">lmer</span>(NegAff <span class="op">~</span><span class="st"> </span>STRESS <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>STRESS <span class="op">|</span><span class="st"> </span>UserID),</span>
 <span id="cb10-3"><a href="#cb10-3"></a>          <span class="dt">data =</span> aces_daily)</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; control$checkConv, : Model failed to converge with max|grad| = 0.00201381</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; (tol = 0.002, component 1)</span></span></code></pre></div>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Model failed to converge with max|grad| = 0.00201381 (tol = 0.002, component 1)</span></span></code></pre></div>
 <p>Here we use the <code>lmerControl()</code> function to specify a different optimization algorithm using the Nelder-Mead Method (<a href="https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method" class="uri">https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method</a>). We also tighten the tolerance values. This is then passed to <code>lmer()</code> by setting the argument, <code>control = strictControl</code>. This converges without warning.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2"></a>strictControl &lt;-<span class="st"> </span><span class="kw">lmerControl</span>(<span class="dt">optCtrl =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
@@ -341,25 +340,25 @@
 <span id="cb19-8"><a href="#cb19-8"></a><span class="co">#&gt; [1] "FixedEffects"  "RandomEffects" "EffectSizes"   "OverallModel"</span></span>
 <span id="cb19-9"><a href="#cb19-9"></a></span>
 <span id="cb19-10"><a href="#cb19-10"></a><span class="kw">APAStyler</span>(mt3)</span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="co">#&gt;                              Term                  Est</span></span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="co">#&gt;  1:                   (Intercept) 1.22*** [1.19, 1.25]</span></span>
-<span id="cb19-13"><a href="#cb19-13"></a><span class="co">#&gt;  2:                        STRESS 0.12*** [0.10, 0.13]</span></span>
-<span id="cb19-14"><a href="#cb19-14"></a><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                 0.43</span></span>
-<span id="cb19-15"><a href="#cb19-15"></a><span class="co">#&gt;  4:         sd_(Intercept)|UserID                 0.17</span></span>
-<span id="cb19-16"><a href="#cb19-16"></a><span class="co">#&gt;  5:              sd_STRESS|UserID                 0.06</span></span>
-<span id="cb19-17"><a href="#cb19-17"></a><span class="co">#&gt;  6:                         sigma                 0.41</span></span>
-<span id="cb19-18"><a href="#cb19-18"></a><span class="co">#&gt;  7:                      Model DF                    6</span></span>
-<span id="cb19-19"><a href="#cb19-19"></a><span class="co">#&gt;  8:                    N (Groups)         UserID (187)</span></span>
-<span id="cb19-20"><a href="#cb19-20"></a><span class="co">#&gt;  9:              N (Observations)                 6262</span></span>
-<span id="cb19-21"><a href="#cb19-21"></a><span class="co">#&gt; 10:                        logLik             -3573.08</span></span>
-<span id="cb19-22"><a href="#cb19-22"></a><span class="co">#&gt; 11:                           AIC              7158.16</span></span>
-<span id="cb19-23"><a href="#cb19-23"></a><span class="co">#&gt; 12:                           BIC              7198.61</span></span>
-<span id="cb19-24"><a href="#cb19-24"></a><span class="co">#&gt; 13:                   Marginal R2                 0.24</span></span>
-<span id="cb19-25"><a href="#cb19-25"></a><span class="co">#&gt; 14:                   Marginal F2                 0.32</span></span>
-<span id="cb19-26"><a href="#cb19-26"></a><span class="co">#&gt; 15:                Conditional R2                 0.52</span></span>
-<span id="cb19-27"><a href="#cb19-27"></a><span class="co">#&gt; 16:                Conditional F2                 1.07</span></span>
-<span id="cb19-28"><a href="#cb19-28"></a><span class="co">#&gt; 17:       STRESS (Fixed + Random)  0.32/0.24, p &lt; .001</span></span>
-<span id="cb19-29"><a href="#cb19-29"></a><span class="co">#&gt; 18:               STRESS (Random) -0.07/0.01, p &lt; .001</span></span></code></pre></div>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="co">#&gt;                              Term                  Est           Type</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a><span class="co">#&gt;  1:                   (Intercept) 1.22*** [1.19, 1.25]  Fixed Effects</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a><span class="co">#&gt;  2:                        STRESS 0.12*** [0.10, 0.13]  Fixed Effects</span></span>
+<span id="cb19-14"><a href="#cb19-14"></a><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                 0.43 Random Effects</span></span>
+<span id="cb19-15"><a href="#cb19-15"></a><span class="co">#&gt;  4:         sd_(Intercept)|UserID                 0.17 Random Effects</span></span>
+<span id="cb19-16"><a href="#cb19-16"></a><span class="co">#&gt;  5:              sd_STRESS|UserID                 0.06 Random Effects</span></span>
+<span id="cb19-17"><a href="#cb19-17"></a><span class="co">#&gt;  6:                         sigma                 0.41 Random Effects</span></span>
+<span id="cb19-18"><a href="#cb19-18"></a><span class="co">#&gt;  7:                      Model DF                    6  Overall Model</span></span>
+<span id="cb19-19"><a href="#cb19-19"></a><span class="co">#&gt;  8:                    N (Groups)         UserID (187)  Overall Model</span></span>
+<span id="cb19-20"><a href="#cb19-20"></a><span class="co">#&gt;  9:              N (Observations)                 6262  Overall Model</span></span>
+<span id="cb19-21"><a href="#cb19-21"></a><span class="co">#&gt; 10:                        logLik             -3573.08  Overall Model</span></span>
+<span id="cb19-22"><a href="#cb19-22"></a><span class="co">#&gt; 11:                           AIC              7158.16  Overall Model</span></span>
+<span id="cb19-23"><a href="#cb19-23"></a><span class="co">#&gt; 12:                           BIC              7198.61  Overall Model</span></span>
+<span id="cb19-24"><a href="#cb19-24"></a><span class="co">#&gt; 13:                   Marginal R2                 0.24  Overall Model</span></span>
+<span id="cb19-25"><a href="#cb19-25"></a><span class="co">#&gt; 14:                   Marginal F2                 0.32  Overall Model</span></span>
+<span id="cb19-26"><a href="#cb19-26"></a><span class="co">#&gt; 15:                Conditional R2                 0.52  Overall Model</span></span>
+<span id="cb19-27"><a href="#cb19-27"></a><span class="co">#&gt; 16:                Conditional F2                 1.07  Overall Model</span></span>
+<span id="cb19-28"><a href="#cb19-28"></a><span class="co">#&gt; 17:       STRESS (Fixed + Random)  0.32/0.24, p &lt; .001   Effect Sizes</span></span>
+<span id="cb19-29"><a href="#cb19-29"></a><span class="co">#&gt; 18:               STRESS (Random) -0.07/0.01, p &lt; .001   Effect Sizes</span></span></code></pre></div>
 <p>The output of <code>APAStyler()</code> can easily be copied and pasted into Excel or Word for formatting and publication. If the format is not as desired, some changes are fairly easy to make automatically. For example the following code uses 3 decimal points, lists exact p-values, and uses a semi colon instead of a comma for confidence intervals.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="kw">APAStyler</span>(mt3,</span>
@@ -371,25 +370,72 @@
 <span id="cb20-8"><a href="#cb20-8"></a>          <span class="dt">pcontrol =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>, <span class="dt">stars =</span> <span class="ot">FALSE</span>,</span>
 <span id="cb20-9"><a href="#cb20-9"></a>                          <span class="dt">includeP =</span> <span class="ot">TRUE</span>, <span class="dt">includeSign =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb20-10"><a href="#cb20-10"></a>                          <span class="dt">dropLeadingZero =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb20-11"><a href="#cb20-11"></a><span class="co">#&gt;                              Term                            Est</span></span>
-<span id="cb20-12"><a href="#cb20-12"></a><span class="co">#&gt;  1:                   (Intercept) 1.217, p &lt; .001 (1.189; 1.246)</span></span>
-<span id="cb20-13"><a href="#cb20-13"></a><span class="co">#&gt;  2:                        STRESS 0.115, p &lt; .001 (0.104; 0.126)</span></span>
-<span id="cb20-14"><a href="#cb20-14"></a><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                          0.427</span></span>
-<span id="cb20-15"><a href="#cb20-15"></a><span class="co">#&gt;  4:         sd_(Intercept)|UserID                          0.167</span></span>
-<span id="cb20-16"><a href="#cb20-16"></a><span class="co">#&gt;  5:              sd_STRESS|UserID                          0.063</span></span>
-<span id="cb20-17"><a href="#cb20-17"></a><span class="co">#&gt;  6:                         sigma                          0.407</span></span>
-<span id="cb20-18"><a href="#cb20-18"></a><span class="co">#&gt;  7:                      Model DF                              6</span></span>
-<span id="cb20-19"><a href="#cb20-19"></a><span class="co">#&gt;  8:                    N (Groups)                   UserID (187)</span></span>
-<span id="cb20-20"><a href="#cb20-20"></a><span class="co">#&gt;  9:              N (Observations)                           6262</span></span>
-<span id="cb20-21"><a href="#cb20-21"></a><span class="co">#&gt; 10:                        logLik                      -3573.079</span></span>
-<span id="cb20-22"><a href="#cb20-22"></a><span class="co">#&gt; 11:                           AIC                       7158.158</span></span>
-<span id="cb20-23"><a href="#cb20-23"></a><span class="co">#&gt; 12:                           BIC                       7198.611</span></span>
-<span id="cb20-24"><a href="#cb20-24"></a><span class="co">#&gt; 13:                   Marginal R2                          0.243</span></span>
-<span id="cb20-25"><a href="#cb20-25"></a><span class="co">#&gt; 14:                   Marginal F2                          0.322</span></span>
-<span id="cb20-26"><a href="#cb20-26"></a><span class="co">#&gt; 15:                Conditional R2                          0.517</span></span>
-<span id="cb20-27"><a href="#cb20-27"></a><span class="co">#&gt; 16:                Conditional F2                          1.068</span></span>
-<span id="cb20-28"><a href="#cb20-28"></a><span class="co">#&gt; 17:       STRESS (Fixed + Random)         0.322, 0.242; p &lt; .001</span></span>
-<span id="cb20-29"><a href="#cb20-29"></a><span class="co">#&gt; 18:               STRESS (Random)        -0.069, 0.005; p &lt; .001</span></span></code></pre></div>
+<span id="cb20-11"><a href="#cb20-11"></a><span class="co">#&gt;                              Term                            Est           Type</span></span>
+<span id="cb20-12"><a href="#cb20-12"></a><span class="co">#&gt;  1:                   (Intercept) 1.217, p &lt; .001 (1.189; 1.246)  Fixed Effects</span></span>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="co">#&gt;  2:                        STRESS 0.115, p &lt; .001 (0.104; 0.126)  Fixed Effects</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                          0.427 Random Effects</span></span>
+<span id="cb20-15"><a href="#cb20-15"></a><span class="co">#&gt;  4:         sd_(Intercept)|UserID                          0.167 Random Effects</span></span>
+<span id="cb20-16"><a href="#cb20-16"></a><span class="co">#&gt;  5:              sd_STRESS|UserID                          0.063 Random Effects</span></span>
+<span id="cb20-17"><a href="#cb20-17"></a><span class="co">#&gt;  6:                         sigma                          0.407 Random Effects</span></span>
+<span id="cb20-18"><a href="#cb20-18"></a><span class="co">#&gt;  7:                      Model DF                              6  Overall Model</span></span>
+<span id="cb20-19"><a href="#cb20-19"></a><span class="co">#&gt;  8:                    N (Groups)                   UserID (187)  Overall Model</span></span>
+<span id="cb20-20"><a href="#cb20-20"></a><span class="co">#&gt;  9:              N (Observations)                           6262  Overall Model</span></span>
+<span id="cb20-21"><a href="#cb20-21"></a><span class="co">#&gt; 10:                        logLik                      -3573.079  Overall Model</span></span>
+<span id="cb20-22"><a href="#cb20-22"></a><span class="co">#&gt; 11:                           AIC                       7158.158  Overall Model</span></span>
+<span id="cb20-23"><a href="#cb20-23"></a><span class="co">#&gt; 12:                           BIC                       7198.611  Overall Model</span></span>
+<span id="cb20-24"><a href="#cb20-24"></a><span class="co">#&gt; 13:                   Marginal R2                          0.243  Overall Model</span></span>
+<span id="cb20-25"><a href="#cb20-25"></a><span class="co">#&gt; 14:                   Marginal F2                          0.322  Overall Model</span></span>
+<span id="cb20-26"><a href="#cb20-26"></a><span class="co">#&gt; 15:                Conditional R2                          0.517  Overall Model</span></span>
+<span id="cb20-27"><a href="#cb20-27"></a><span class="co">#&gt; 16:                Conditional F2                          1.068  Overall Model</span></span>
+<span id="cb20-28"><a href="#cb20-28"></a><span class="co">#&gt; 17:       STRESS (Fixed + Random)         0.322, 0.242; p &lt; .001   Effect Sizes</span></span>
+<span id="cb20-29"><a href="#cb20-29"></a><span class="co">#&gt; 18:               STRESS (Random)        -0.069, 0.005; p &lt; .001   Effect Sizes</span></span></code></pre></div>
+<p>Finally, <code>APAStyler()</code> can be used with multiple models to create a convenient comparison. For example, although we removed several extreme values, we might want to compare the results in the full data to the dataset with extreme values removed to evaluate whether critical coefficients or effect sizes changed and if so how much. Some quantities, like the log likelihood, AIC and BIC are not comparable as the sample size changed. However, effect size estimates like the model marginal and conditional R2 can be reasonably compared as can the fixed effect coefficients and the effect sizes for particular predictors.</p>
+<p>To create the output, we pass a list of <code>modelTest</code> objects and we can add names so that they are more nicely named in the output. The results show that the intercept, the predicted negative affect when stress is zero is very slightly higher in the original than in the model with outliers removed. The fixed effect coefficient for stress is identical, but the confidence interval is very slightly wider after removing outliers. Variability in the random intercept, slope, and residual variance, sigma, are all slightly reduced. All in all, we could conclude that the overall pattern of results and any conclusions that might be drawn from them would not functionally change in the model with all cases included versus after removing the extreme values, in this case. This effectively serves as a “sensitivity analysis” evaluating how sensitive the results of the model are to the inclusion / exclusion of extreme values. In this case, not very sensitive, which may be encouraging. In cases where there are large differences in the results, careful thought may be needed around which model is more likely to be “true” and what the implications of the differences are for interpretting and utilizing the results.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">## run modelTest() on the original model, m</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>mt &lt;-<span class="st"> </span><span class="kw">modelTest</span>(m)</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co">#&gt; Parameters and CIs are based on REML, </span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co">#&gt; but modelTests requires ML not REML fit for comparisons, </span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="co">#&gt; and these are used in effect sizes. Refitting.</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="kw">APAStyler</span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">Original =</span> mt, <span class="st">`</span><span class="dt">Outliers Removed</span><span class="st">`</span> =<span class="st"> </span>mt3))</span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co">#&gt;                              Term             Original     Outliers Removed</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">#&gt;  1:                   (Intercept) 1.24*** [1.20, 1.27] 1.22*** [1.19, 1.25]</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co">#&gt;  2:                        STRESS 0.12*** [0.11, 0.13] 0.12*** [0.10, 0.13]</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                 0.47                 0.43</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="co">#&gt;  4:         sd_(Intercept)|UserID                 0.21                 0.17</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="co">#&gt;  5:              sd_STRESS|UserID                 0.07                 0.06</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="co">#&gt;  6:                         sigma                 0.42                 0.41</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="co">#&gt;  7:                      Model DF                    6                    6</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a><span class="co">#&gt;  8:                    N (Groups)         UserID (191)         UserID (187)</span></span>
+<span id="cb21-17"><a href="#cb21-17"></a><span class="co">#&gt;  9:              N (Observations)                 6389                 6262</span></span>
+<span id="cb21-18"><a href="#cb21-18"></a><span class="co">#&gt; 10:                        logLik             -3845.41             -3573.08</span></span>
+<span id="cb21-19"><a href="#cb21-19"></a><span class="co">#&gt; 11:                           AIC              7702.81              7158.16</span></span>
+<span id="cb21-20"><a href="#cb21-20"></a><span class="co">#&gt; 12:                           BIC              7743.39              7198.61</span></span>
+<span id="cb21-21"><a href="#cb21-21"></a><span class="co">#&gt; 13:                   Marginal R2                 0.23                 0.24</span></span>
+<span id="cb21-22"><a href="#cb21-22"></a><span class="co">#&gt; 14:                   Marginal F2                 0.29                 0.32</span></span>
+<span id="cb21-23"><a href="#cb21-23"></a><span class="co">#&gt; 15:                Conditional R2                 0.55                 0.52</span></span>
+<span id="cb21-24"><a href="#cb21-24"></a><span class="co">#&gt; 16:                Conditional F2                 1.23                 1.07</span></span>
+<span id="cb21-25"><a href="#cb21-25"></a><span class="co">#&gt; 17:       STRESS (Fixed + Random)  0.29/0.26, p &lt; .001  0.32/0.24, p &lt; .001</span></span>
+<span id="cb21-26"><a href="#cb21-26"></a><span class="co">#&gt; 18:               STRESS (Random) -0.06/0.02, p &lt; .001 -0.07/0.01, p &lt; .001</span></span>
+<span id="cb21-27"><a href="#cb21-27"></a><span class="co">#&gt;               Type</span></span>
+<span id="cb21-28"><a href="#cb21-28"></a><span class="co">#&gt;  1:  Fixed Effects</span></span>
+<span id="cb21-29"><a href="#cb21-29"></a><span class="co">#&gt;  2:  Fixed Effects</span></span>
+<span id="cb21-30"><a href="#cb21-30"></a><span class="co">#&gt;  3: Random Effects</span></span>
+<span id="cb21-31"><a href="#cb21-31"></a><span class="co">#&gt;  4: Random Effects</span></span>
+<span id="cb21-32"><a href="#cb21-32"></a><span class="co">#&gt;  5: Random Effects</span></span>
+<span id="cb21-33"><a href="#cb21-33"></a><span class="co">#&gt;  6: Random Effects</span></span>
+<span id="cb21-34"><a href="#cb21-34"></a><span class="co">#&gt;  7:  Overall Model</span></span>
+<span id="cb21-35"><a href="#cb21-35"></a><span class="co">#&gt;  8:  Overall Model</span></span>
+<span id="cb21-36"><a href="#cb21-36"></a><span class="co">#&gt;  9:  Overall Model</span></span>
+<span id="cb21-37"><a href="#cb21-37"></a><span class="co">#&gt; 10:  Overall Model</span></span>
+<span id="cb21-38"><a href="#cb21-38"></a><span class="co">#&gt; 11:  Overall Model</span></span>
+<span id="cb21-39"><a href="#cb21-39"></a><span class="co">#&gt; 12:  Overall Model</span></span>
+<span id="cb21-40"><a href="#cb21-40"></a><span class="co">#&gt; 13:  Overall Model</span></span>
+<span id="cb21-41"><a href="#cb21-41"></a><span class="co">#&gt; 14:  Overall Model</span></span>
+<span id="cb21-42"><a href="#cb21-42"></a><span class="co">#&gt; 15:  Overall Model</span></span>
+<span id="cb21-43"><a href="#cb21-43"></a><span class="co">#&gt; 16:  Overall Model</span></span>
+<span id="cb21-44"><a href="#cb21-44"></a><span class="co">#&gt; 17:   Effect Sizes</span></span>
+<span id="cb21-45"><a href="#cb21-45"></a><span class="co">#&gt; 18:   Effect Sizes</span></span></code></pre></div>
 </div>
   </div>
 

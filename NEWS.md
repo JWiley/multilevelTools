@@ -1,5 +1,12 @@
 # multilevelTools 0.1.0
 
+## New Features
+
+* Methods to support lme4 models, class `merMod` for 
+  `modelTest()`, `modelDiagnostics()`, and `APAStyler()`.
+
+* New vignette added showing sample use case of the package.
+
 ## Ported Features
 
 * `omegaSEM()` Function that calculates coefficient omega for 
