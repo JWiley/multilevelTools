@@ -4,8 +4,14 @@
 \alias{modelDiagnostics.merMod}
 \title{modelDiagnostics method for merMod objects}
 \usage{
-\method{modelDiagnostics}{merMod}(object, ev.perc = 0.001,
-  robust = FALSE, distr = "normal", standardized = TRUE, ...)
+\method{modelDiagnostics}{merMod}(
+  object,
+  ev.perc = 0.001,
+  robust = FALSE,
+  distr = "normal",
+  standardized = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{A fitted model object, either of class merMod from

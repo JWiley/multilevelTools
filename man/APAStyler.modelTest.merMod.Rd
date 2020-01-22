@@ -4,11 +4,15 @@
 \alias{APAStyler.modelTest.merMod}
 \title{Format results from a linear mixed model}
 \usage{
-\method{APAStyler}{modelTest.merMod}(object, format = list(FixedEffects =
-  c("\%s\%s [\%s, \%s]"), RandomEffects = c("\%s", "\%s [\%s, \%s]"),
-  EffectSizes = c("\%s/\%s, \%s")), digits = 2, pcontrol = list(digits
-  = 3, stars = TRUE, includeP = FALSE, includeSign = FALSE, dropLeadingZero
-  = TRUE), ...)
+\method{APAStyler}{modelTest.merMod}(
+  object,
+  format = list(FixedEffects = c("\%s\%s [\%s, \%s]"), RandomEffects = c("\%s",
+    "\%s [\%s, \%s]"), EffectSizes = c("\%s/\%s, \%s")),
+  digits = 2,
+  pcontrol = list(digits = 3, stars = TRUE, includeP = FALSE, includeSign = FALSE,
+    dropLeadingZero = TRUE),
+  ...
+)
 }
 \arguments{
 \item{object}{A list of one (or more) models estimated from lmer}
@@ -48,6 +52,7 @@ testm1 <- modelTest(m1, method = "profile")
 testm2 <- modelTest(m2, method = "profile")
 
 APAStyler(testm1)
+APAStyler(list(Linear = testm1, Quadratic = testm2))
 APAStyler(testm1,
   format = list(
     FixedEffects = "\%s, \%s (\%s, \%s)",

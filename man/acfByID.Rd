@@ -4,8 +4,15 @@
 \alias{acfByID}
 \title{Estimate the autocorrelation by unit (ID)}
 \usage{
-acfByID(xvar, timevar, idvar, data, lag.max = 10L,
-  na.function = c("na.approx", "na.spline", "na.locf"), ...)
+acfByID(
+  xvar,
+  timevar,
+  idvar,
+  data,
+  lag.max = 10L,
+  na.function = c("na.approx", "na.spline", "na.locf"),
+  ...
+)
 }
 \arguments{
 \item{xvar}{A character string giving the variable name of

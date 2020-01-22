@@ -44,6 +44,7 @@ if(getRversion() >= "2.15.1") {
 #' testm2 <- modelTest(m2, method = "profile")
 #'
 #' APAStyler(testm1)
+#' APAStyler(list(Linear = testm1, Quadratic = testm2))
 #' APAStyler(testm1,
 #'   format = list(
 #'     FixedEffects = "%s, %s (%s, %s)",
@@ -143,21 +144,11 @@ APAStyler.modelTest.merMod <- function(object,
   misc <- .formatMISC(object[["OverallModel"]]$Performance, digits)
   ef <- .formatEFFECT(object[["EffectSizes"]], digits)
 
-  index.fe <- data.table(
-    Index = 1:nrow(fe),
-    Section = 1)
-  index.re <- data.table(
-    Index = 1:nrow(re),
-    Section = 2)
-  index.misc <- data.table(
-    Index = 1:nrow(misc),
-    Section = 3)
-  index.ef <- data.table(
-    Index = 1:nrow(ef),
-    Section = 4)
-
-  out <- rbind(fe, re, misc, ef)
-  attr(out, "index") <- rbind(index.fe, index.re, index.misc, index.ef)
+  out <- rbind(
+    cbind(fe, Type = "Fixed Effects"),
+    cbind(re, Type = "Random Effects"),
+    cbind(misc, Type = "Overall Model"),
+    cbind(ef, Type = "Effect Sizes"))
 
   return(out)
 }

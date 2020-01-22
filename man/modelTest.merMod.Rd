@@ -4,8 +4,7 @@
 \alias{modelTest.merMod}
 \title{estimate detailed results per variable and effect sizes for both fixed and random effects from lmer models}
 \usage{
-\method{modelTest}{merMod}(object, method = c("Wald", "profile", "boot"),
-  control, ...)
+\method{modelTest}{merMod}(object, method = c("Wald", "profile", "boot"), control, ...)
 }
 \arguments{
 \item{object}{A \code{merMod} class object, the fitted result of

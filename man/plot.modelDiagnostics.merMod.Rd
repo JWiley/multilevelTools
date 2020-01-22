@@ -4,8 +4,7 @@
 \alias{plot.modelDiagnostics.merMod}
 \title{Plot Diagnostics for an lmer model}
 \usage{
-\method{plot}{modelDiagnostics.merMod}(x, y, plot = TRUE, ask = TRUE,
-  ncol = 1, nrow = 1, ...)
+\method{plot}{modelDiagnostics.merMod}(x, y, plot = TRUE, ask = TRUE, ncol = 1, nrow = 1, ...)
 }
 \arguments{
 \item{x}{A fitted model object from lm.}

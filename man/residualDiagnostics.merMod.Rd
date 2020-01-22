@@ -4,8 +4,14 @@
 \alias{residualDiagnostics.merMod}
 \title{residualDiagnostics methods for merMod objects}
 \usage{
-\method{residualDiagnostics}{merMod}(object, ev.perc = 0.001,
-  robust = FALSE, distr = "normal", standardized = TRUE, ...)
+\method{residualDiagnostics}{merMod}(
+  object,
+  ev.perc = 0.001,
+  robust = FALSE,
+  distr = "normal",
+  standardized = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{An object with class \code{merMod}. Currently only

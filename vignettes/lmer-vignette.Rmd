@@ -437,3 +437,40 @@ APAStyler(mt3,
 
 ```
 
+Finally, `APAStyler()` can be used with multiple models to create a
+convenient comparison. For example, although we removed several
+extreme values, we might want to compare the results in the full data
+to the dataset with extreme values removed to evaluate whether
+critical coefficients or effect sizes changed and if so how much.
+Some quantities, like the log likelihood, AIC and BIC are not
+comparable as the sample size changed. However, effect size estimates
+like the model marginal and conditional R2 can be reasonably compared
+as can the fixed effect coefficients and the effect sizes for
+particular predictors.
+
+To create the output, we pass a list of `modelTest` objects and we can
+add names so that they are more nicely named in the output. The
+results show that the intercept, the predicted negative affect when
+stress is zero is very slightly higher in the original than in the
+model with outliers removed. The fixed effect coefficient for stress
+is identical, but the confidence interval is very slightly wider after
+removing outliers. Variability in the random intercept, slope, and
+residual variance, sigma, are all slightly reduced. All in all, we
+could conclude that the overall pattern of results and any conclusions
+that might be drawn from them would not functionally change in the
+model with all cases included versus after removing the extreme
+values, in this case. This effectively serves as a "sensitivity
+analysis" evaluating how sensitive the results of the model are to the
+inclusion / exclusion of extreme values. In this case, not very
+sensitive, which may be encouraging. In cases where there are large
+differences in the results, careful thought may be needed around which
+model is more likely to be "true" and what the implications of the
+differences are for interpretting and utilizing the results.
+
+```{r}
+## run modelTest() on the original model, m
+mt <- modelTest(m)
+
+APAStyler(list(Original = mt, `Outliers Removed` = mt3))
+
+``` 
