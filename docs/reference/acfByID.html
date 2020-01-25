@@ -200,7 +200,7 @@ intracluster correlation coefficients and sample size.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## example 1</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/data.table/man/data.table.html'>data.table</a></span>(
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='fl'>1</span>:<span class='fl'>30</span>),
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>30</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)
@@ -217,7 +217,7 @@ intracluster correlation coefficients and sample size.
 #&gt; 10:  1        x   9      -0.6451019
 #&gt; 11:  1        x  10      -0.5718883</div><div class='input'>
 <span class='co'>## example 2</span>
-<span class='no'>dat2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/data.table/man/data.table.html'>data.table</a></span>(
+<span class='no'>dat2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='fl'>1</span>:<span class='fl'>30</span>), <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>((<span class='fl'>1</span>:<span class='fl'>30</span>)/<span class='fl'>10</span>)),
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>30</span>, <span class='fl'>1</span>:<span class='fl'>30</span>),
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>30</span>))
@@ -225,8 +225,8 @@ intracluster correlation coefficients and sample size.
 
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>acfByID</span>(<span class='st'>"x"</span>, <span class='st'>"time"</span>, <span class='st'>"id"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat2</span>, <span class='kw'>na.function</span> <span class='kw'>=</span> <span class='st'>"na.approx"</span>)
 
-<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span>(<span class='no'>res</span>, <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Lag</span>), <span class='no'>AutoCorrelation</span>)) +
-  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_boxplot.html'>geom_boxplot</a></span>()</div><div class='img'><img src='acfByID-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>res</span>, <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Lag</span>), <span class='no'>AutoCorrelation</span>)) +
+  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span>()</div><div class='img'><img src='acfByID-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## clean up</span>
 <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>dat</span>, <span class='no'>dat2</span>, <span class='no'>res</span>)</div></pre>
   </div>
