@@ -14,10 +14,21 @@ multilevel and mixed effects models.
 Installation
 ------------
 
+To get the version from CRAN:
+
+```
+
+install.packages("multilevelTools")
+
+
+``` 
+
 To get the latest development version, use:
 
 ```
+
 #install.packages("devtools")
-edevtools::install_github("JWiley/multilevelTools")
+devtools::install_github("JWiley/multilevelTools")
+
 ```
 

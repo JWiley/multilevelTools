@@ -1,3 +1,11 @@
+# multilevelTools 0.1.1
+
+## New Features
+
+* Beta methods to support lme models, class `lme` for 
+  `residualDiagnostics()` and `modelDiagnostics()`
+  with more planned in future updates.
+
 # multilevelTools 0.1.0
 
 ## New Features

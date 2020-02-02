@@ -1,7 +1,7 @@
 Package: multilevelTools
 Title: Tools for Multilevel and Mixed Effects Models Diagnostics and Effect Sizes 
-Version: 0.1.0
-Date: 2020-01-25
+Version: 0.1.1
+Date: 2020-02-02
 Authors@R: 
     person(given = "Joshua F.",
            family = "Wiley",
@@ -18,7 +18,6 @@ License: GPL (>= 3)
 Depends:
     R (>= 3.5.0)
 Imports:
-    Matrix,
     lme4,
     lmerTest,
     data.table (>= 1.12.0),
