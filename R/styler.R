@@ -33,12 +33,29 @@ if(getRversion() >= "2.15.1") {
 #' @importFrom nlme fixef
 #' @examples
 #'
-#' \dontrun{
+#' library(JWileymisc)
 #' data(sleepstudy, package = "lme4")
+#'
 #' m1 <- lme4::lmer(Reaction ~ Days + (1 + Days | Subject),
 #'   data = sleepstudy)
 #' m2 <- lme4::lmer(Reaction ~ Days + I(Days^2) + (1 + Days | Subject),
 #'   data = sleepstudy)
+#'
+#' testm1 <- modelTest(m1)
+#' testm2 <- modelTest(m2)
+#'
+#' APAStyler(testm1)
+#' APAStyler(list(Linear = testm1, Quadratic = testm2))
+#' APAStyler(testm1,
+#'   format = list(
+#'     FixedEffects = "%s, %s (%s, %s)",
+#'     RandomEffects = c("%s", "%s (%s, %s)"),
+#'     EffectSizes = "%s, %s; %s"),
+#'   pcontrol = list(digits = 3, stars = FALSE,
+#'                   includeP = TRUE, includeSign = TRUE,
+#'                   dropLeadingZero = TRUE))
+#'
+#' \donttest{
 #'
 #' testm1 <- modelTest(m1, method = "profile")
 #' testm2 <- modelTest(m2, method = "profile")
@@ -54,8 +71,9 @@ if(getRversion() >= "2.15.1") {
 #'                   includeP = TRUE, includeSign = TRUE,
 #'                   dropLeadingZero = TRUE))
 #'
-#' rm(m1, m2, testm1, testm2)
 #' }
+#'
+#' rm(m1, m2, testm1, testm2)
 APAStyler.modelTest.merMod <- function(object,
                        format = list(
                          FixedEffects = c("%s%s [%s, %s]"),

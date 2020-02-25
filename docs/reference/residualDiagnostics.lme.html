@@ -180,20 +180,69 @@ residual values or not. Defaults to <code>TRUE</code>.</p></td>
   <code>as.residualDiagnostics</code> and <code>residualDiagnostics</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>,
-    <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.omit</span>)
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
+<span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>,
+  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.omit</span>)
 
- <span class='fu'>residualDiagnostics</span>(<span class='no'>m</span>)$<span class='no'>Residuals</span>
-
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>hp</span> ~ <span class='no'>mpg</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>cyl</span>,
-    <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.omit</span>)
- <span class='fu'>residualDiagnostics</span>(<span class='no'>m</span>)$<span class='no'>Residuals</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>sleep</span>)
-
-}</div></pre>
+ <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/residualDiagnostics.html'>residualDiagnostics</a></span>(<span class='no'>m</span>)$<span class='no'>Residuals</span></div><div class='output co'>#&gt;        Residuals  Predicted isEV Index
+#&gt;  1: -0.700128686 -0.9621668   No     2
+#&gt;  2:  0.021691421 -0.2197614   No     3
+#&gt;  3: -0.117253346 -1.0931795   No     4
+#&gt;  4:  0.658755591 -0.7001414   No     5
+#&gt;  5:  0.665700971  2.7935312   No     6
+#&gt;  6:  0.323895359  3.4049239   No     7
+#&gt;  7:  0.400316839  0.4353022   No     8
+#&gt;  8: -1.532411926  1.3960622   No     9
+#&gt;  9:  0.279433777  1.7454295   No    10
+#&gt; 10: -0.106066416  1.9966289   No    11
+#&gt; 11:  0.165397761  0.6493189   No    12
+#&gt; 12: -0.320216242  1.3917243   No    13
+#&gt; 13: -0.459161009  0.5183061   No    14
+#&gt; 14: -1.110119656  0.9113443   No    15
+#&gt; 15: -0.005506903  4.4050169   No    16
+#&gt; 16:  0.530821382  5.0164096   No    17
+#&gt; 17: -0.490424510  2.0467879   No    18
+#&gt; 18:  1.747982740  3.0075479   No    19
+#&gt; 19:  0.047292851  3.3569151   No    20</div><div class='input'>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>hp</span> ~ <span class='no'>mpg</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>cyl</span>,
+  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.omit</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/residualDiagnostics.html'>residualDiagnostics</a></span>(<span class='no'>m</span>)$<span class='no'>Residuals</span></div><div class='output co'>#&gt;       Residuals Predicted isEV Index
+#&gt;  1: -0.23664029 118.76861   No     1
+#&gt;  2: -0.23664029 118.76861   No     2
+#&gt;  3: -0.22511638 101.34160   No     3
+#&gt;  4: -0.18972936 117.03034   No     4
+#&gt;  5: -0.43428124 191.09211   No     5
+#&gt;  6: -0.71168060 131.37103   No     6
+#&gt;  7:  0.93880308 210.21303   No     7
+#&gt;  8: -0.87407610  94.38853   No     8
+#&gt;  9: -0.17114196 101.34160   No     9
+#&gt; 10: -0.09690578 126.59080   No    10
+#&gt; 11: -0.26109405 132.67473   No    11
+#&gt; 12: -0.56908306 201.08714   No    12
+#&gt; 13: -0.46353346 197.17604   No    13
+#&gt; 14: -0.70981586 206.30194   No    14
+#&gt; 15: -0.59806685 227.16112   No    15
+#&gt; 16: -0.32819477 227.16112   No    16
+#&gt; 17:  0.58090589 208.47477   No    17
+#&gt; 18:  0.17209140  59.62322   No    18
+#&gt; 19: -0.44028418  68.31455   No    19
+#&gt; 20:  0.32102019  53.10473   No    20
+#&gt; 21: -0.26962808 106.99096   No    21
+#&gt; 22: -1.48424891 204.99824   No    22
+#&gt; 23: -1.51943211 206.30194   No    23
+#&gt; 24:  0.82152575 214.55870   No    24
+#&gt; 25: -0.37564257 188.91928   No    25
+#&gt; 26: -0.42602300  81.78611   No    26
+#&gt; 27:  0.09619667  87.43547   No    27
+#&gt; 28:  1.20593552  68.31455   No    28
+#&gt; 29:  1.62747604 203.69454   No    29
+#&gt; 30:  1.36506772 124.41797   No    30
+#&gt; 31:  3.44974596 207.17107  Yes    31
+#&gt; 32:  0.04249069 107.42552   No    32
+#&gt;       Residuals Predicted isEV Index</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

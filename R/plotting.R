@@ -33,12 +33,13 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("EffectType", "OriginalO
 #' @keywords plot
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 #'
-#'  md <- modelDiagnostics(m, ev.perc = .1)
-#'  md$extremeValues
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+#'
+#' md <- modelDiagnostics(m, ev.perc = .1)
+#' md$extremeValues
 #'
 #' data(aces_daily, package = "JWileymisc")
 #' m <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID), data = aces_daily)
@@ -48,17 +49,8 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("EffectType", "OriginalO
 #' plot(md$modelDiagnostics[[2]][[2]])
 #' plot(md, ncol = 2, nrow = 2)
 #' plot(md, ncol = 2, nrow = 3)
-#' tmp <- lapply(md$modelDiagnostics[[2]], plot, plot=FALSE)
-#' names(tmp[[1]])
-#' tmp$DensityPlot
-#'
-#' str(md)
-#' class(md)
-#'
-#' plot(md)
 #'
 #' rm(m, md, sleep)
-#' }
 plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1, nrow = 1, ...) {
 
   presid <- plot(x$residualDiagnostics, plot = FALSE)
@@ -126,12 +118,13 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
 #' @keywords plot
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID, na.action = "na.omit")
 #'
-#'  md <- modelDiagnostics(m, ev.perc = .1)
-#'  md$extremeValues
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID, na.action = "na.omit")
+#'
+#' md <- modelDiagnostics(m, ev.perc = .1)
+#' md$extremeValues
 #'
 #' plot(md)
 #'
@@ -144,17 +137,8 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
 #' plot(md$modelDiagnostics[[2]][[2]])
 #' plot(md, ncol = 2, nrow = 2)
 #' plot(md, ncol = 2, nrow = 3)
-#' tmp <- lapply(md$modelDiagnostics[[2]], plot, plot=FALSE)
-#' names(tmp[[1]])
-#' tmp$DensityPlot
-#'
-#' str(md)
-#' class(md)
-#'
-#' plot(md)
 #'
 #' rm(m, md, sleep)
-#' }
 plot.modelDiagnostics.lme <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1, nrow = 1, ...) {
 
   presid <- plot(x$residualDiagnostics, plot = FALSE)

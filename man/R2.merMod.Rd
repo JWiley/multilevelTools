@@ -27,7 +27,7 @@ the marginal and conditional R2 are calculated as described in the references.
 }
 \examples{
 
-\dontrun{
+library(JWileymisc)
 data(aces_daily, package = "JWileymisc")
 m1 <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID),
   data = aces_daily)
@@ -39,13 +39,13 @@ hist(R2(m1, cluster = TRUE)$R2)
 
 rm(m1)
 }
-}
 \references{
 For estimating the marginal and conditional R-squared values,
-  see: Nakagawa, S. and Schielzeth, H. (2013). A general and simple method
-  for obtaining R2 from generalized linear mixed-effects models.
-  Methods in Ecology and Evolution, 4(2), 133-142. as well as:
-  Johnson, P. C. (2014). Extension of Nakagawa & Schielzeth's R2GLMM to
-  random slopes models. Methods in Ecology and Evolution, 5(9), 944-946.
+  see:
+  Nakagawa, S. and Schielzeth, H. (2013) <doi:10.1111/j.2041-210x.2012.00261.x>
+  "A general and simple method for obtaining R2 from generalized linear mixed-effects models"
+  and also:
+  Johnson, P. C. (2014) <doi:10.1111/2041-210X.12225>
+  "Extension of Nakagawa & Schielzeth's R2GLMM to random slopes models"
 }
 \keyword{utils}

@@ -67,8 +67,13 @@ main effect but keeping the interaction term, so present
 and interpret these with caution.
 }
 \examples{
+## these examples are slow to run
+library(JWileymisc)
+m1 <- lme4::lmer(extra ~ group + (1 | ID),
+data = sleep, REML=FALSE)
+modelTest(m1)
 
-\dontrun{
+\donttest{
 data(aces_daily, package = "JWileymisc")
 
 strictControl <- lme4::lmerControl(optCtrl = list(
@@ -79,7 +84,6 @@ strictControl <- lme4::lmerControl(optCtrl = list(
 m1 <- lme4::lmer(NegAff ~ STRESS + (1 + STRESS | UserID),
   data = aces_daily,
   control = strictControl)
-modelTest(m1)
 modelTest(m1, method = "profile")
 
 m2 <- lme4::lmer(NegAff ~ STRESS + I(STRESS^2) + (1 + STRESS | UserID),

@@ -44,10 +44,11 @@ This function creates a number of diagnostics
 for \code{lme} models.
 }
 \examples{
-\dontrun{
-  sleep[1,1] <- NA
-  m <- nlme::lme(extra ~ group, data = sleep,
-   random = ~ 1 | ID, na.action = "na.omit")
+
+library(JWileymisc)
+sleep[1,1] <- NA
+m <- nlme::lme(extra ~ group, data = sleep,
+ random = ~ 1 | ID, na.action = "na.omit")
 
  md <- modelDiagnostics(m, ev.perc = .1)
  md$extremeValues
@@ -69,7 +70,5 @@ md <- modelDiagnostics(m, ev.perc = .1)
 md$extremeValues
 plot(md)
 rm(m, md, sleep)
-
-}
 }
 \keyword{plot}

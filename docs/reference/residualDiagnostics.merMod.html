@@ -181,19 +181,35 @@ residual values or not. Defaults to <code>TRUE</code>.</p></td>
   <code>as.residualDiagnostics</code> and <code>residualDiagnostics</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
+<span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
 
- <span class='fu'>residualDiagnostics</span>(<span class='no'>m</span>)$<span class='no'>Residuals</span>
-
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/residualDiagnostics.html'>residualDiagnostics</a></span>(<span class='no'>m</span>)$<span class='no'>Residuals</span></div><div class='output co'>#&gt;        Residuals  Predicted isEV Index
+#&gt;  1: -0.700128914 -0.9621662   No     2
+#&gt;  2:  0.021691013 -0.2197610   No     3
+#&gt;  3: -0.117254013 -1.0931789   No     4
+#&gt;  4:  0.658754568 -0.7001408   No     5
+#&gt;  5:  0.665701352  2.7935305   No     6
+#&gt;  6:  0.323896212  3.4049230   No     7
+#&gt;  7:  0.400316445  0.4353024   No     8
+#&gt;  8: -1.532410653  1.3960620   No     9
+#&gt;  9:  0.279433991  1.7454291   No    10
+#&gt; 10: -0.106066584  1.9966291   No    11
+#&gt; 11:  0.165396986  0.6493195   No    12
+#&gt; 12: -0.320216396  1.3917246   No    13
+#&gt; 13: -0.459161423  0.5183068   No    14
+#&gt; 14: -1.110119481  0.9113448   No    15
+#&gt; 15: -0.005506052  4.4050161   No    16
+#&gt; 16:  0.530822125  5.0164086   No    17
+#&gt; 17: -0.490424288  2.0467880   No    18
+#&gt; 18:  1.747981868  3.0075476   No    19
+#&gt; 19:  0.047293245  3.3569147   No    20</div><div class='input'>
 <span class='co'>#  gm1 &lt;- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),</span>
 <span class='co'>#    data = lme4::cbpp, family = binomial)</span>
-<span class='co'># residualDiagnostics(gm1) ## currently an error</span>
+<span class='co'># residualDiagnostics(gm1) ## should be an error</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>sleep</span>)
-
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

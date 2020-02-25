@@ -17,19 +17,19 @@
 #'  estimates for coefficient omega at the within and between level. The
 #'  next element, \dQuote{Fit} contains the entire fitted model from lavaan, if
 #'  \code{savemodel = TRUE}.
-#' @references Geldhof, G. J., Preacher, K. J., & Zyphur, M. J. (2014). Reliability estimation in a multilevel confirmatory factor analysis framework. Psychological Methods, 19(1), 72.
+#' @references Geldhof, G. J., Preacher, K. J., & Zyphur, M. J. (2014)
+#' <doi:10.1037/a0032138>
+#' "Reliability estimation in a multilevel confirmatory factor analysis framework"
 #' @export
 #' @importFrom lavaan sem parameterEstimates
 #' @examples
 #'
-#' \dontrun{
 #'   data(aces_daily, package = "JWileymisc")
 #'   omegaSEM(
 #'     items = c("COPEPrb", "COPEPrc", "COPEExp"),
 #'     id = "UserID",
 #'     data = aces_daily,
 #'     savemodel = FALSE)
-#' }
 omegaSEM <- function(items, id, data, savemodel = FALSE) {
   if (length(items) < 2) {
     stop("omega requires at least two items")
@@ -149,11 +149,12 @@ paste(rlabels.between, collapse = " + "))
 #' @param object A model from \code{lmer}.
 #' @param ... Additional arguments, not currently used.
 #' @references For estimating the marginal and conditional R-squared values,
-#'   see: Nakagawa, S. and Schielzeth, H. (2013). A general and simple method
-#'   for obtaining R2 from generalized linear mixed-effects models.
-#'   Methods in Ecology and Evolution, 4(2), 133-142. as well as:
-#'   Johnson, P. C. (2014). Extension of Nakagawa & Schielzeth's R2GLMM to
-#'   random slopes models. Methods in Ecology and Evolution, 5(9), 944-946.
+#'   see:
+#'   Nakagawa, S. and Schielzeth, H. (2013) <doi:10.1111/j.2041-210x.2012.00261.x>
+#'   "A general and simple method for obtaining R2 from generalized linear mixed-effects models"
+#'   and also:
+#'   Johnson, P. C. (2014) <doi:10.1111/2041-210X.12225>
+#'   "Extension of Nakagawa & Schielzeth's R2GLMM to random slopes models"
 #' @importFrom JWileymisc modelPerformance as.modelPerformance
 #' @importFrom lme4 isREML ngrps
 #' @importFrom stats model.matrix model.frame cor var nobs model.frame sigma confint
@@ -182,7 +183,8 @@ paste(rlabels.between, collapse = " + "))
 #'   \item{ConditionalF2}{Cohen's F2 effect size R2 / (1 - R2) based off the Conditional R2}
 #'   }
 #' @examples
-#' \dontrun{
+#'
+#' library(JWileymisc)
 #' data(aces_daily, package = "JWileymisc")
 #' m1 <- lme4::lmer(PosAff ~ 1 + (1 | UserID),
 #'   data = aces_daily)
@@ -193,7 +195,6 @@ paste(rlabels.between, collapse = " + "))
 #' modelPerformance(m1)
 #'
 #' rm(m1)
-#' }
 modelPerformance.merMod <- function(object, ...) {
   if (isGLMM(object)) stop("currently glmer() models are not supported")
   REML <- isREML(object)
@@ -258,11 +259,12 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DV", "Predicted"))
 #'   if \code{CLUSTER = FALSE}, otherwise, a data table with the pseudo R2
 #'   for each cluster unit.
 #' @references For estimating the marginal and conditional R-squared values,
-#'   see: Nakagawa, S. and Schielzeth, H. (2013). A general and simple method
-#'   for obtaining R2 from generalized linear mixed-effects models.
-#'   Methods in Ecology and Evolution, 4(2), 133-142. as well as:
-#'   Johnson, P. C. (2014). Extension of Nakagawa & Schielzeth's R2GLMM to
-#'   random slopes models. Methods in Ecology and Evolution, 5(9), 944-946.
+#'   see:
+#'   Nakagawa, S. and Schielzeth, H. (2013) <doi:10.1111/j.2041-210x.2012.00261.x>
+#'   "A general and simple method for obtaining R2 from generalized linear mixed-effects models"
+#'   and also:
+#'   Johnson, P. C. (2014) <doi:10.1111/2041-210X.12225>
+#'   "Extension of Nakagawa & Schielzeth's R2GLMM to random slopes models"
 #' @keywords utils
 #' @method R2 merMod
 #' @export
@@ -272,7 +274,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DV", "Predicted"))
 #' @importFrom data.table as.data.table setnames
 #' @examples
 #'
-#' \dontrun{
+#' library(JWileymisc)
 #' data(aces_daily, package = "JWileymisc")
 #' m1 <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID),
 #'   data = aces_daily)
@@ -283,7 +285,6 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("DV", "Predicted"))
 #' hist(R2(m1, cluster = TRUE)$R2)
 #'
 #' rm(m1)
-#' }
 R2.merMod <- function(object, cluster = FALSE, ...) {
   if (isFALSE(cluster)) {
     tmp <- modelPerformance(object)
@@ -336,7 +337,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("Estimator", "N_Groups",
 #' @importFrom lme4 refitML isLMM isREML fixef
 #' @examples
 #'
-#' \dontrun{
+#' library(JWileymisc)
 #' data(aces_daily, package = "JWileymisc")
 #' m1 <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID),
 #'   data = aces_daily)
@@ -349,7 +350,6 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("Estimator", "N_Groups",
 #' modelCompare(m2, m3)
 #'
 #' rm(m1, m2, m3)
-#' }
 modelCompare.merMod <- function(model1, model2, ...) {
 
   stopifnot(isLMM(model1))
@@ -493,8 +493,13 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("var1", "var2", "sdcor", 
 #' @method modelTest merMod
 #' @export
 #' @examples
+#' ## these examples are slow to run
+#' library(JWileymisc)
+#' m1 <- lme4::lmer(extra ~ group + (1 | ID),
+#' data = sleep, REML=FALSE)
+#' modelTest(m1)
 #'
-#' \dontrun{
+#' \donttest{
 #' data(aces_daily, package = "JWileymisc")
 #'
 #' strictControl <- lme4::lmerControl(optCtrl = list(
@@ -505,7 +510,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("var1", "var2", "sdcor", 
 #' m1 <- lme4::lmer(NegAff ~ STRESS + (1 + STRESS | UserID),
 #'   data = aces_daily,
 #'   control = strictControl)
-#' modelTest(m1)
 #' modelTest(m1, method = "profile")
 #'
 #' m2 <- lme4::lmer(NegAff ~ STRESS + I(STRESS^2) + (1 + STRESS | UserID),

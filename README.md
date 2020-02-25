@@ -8,9 +8,14 @@ Status](https://travis-ci.com/JWiley/multilevelTools.svg?branch=master)](https:/
 <!-- badges: end -->
 
 
-An `R` package to tools to help diagnostics and presentation of
+Effect sizes, diagnostics and performance metrics for
 multilevel and mixed effects models.
+Includes marginal and conditional *R2* estimates for linear mixed
+effects models based on 
+[Johnson 2014](https://dx.doi.org/10.1111/2041-210X.12225).
 
+The vignette shows a complete example.
+  
 Installation
 ------------
 

@@ -186,27 +186,30 @@ method.</p></td>
   <code>as.modelDiagnostics</code> and <code>modelDiagnostics</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
+<span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
 
- <span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'>modelDiagnostics</span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
- <span class='no'>md</span>$<span class='no'>extremeValues</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>md</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)
-
+<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelDiagnostics.html'>modelDiagnostics</a></span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
+<span class='no'>md</span>$<span class='no'>extremeValues</span></div><div class='output co'>#&gt;    extra ID Index                     EffectType
+#&gt; 1:   0.0  9     9                      Residuals
+#&gt; 2:  -0.1  5    15                      Residuals
+#&gt; 3:   4.6  9    19                      Residuals
+#&gt; 4:   3.4  6     6 Random Effect ID : (Intercept)
+#&gt; 5:   3.7  7     7 Random Effect ID : (Intercept)
+#&gt; 6:   4.4  6    16 Random Effect ID : (Intercept)
+#&gt; 7:   5.5  7    17 Random Effect ID : (Intercept)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>md</span>)</div><div class='output co'>#&gt; [1] "modelDiagnostics.merMod" "modelDiagnostics"       </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.merMod-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.merMod-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.merMod-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>PosAff</span> ~ <span class='no'>STRESS</span> + (<span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>)
-<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'>modelDiagnostics</span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
+<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelDiagnostics.html'>modelDiagnostics</a></span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
 
 <span class='co'>#  gm1 &lt;- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),</span>
 <span class='co'>#    data = lme4::cbpp, family = binomial)</span>
-<span class='co'># modelDiagnostics(gm1) ## currently an error</span>
+<span class='co'># modelDiagnostics(gm1) ## should be an error</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)
-
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -169,18 +169,22 @@ should be saved and returned. Defaults to <code>FALSE</code>.</p></td>
  <code>savemodel = TRUE</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Geldhof, G. J., Preacher, K. J., &amp; Zyphur, M. J. (2014). Reliability estimation in a multilevel confirmatory factor analysis framework. Psychological Methods, 19(1), 72.</p>
+    <p>Geldhof, G. J., Preacher, K. J., &amp; Zyphur, M. J. (2014)
+&lt;doi:10.1037/a0032138&gt;
+"Reliability estimation in a multilevel confirmatory factor analysis framework"</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
   <span class='fu'>omegaSEM</span>(
     <span class='kw'>items</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"COPEPrb"</span>, <span class='st'>"COPEPrc"</span>, <span class='st'>"COPEExp"</span>),
     <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"UserID"</span>,
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>,
-    <span class='kw'>savemodel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div></pre>
+    <span class='kw'>savemodel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; $Results
+#&gt;            label   est ci.lower ci.upper
+#&gt; 28  omega_within 0.719    0.697    0.740
+#&gt; 34 omega_between 0.908    0.884    0.933
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

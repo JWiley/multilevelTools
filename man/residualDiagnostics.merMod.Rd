@@ -41,17 +41,16 @@ A logical (\code{is.residualDiagnostics}) or
 residualDiagnostics methods for merMod objects
 }
 \examples{
-\dontrun{
-  sleep[1,1] <- NA
-  m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+library(JWileymisc)
+sleep[1,1] <- NA
+m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 
- residualDiagnostics(m)$Residuals
+residualDiagnostics(m)$Residuals
 
 #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #    data = lme4::cbpp, family = binomial)
-# residualDiagnostics(gm1) ## currently an error
+# residualDiagnostics(gm1) ## should be an error
 
 rm(m, sleep)
 
-}
 }

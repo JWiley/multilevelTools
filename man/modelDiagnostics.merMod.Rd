@@ -45,12 +45,13 @@ This function creates a number of diagnostics
 for \code{merMod} models.
 }
 \examples{
-\dontrun{
-  sleep[1,1] <- NA
-  m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 
- md <- modelDiagnostics(m, ev.perc = .1)
- md$extremeValues
+library(JWileymisc)
+sleep[1,1] <- NA
+m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+
+md <- modelDiagnostics(m, ev.perc = .1)
+md$extremeValues
 class(md)
 
 plot(md)
@@ -61,10 +62,8 @@ md <- modelDiagnostics(m, ev.perc = .1)
 
 #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #    data = lme4::cbpp, family = binomial)
-# modelDiagnostics(gm1) ## currently an error
+# modelDiagnostics(gm1) ## should be an error
 
 rm(m, md, sleep)
-
-}
 }
 \keyword{plot}

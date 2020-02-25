@@ -246,15 +246,12 @@ used in the formula.  This is a required argument.</p></td>
 #&gt; 32: -5.3300000
 #&gt;              X
 #&gt; </div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## Example plotting the results</span>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>meanDecompose</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw pkg'>cowplot</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/cowplot/man/plot_grid.html'>plot_grid</a></span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>tmp</span>), <span class='kw'>function</span>(<span class='no'>x</span>) {
   <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='kw pkg'>JWileymisc</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/testDistribution.html'>testDistribution</a></span>(<span class='no'>tmp</span><span class='kw'>[[</span><span class='no'>x</span>]]$<span class='no'>X</span>), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>varlab</span> <span class='kw'>=</span> <span class='no'>x</span>)$<span class='no'>Density</span>
-}), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>tmp</span>)
-}</div></pre>
+}), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='meanDecompose-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>tmp</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

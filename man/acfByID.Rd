@@ -72,11 +72,4 @@ ggplot2::ggplot(res, ggplot2::aes(factor(Lag), AutoCorrelation)) +
 ## clean up
 rm(dat, dat2, res)
 }
-\references{
-For details, see
-Campbell, M. K., Mollison, J., & Grimshaw, J. M. (2001).
-Cluster trials in implementation research: estimation of
-intracluster correlation coefficients and sample size.
-\emph{Statistics in Medicine, 20}(3), 391-399.
-}
 \keyword{multivariate}

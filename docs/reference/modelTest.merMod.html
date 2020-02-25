@@ -204,8 +204,41 @@ main effect but keeping the interaction term, so present
 and interpret these with caution.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>## these examples are slow to run</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
+<span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>),
+<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>, <span class='kw'>REML</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m1</span>)</div><div class='output co'>#&gt; $FixedEffects
+#&gt;           Term  Est Type         LL       UL         Pval
+#&gt; 1: (Intercept) 0.75   FE -0.3663711 1.866371 1.879250e-01
+#&gt; 2:      group2 1.58   FE  0.8567759 2.303224 1.853388e-05
+#&gt; 
+#&gt; $RandomEffects
+#&gt;                 Term       Est Type LL UL
+#&gt; 1: sd_(Intercept)|ID 1.6010934   RE NA NA
+#&gt; 2:             sigma 0.8251061   RE NA NA
+#&gt; 
+#&gt; $EffectSizes
+#&gt;    Variable Estimator N_Obs N_Groups       AIC       BIC       LL LLDF
+#&gt; 1:    group               0          -8.414884 -7.419152 5.207442    1
+#&gt;         Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2     Chi2
+#&gt; 1: -0.5637784  0.1613328     0.3226657  0.1923682      1.833431 10.41488
+#&gt;              P   FE    RE              Formula  Type
+#&gt; 1: 0.001250037 TRUE FALSE extra ~ 1 + (1 | ID) Fixed
+#&gt; 
+#&gt; $OverallModel
+#&gt; $Performance
+#&gt;     Model Estimator N_Obs N_Groups      AIC      BIC        LL LLDF     Sigma
+#&gt; 1: merMod        ML    20  ID (10) 78.50469 82.48762 -35.25235    4 0.8251061
+#&gt;    MarginalR2 ConditionalR2 MarginalF2 ConditionalF2
+#&gt; 1:  0.1613328     0.8240099  0.1923682      4.682139
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelPerformance.merMod" "modelPerformance"       
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelTest.merMod" "modelTest"       </div><div class='input'>
+<span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
 
 <span class='no'>strictControl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmerControl.html'>lmerControl</a></span>(<span class='kw'>optCtrl</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -216,15 +249,94 @@ and interpret these with caution.</p>
 <span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>NegAff</span> ~ <span class='no'>STRESS</span> + (<span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='no'>strictControl</span>)
-<span class='fu'>modelTest</span>(<span class='no'>m1</span>)
-<span class='fu'>modelTest</span>(<span class='no'>m1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)
-
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)</div><div class='output co'>#&gt; <span class='message'>Computing profile confidence intervals ...</span></div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='output co'>#&gt; $FixedEffects
+#&gt;           Term       Est Type        LL        UL Pval
+#&gt; 1: (Intercept) 1.2357011   FE 1.2024389 1.2692167    0
+#&gt; 2:      STRESS 0.1183128   FE 0.1068207 0.1296297    0
+#&gt; 
+#&gt; $RandomEffects
+#&gt;                             Term        Est Type         LL         UL
+#&gt; 1: cor_STRESS.(Intercept)|UserID 0.47080710   RE 0.28594503 0.63920496
+#&gt; 2:         sd_(Intercept)|UserID 0.20584754   RE 0.17824126 0.23575939
+#&gt; 3:              sd_STRESS|UserID 0.06769562   RE 0.05902194 0.07720673
+#&gt; 4:                         sigma 0.41789650   RE 0.41053223 0.42549600
+#&gt; 
+#&gt; $EffectSizes
+#&gt;    Variable Estimator N_Obs N_Groups        AIC        BIC        LL LLDF
+#&gt; 1:   STRESS               0          -2701.2231 -2680.9361 1353.6115    3
+#&gt; 2:   STRESS               0           -538.1871  -524.6625  271.0936    2
+#&gt;          Sigma  MarginalR2 ConditionalR2  MarginalF2 ConditionalF2      Chi2
+#&gt; 1: -0.10192042  0.22744094    0.11496663  0.29439943     0.2560813 2707.2231
+#&gt; 2: -0.02275066 -0.04844019    0.01044791 -0.06270095     0.0232721  542.1871
+#&gt;                P    FE   RE                            Formula           Type
+#&gt; 1:  0.000000e+00  TRUE TRUE          NegAff ~ 1 + (1 | UserID) Fixed + Random
+#&gt; 2: 1.843162e-118 FALSE TRUE NegAff ~ 1 + STRESS + (1 | UserID)         Random
+#&gt; 
+#&gt; $OverallModel
+#&gt; $Performance
+#&gt;     Model Estimator N_Obs     N_Groups      AIC      BIC        LL LLDF
+#&gt; 1: merMod        ML  6389 UserID (191) 7702.815 7743.389 -3845.407    6
+#&gt;        Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2
+#&gt; 1: 0.4179028  0.2274409     0.5510541  0.2943994       1.22744
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelPerformance.merMod" "modelPerformance"       
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelTest.merMod" "modelTest"       </div><div class='input'>
 <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>NegAff</span> ~ <span class='no'>STRESS</span> + <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>STRESS</span>^<span class='fl'>2</span>) + (<span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='no'>strictControl</span>)
 
 <span class='co'>## might normally use more bootstraps but keeping low for faster run</span>
-<span class='fu'>modelTest</span>(<span class='no'>m2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"boot"</span>, <span class='kw'>nsim</span> <span class='kw'>=</span> <span class='fl'>100</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"boot"</span>, <span class='kw'>nsim</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; <span class='message'>Computing bootstrap confidence intervals ...</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>12 warning(s): Model failed to converge with max|grad| = 0.00205744 (tol = 0.002, component 1) (and others)</span></div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='output co'>#&gt; $FixedEffects
+#&gt;           Term         Est Type          LL          UL         Pval
+#&gt; 1: (Intercept) 1.255682188   FE 1.218592927 1.287885765 0.000000e+00
+#&gt; 2: I(STRESS^2) 0.003907478   FE 0.002066455 0.005704863 4.873061e-05
+#&gt; 3:      STRESS 0.092421665   FE 0.075693988 0.109085909 0.000000e+00
+#&gt; 
+#&gt; $RandomEffects
+#&gt;                             Term        Est Type         LL         UL
+#&gt; 1: cor_STRESS.(Intercept)|UserID 0.46480701   RE 0.26381006 0.69160771
+#&gt; 2:         sd_(Intercept)|UserID 0.21407800   RE 0.18924348 0.24408534
+#&gt; 3:              sd_STRESS|UserID 0.06437972   RE 0.05339743 0.07010988
+#&gt; 4:                         sigma 0.41744838   RE 0.41013611 0.42666225
+#&gt; 
+#&gt; $EffectSizes
+#&gt;       Variable Estimator N_Obs N_Groups        AIC         BIC         LL LLDF
+#&gt; 1:      STRESS               0          -520.66418 -500.377178 263.332089    3
+#&gt; 2:      STRESS               0          -438.87694 -425.352274 221.438470    2
+#&gt; 3: I(STRESS^2)               0           -13.62524   -6.862912   7.812622    1
+#&gt;            Sigma  MarginalR2 ConditionalR2  MarginalF2 ConditionalF2      Chi2
+#&gt; 1: -0.0218673846 -0.02493856   0.013746427 -0.03270762   0.030804834 526.66418
+#&gt; 2: -0.0191993031 -0.04324950   0.007824503 -0.05672292   0.017534193 442.87694
+#&gt; 3: -0.0004769974  0.01008702   0.002707476  0.01322941   0.006067274  15.62524
+#&gt;                P    FE    RE                                          Formula
+#&gt; 1: 7.940652e-114  TRUE  TRUE          NegAff ~ 1 + I(STRESS^2) + (1 | UserID)
+#&gt; 2:  6.768529e-97 FALSE  TRUE NegAff ~ 1 + STRESS + I(STRESS^2) + (1 | UserID)
+#&gt; 3:  7.721681e-05  TRUE FALSE      NegAff ~ 1 + STRESS + (1 + STRESS | UserID)
+#&gt;              Type
+#&gt; 1: Fixed + Random
+#&gt; 2:         Random
+#&gt; 3:          Fixed
+#&gt; 
+#&gt; $OverallModel
+#&gt; $Performance
+#&gt;     Model Estimator N_Obs     N_Groups     AIC      BIC        LL LLDF    Sigma
+#&gt; 1: merMod        ML  6389 UserID (191) 7689.19 7736.526 -3837.595    7 0.417426
+#&gt;    MarginalR2 ConditionalR2 MarginalF2 ConditionalF2
+#&gt; 1:  0.2375305     0.5537575  0.3115279      1.240934
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelPerformance.merMod" "modelPerformance"       
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelTest.merMod" "modelTest"       </div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -28,19 +28,18 @@ if(getRversion() >= "2.15.1") {
 #' @method residualDiagnostics merMod
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 #'
-#'  residualDiagnostics(m)$Residuals
+#' residualDiagnostics(m)$Residuals
 #'
 #' #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #' #    data = lme4::cbpp, family = binomial)
-#' # residualDiagnostics(gm1) ## currently an error
+#' # residualDiagnostics(gm1) ## should be an error
 #'
 #' rm(m, sleep)
 #'
-#' }
 residualDiagnostics.merMod <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
@@ -134,12 +133,13 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #' @keywords plot
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 #'
-#'  md <- modelDiagnostics(m, ev.perc = .1)
-#'  md$extremeValues
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+#'
+#' md <- modelDiagnostics(m, ev.perc = .1)
+#' md$extremeValues
 #' class(md)
 #'
 #' plot(md)
@@ -150,11 +150,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #'
 #' #  gm1 <- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
 #' #    data = lme4::cbpp, family = binomial)
-#' # modelDiagnostics(gm1) ## currently an error
+#' # modelDiagnostics(gm1) ## should be an error
 #'
 #' rm(m, md, sleep)
-#'
-#' }
 modelDiagnostics.merMod <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
@@ -262,20 +260,19 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
 #' @method residualDiagnostics lme
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID,
-#'     na.action = na.omit)
+#'
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID,
+#'   na.action = na.omit)
 #'
 #'  residualDiagnostics(m)$Residuals
 #'
-#'   m <- nlme::lme(hp ~ mpg, data = mtcars, random = ~ 1 | cyl,
-#'     na.action = na.omit)
-#'  residualDiagnostics(m)$Residuals
+#' m <- nlme::lme(hp ~ mpg, data = mtcars, random = ~ 1 | cyl,
+#'   na.action = na.omit)
+#' residualDiagnostics(m)$Residuals
 #'
 #' rm(m, sleep)
-#'
-#' }
 residualDiagnostics.lme <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
@@ -366,10 +363,11 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' @keywords plot
 #' @export
 #' @examples
-#' \dontrun{
-#'   sleep[1,1] <- NA
-#'   m <- nlme::lme(extra ~ group, data = sleep,
-#'    random = ~ 1 | ID, na.action = "na.omit")
+#'
+#' library(JWileymisc)
+#' sleep[1,1] <- NA
+#' m <- nlme::lme(extra ~ group, data = sleep,
+#'  random = ~ 1 | ID, na.action = "na.omit")
 #'
 #'  md <- modelDiagnostics(m, ev.perc = .1)
 #'  md$extremeValues
@@ -392,8 +390,6 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' plot(md)
 
 #' rm(m, md, sleep)
-#'
-#' }
 modelDiagnostics.lme <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
                                    standardized = TRUE, ...) {
@@ -480,5 +476,4 @@ modelDiagnostics.lme <- function(object, ev.perc = .001,
 
   as.modelDiagnostics(out)
 }
-
 

@@ -40,18 +40,17 @@ A logical (\code{is.residualDiagnostics}) or
 residualDiagnostics methods for lme objects
 }
 \examples{
-\dontrun{
-  sleep[1,1] <- NA
-  m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID,
-    na.action = na.omit)
+
+library(JWileymisc)
+sleep[1,1] <- NA
+m <- nlme::lme(extra ~ group, data = sleep, random = ~ 1 | ID,
+  na.action = na.omit)
 
  residualDiagnostics(m)$Residuals
 
-  m <- nlme::lme(hp ~ mpg, data = mtcars, random = ~ 1 | cyl,
-    na.action = na.omit)
- residualDiagnostics(m)$Residuals
+m <- nlme::lme(hp ~ mpg, data = mtcars, random = ~ 1 | cyl,
+  na.action = na.omit)
+residualDiagnostics(m)$Residuals
 
 rm(m, sleep)
-
-}
 }

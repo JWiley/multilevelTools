@@ -49,9 +49,8 @@ nEffective(n = 60, k = 10, icc = .6)
 }
 \references{
 For details, see
-Campbell, M. K., Mollison, J., & Grimshaw, J. M. (2001).
-Cluster trials in implementation research: estimation of
-intracluster correlation coefficients and sample size.
-\emph{Statistics in Medicine, 20}(3), 391-399.
+Campbell, M. K., Mollison, J., and Grimshaw, J. M. (2001)
+<doi:10.1002/1097-0258(20010215)20:3%3C391::AID-SIM800%3E3.0.CO;2-Z>
+"Cluster trials in implementation research: estimation of intracluster correlation coefficients and sample size."
 }
 \keyword{multivariate}

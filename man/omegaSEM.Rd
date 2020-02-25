@@ -33,7 +33,6 @@ omega.
 }
 \examples{
 
-\dontrun{
   data(aces_daily, package = "JWileymisc")
   omegaSEM(
     items = c("COPEPrb", "COPEPrc", "COPEExp"),
@@ -41,7 +40,8 @@ omega.
     data = aces_daily,
     savemodel = FALSE)
 }
-}
 \references{
-Geldhof, G. J., Preacher, K. J., & Zyphur, M. J. (2014). Reliability estimation in a multilevel confirmatory factor analysis framework. Psychological Methods, 19(1), 72.
+Geldhof, G. J., Preacher, K. J., & Zyphur, M. J. (2014)
+<doi:10.1037/a0032138>
+"Reliability estimation in a multilevel confirmatory factor analysis framework"
 }

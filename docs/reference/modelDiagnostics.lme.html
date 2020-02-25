@@ -185,33 +185,99 @@ method.</p></td>
   <code>as.modelDiagnostics</code> and <code>modelDiagnostics</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>,
-   <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
+<span class='no'>sleep</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>,
+ <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
 
- <span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'>modelDiagnostics</span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
- <span class='no'>md</span>$<span class='no'>extremeValues</span>
-
- <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)
-
+ <span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelDiagnostics.html'>modelDiagnostics</a></span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
+ <span class='no'>md</span>$<span class='no'>extremeValues</span></div><div class='output co'>#&gt;    extra ID Index                     EffectType
+#&gt; 1:   0.0  9     9                      Residuals
+#&gt; 2:  -0.1  5    15                      Residuals
+#&gt; 3:   4.6  9    19                      Residuals
+#&gt; 4:   3.4  6     6 Random Effect ID : (Intercept)
+#&gt; 5:   3.7  7     7 Random Effect ID : (Intercept)
+#&gt; 6:   4.4  6    16 Random Effect ID : (Intercept)
+#&gt; 7:   5.5  7    17 Random Effect ID : (Intercept)</div><div class='input'>
+ <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>PosAff</span> ~ <span class='no'>STRESS</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>,
   <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
-<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'>modelDiagnostics</span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.001</span>)
-<span class='no'>md</span>$<span class='no'>extremeValues</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)
-
+<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelDiagnostics.html'>modelDiagnostics</a></span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.001</span>)
+<span class='no'>md</span>$<span class='no'>extremeValues</span></div><div class='output co'>#&gt;       PosAff UserID Index                        EffectType
+#&gt;  1: 2.018930     19   643                         Residuals
+#&gt;  2: 4.647537     22   736                         Residuals
+#&gt;  3: 4.379594     22   737                         Residuals
+#&gt;  4: 4.285682     51  1759                         Residuals
+#&gt;  5: 5.000000     52  1819                         Residuals
+#&gt;  6: 4.593965     53  1838                         Residuals
+#&gt;  7: 5.000000     53  1841                         Residuals
+#&gt;  8: 3.679191     56  1934                         Residuals
+#&gt;  9: 3.499317     69  2371                         Residuals
+#&gt; 10: 1.333848     75  2580                         Residuals
+#&gt; 11: 4.200560     78  2688                         Residuals
+#&gt; 12: 1.000000     81  2805                         Residuals
+#&gt; 13: 1.723817     83  2884                         Residuals
+#&gt; 14: 4.702814     88  3018                         Residuals
+#&gt; 15: 4.982255     97  3328                         Residuals
+#&gt; 16: 4.851732     97  3329                         Residuals
+#&gt; 17: 4.697991     97  3330                         Residuals
+#&gt; 18: 5.000000    107  3675                         Residuals
+#&gt; 19: 1.173068    113  3902                         Residuals
+#&gt; 20: 1.000000    115  3954                         Residuals
+#&gt; 21: 1.041260    119  4100                         Residuals
+#&gt; 22: 4.713139    127  4357                         Residuals
+#&gt; 23: 4.054051    141  4834                         Residuals
+#&gt; 24: 3.975565    141  4835                         Residuals
+#&gt; 25: 3.989508    141  4836                         Residuals
+#&gt; 26: 4.278470    141  4844                         Residuals
+#&gt; 27: 4.447151    147  5079                         Residuals
+#&gt; 28: 1.079654    155  5341                         Residuals
+#&gt; 29: 5.000000    155  5358                         Residuals
+#&gt; 30: 4.660743    160  5520                         Residuals
+#&gt; 31: 1.342503    163  5626                         Residuals
+#&gt; 32: 4.706810    173  5944                         Residuals
+#&gt; 33: 4.194950    180  6212                         Residuals
+#&gt; 34: 4.258350    191  6568                         Residuals
+#&gt; 35: 5.000000    191  6569                         Residuals
+#&gt; 36: 4.701488    123  4219 Multivariate Random Effect UserID
+#&gt; 37: 3.942647    123  4220 Multivariate Random Effect UserID
+#&gt; 38: 3.841534    123  4221 Multivariate Random Effect UserID
+#&gt; 39: 3.072598    123  4222 Multivariate Random Effect UserID
+#&gt; 40: 4.165724    123  4223 Multivariate Random Effect UserID
+#&gt; 41: 2.573955    123  4224 Multivariate Random Effect UserID
+#&gt; 42: 1.871370    123  4225 Multivariate Random Effect UserID
+#&gt; 43: 4.497994    123  4226 Multivariate Random Effect UserID
+#&gt; 44: 2.207134    123  4227 Multivariate Random Effect UserID
+#&gt; 45: 4.370643    123  4228 Multivariate Random Effect UserID
+#&gt; 46: 1.713198    123  4229 Multivariate Random Effect UserID
+#&gt; 47: 3.786528    123  4230 Multivariate Random Effect UserID
+#&gt; 48: 4.702243    123  4231 Multivariate Random Effect UserID
+#&gt; 49: 2.262491    123  4232 Multivariate Random Effect UserID
+#&gt; 50: 5.000000    123  4234 Multivariate Random Effect UserID
+#&gt; 51: 2.392975    123  4235 Multivariate Random Effect UserID
+#&gt; 52: 3.588502    123  4236 Multivariate Random Effect UserID
+#&gt; 53: 3.446311    123  4237 Multivariate Random Effect UserID
+#&gt; 54: 2.832955    123  4238 Multivariate Random Effect UserID
+#&gt; 55: 3.671293    123  4239 Multivariate Random Effect UserID
+#&gt; 56: 4.893790    123  4240 Multivariate Random Effect UserID
+#&gt; 57: 4.633870    123  4242 Multivariate Random Effect UserID
+#&gt;       PosAff UserID Index                        EffectType</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-8.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>/<span class='no'>group</span>,
   <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
 
-<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'>modelDiagnostics</span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
-<span class='no'>md</span>$<span class='no'>extremeValues</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)
-
-}</div></pre>
+<span class='no'>md</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelDiagnostics.html'>modelDiagnostics</a></span>(<span class='no'>m</span>, <span class='kw'>ev.perc</span> <span class='kw'>=</span> <span class='fl'>.1</span>)
+<span class='no'>md</span>$<span class='no'>extremeValues</span></div><div class='output co'>#&gt;    extra ID group Index                     EffectType
+#&gt; 1:  -1.6  2     1     2                      Residuals
+#&gt; 2:   0.0  9     1     9                      Residuals
+#&gt; 3:   5.5  7     2    17                      Residuals
+#&gt; 4:   4.6  9     2    19                      Residuals
+#&gt; 5:   3.4  6     1     6 Random Effect ID : (Intercept)
+#&gt; 6:   3.7  7     1     7 Random Effect ID : (Intercept)
+#&gt; 7:   4.4  6     2    16 Random Effect ID : (Intercept)
+#&gt; 8:   5.5  7     2    17 Random Effect ID : (Intercept)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-9.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-10.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-11.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

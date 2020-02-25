@@ -18,7 +18,6 @@
 #' meanDecompose(mpg ~ vs, data = mtcars)
 #' meanDecompose(mpg ~ vs + cyl, data = mtcars)
 #'
-#' \dontrun{
 #' ## Example plotting the results
 #' tmp <- meanDecompose(Sepal.Length ~ Species, data = iris)
 #' do.call(cowplot::plot_grid, c(lapply(names(tmp), function(x) {
@@ -26,7 +25,6 @@
 #' }), ncol = 1))
 #'
 #' rm(tmp)
-#' }
 meanDecompose <- function(formula, data) {
   v <- as.character(attr(terms(formula), "variables"))[-1]
 
@@ -82,10 +80,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("vcov", "grp"))
 #'   \dQuote{gaussian} or \dQuote{binomial}.
 #' @return A data table of the ICCs
 #' @references For details, see
-#' Campbell, M. K., Mollison, J., & Grimshaw, J. M. (2001).
-#' Cluster trials in implementation research: estimation of
-#' intracluster correlation coefficients and sample size.
-#' \emph{Statistics in Medicine, 20}(3), 391-399.
+#' Campbell, M. K., Mollison, J., and Grimshaw, J. M. (2001)
+#' <doi:10.1002/1097-0258(20010215)20:3%3C391::AID-SIM800%3E3.0.CO;2-Z>
+#' "Cluster trials in implementation research: estimation of intracluster correlation coefficients and sample size."
 #' @keywords multivariate
 #' @importFrom lme4 lmer glmer
 #' @importFrom nlme VarCorr
@@ -163,10 +160,9 @@ iccMixed <- function(dv, id, data, family = c("gaussian", "binomial")) {
 #'   \dQuote{gaussian} or \dQuote{binomial}.
 #' @return A data.table including the effective sample size.
 #' @references For details, see
-#' Campbell, M. K., Mollison, J., & Grimshaw, J. M. (2001).
-#' Cluster trials in implementation research: estimation of
-#' intracluster correlation coefficients and sample size.
-#' \emph{Statistics in Medicine, 20}(3), 391-399.
+#' Campbell, M. K., Mollison, J., and Grimshaw, J. M. (2001)
+#' <doi:10.1002/1097-0258(20010215)20:3%3C391::AID-SIM800%3E3.0.CO;2-Z>
+#' "Cluster trials in implementation research: estimation of intracluster correlation coefficients and sample size."
 #' @keywords multivariate
 #' @export
 #' @examples
@@ -272,11 +268,6 @@ meanDeviations <- function(x, na.rm = TRUE) {
 #'   \dQuote{na.approx}, \dQuote{na.spline}, \dQuote{na.locf}.
 #' @param ... Additional arguments passed to \code{zoo}.
 #' @return A data.table of the estimated autocorrelations by ID and lag
-#' @references For details, see
-#' Campbell, M. K., Mollison, J., & Grimshaw, J. M. (2001).
-#' Cluster trials in implementation research: estimation of
-#' intracluster correlation coefficients and sample size.
-#' \emph{Statistics in Medicine, 20}(3), 391-399.
 #' @keywords multivariate
 #' @importFrom data.table copy is.data.table as.data.table data.table
 #' @importFrom zoo zoo na.approx na.spline na.locf

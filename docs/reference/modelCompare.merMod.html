@@ -166,7 +166,7 @@ and comparing models to each other.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
 <span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>PosAff</span> ~ <span class='no'>STRESS</span> + (<span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>)
@@ -175,11 +175,39 @@ and comparing models to each other.</p>
 <span class='no'>m3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>PosAff</span> ~ <span class='no'>STRESS</span> + <span class='no'>Female</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>UserID</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>)
 
-<span class='fu'>modelCompare</span>(<span class='no'>m1</span>, <span class='no'>m2</span>)
-<span class='fu'>modelCompare</span>(<span class='no'>m2</span>, <span class='no'>m3</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m1</span>, <span class='no'>m2</span>, <span class='no'>m3</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelCompare.html'>modelCompare</a></span>(<span class='no'>m1</span>, <span class='no'>m2</span>)</div><div class='output co'>#&gt; $Comparison
+#&gt;         Model Estimator N_Obs     N_Groups        AIC        BIC         LL
+#&gt; 1:    Model 1      REML  6399 UserID (191) 13385.5617 13412.6173 -6688.7809
+#&gt; 2:    Model 2      REML  6399 UserID (191) 13184.7623 13225.3457 -6586.3812
+#&gt; 3: Difference               0               -200.7994  -187.2716   102.3997
+#&gt;    LLDF       Sigma  MarginalR2 ConditionalR2  MarginalF2 ConditionalF2
+#&gt; 1:    4  0.65017805 0.142930809     0.6191536 0.166766944    1.62573070
+#&gt; 2:    6  0.63112686 0.148011774     0.6381639 0.173725140    1.76368250
+#&gt; 3:    2 -0.01905119 0.005080965     0.0190103 0.005963656    0.05253844
+#&gt;        Chi2            P
+#&gt; 1:       NA           NA
+#&gt; 2:       NA           NA
+#&gt; 3: 204.7994 3.375832e-45
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelCompare.merMod" "modelCompare"       </div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelCompare.html'>modelCompare</a></span>(<span class='no'>m2</span>, <span class='no'>m3</span>)</div><div class='output co'>#&gt; <span class='message'>When using REML, the fixed effects structure must be identical,</span>
+#&gt; <span class='message'>but was different. Refitting with ML.</span></div><div class='output co'>#&gt; $Comparison
+#&gt;         Model Estimator N_Obs     N_Groups          AIC          BIC
+#&gt; 1:    Model 1        ML  6399 UserID (191) 13372.308546 13399.364134
+#&gt; 2:    Model 2        ML  6399 UserID (191) 13373.859321 13407.678806
+#&gt; 3: Difference               0                  1.550775     8.314672
+#&gt;               LL LLDF         Sigma  MarginalR2 ConditionalR2  MarginalF2
+#&gt; 1: -6682.1542731    4  6.501264e-01 0.143317066  0.6182064065 0.167293009
+#&gt; 2: -6681.9296605    5  6.501263e-01 0.145209578  0.6185439889 0.169877404
+#&gt; 3:     0.2246126    1 -1.366298e-07 0.001892512  0.0003375823 0.002214008
+#&gt;    ConditionalF2      Chi2         P
+#&gt; 1:  1.6192162915        NA        NA
+#&gt; 2:  1.6215342552        NA        NA
+#&gt; 3:  0.0008849837 0.4492251 0.5027032
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "modelCompare.merMod" "modelCompare"       </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m1</span>, <span class='no'>m2</span>, <span class='no'>m3</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

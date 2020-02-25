@@ -179,29 +179,237 @@ APA style).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>JWileymisc</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sleepstudy</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"lme4"</span>)
+
 <span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>Reaction</span> ~ <span class='no'>Days</span> + (<span class='fl'>1</span> + <span class='no'>Days</span> <span class='kw'>|</span> <span class='no'>Subject</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleepstudy</span>)
 <span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>Reaction</span> ~ <span class='no'>Days</span> + <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>Days</span>^<span class='fl'>2</span>) + (<span class='fl'>1</span> + <span class='no'>Days</span> <span class='kw'>|</span> <span class='no'>Subject</span>),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleepstudy</span>)
 
-<span class='no'>testm1</span> <span class='kw'>&lt;-</span> <span class='fu'>modelTest</span>(<span class='no'>m1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)
-<span class='no'>testm2</span> <span class='kw'>&lt;-</span> <span class='fu'>modelTest</span>(<span class='no'>m2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)
-
-<span class='fu'>APAStyler</span>(<span class='no'>testm1</span>)
-<span class='fu'>APAStyler</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linear</span> <span class='kw'>=</span> <span class='no'>testm1</span>, <span class='kw'>Quadratic</span> <span class='kw'>=</span> <span class='no'>testm2</span>))
-<span class='fu'>APAStyler</span>(<span class='no'>testm1</span>,
+<span class='no'>testm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m1</span>)</div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='input'><span class='no'>testm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m2</span>)</div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='no'>testm1</span>)</div><div class='output co'>#&gt;                             Term                        Est           Type
+#&gt;  1:                  (Intercept) 251.41*** [238.03, 264.78]  Fixed Effects
+#&gt;  2:                         Days  10.47*** [  7.44,  13.50]  Fixed Effects
+#&gt;  3: cor_Days.(Intercept)|Subject                       0.07 Random Effects
+#&gt;  4:       sd_(Intercept)|Subject                      24.74 Random Effects
+#&gt;  5:              sd_Days|Subject                       5.92 Random Effects
+#&gt;  6:                        sigma                      25.59 Random Effects
+#&gt;  7:                     Model DF                          6  Overall Model
+#&gt;  8:                   N (Groups)               Subject (18)  Overall Model
+#&gt;  9:             N (Observations)                        180  Overall Model
+#&gt; 10:                       logLik                    -875.97  Overall Model
+#&gt; 11:                          AIC                    1763.94  Overall Model
+#&gt; 12:                          BIC                    1783.10  Overall Model
+#&gt; 13:                  Marginal R2                       0.29  Overall Model
+#&gt; 14:                  Marginal F2                       0.40  Overall Model
+#&gt; 15:               Conditional R2                       0.79  Overall Model
+#&gt; 16:               Conditional F2                       3.82  Overall Model
+#&gt; 17:        Days (Fixed + Random)        0.40/1.99, p &lt; .001   Effect Sizes
+#&gt; 18:                Days (Random)        0.00/0.46, p &lt; .001   Effect Sizes</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linear</span> <span class='kw'>=</span> <span class='no'>testm1</span>, <span class='kw'>Quadratic</span> <span class='kw'>=</span> <span class='no'>testm2</span>))</div><div class='output co'>#&gt;                             Term                     Linear
+#&gt;  1:                  (Intercept) 251.41*** [238.03, 264.78]
+#&gt;  2:                         Days  10.47*** [  7.44,  13.50]
+#&gt;  3:                    I(Days^2)                           
+#&gt;  4: cor_Days.(Intercept)|Subject                       0.07
+#&gt;  5:       sd_(Intercept)|Subject                      24.74
+#&gt;  6:              sd_Days|Subject                       5.92
+#&gt;  7:                        sigma                      25.59
+#&gt;  8:                     Model DF                          6
+#&gt;  9:                   N (Groups)               Subject (18)
+#&gt; 10:             N (Observations)                        180
+#&gt; 11:                       logLik                    -875.97
+#&gt; 12:                          AIC                    1763.94
+#&gt; 13:                          BIC                    1783.10
+#&gt; 14:                  Marginal R2                       0.29
+#&gt; 15:                  Marginal F2                       0.40
+#&gt; 16:               Conditional R2                       0.79
+#&gt; 17:               Conditional F2                       3.82
+#&gt; 18:        Days (Fixed + Random)        0.40/1.99, p &lt; .001
+#&gt; 19:                Days (Random)        0.00/0.46, p &lt; .001
+#&gt; 20:            I(Days^2) (Fixed)                           
+#&gt;                      Quadratic           Type
+#&gt;  1: 255.45*** [240.72, 270.18]  Fixed Effects
+#&gt;  2:    7.43** [  1.91,  12.96]  Fixed Effects
+#&gt;  3:      0.34 [ -0.18,   0.85]  Fixed Effects
+#&gt;  4:                       0.06 Random Effects
+#&gt;  5:                      24.76 Random Effects
+#&gt;  6:                       5.93 Random Effects
+#&gt;  7:                      25.53 Random Effects
+#&gt;  8:                          7  Overall Model
+#&gt;  9:               Subject (18)  Overall Model
+#&gt; 10:                        180  Overall Model
+#&gt; 11:                    -875.14  Overall Model
+#&gt; 12:                    1764.28  Overall Model
+#&gt; 13:                    1786.63  Overall Model
+#&gt; 14:                       0.29  Overall Model
+#&gt; 15:                       0.41  Overall Model
+#&gt; 16:                       0.79  Overall Model
+#&gt; 17:                       3.87  Overall Model
+#&gt; 18:        0.01/0.52, p &lt; .001   Effect Sizes
+#&gt; 19:        0.00/0.46, p &lt; .001   Effect Sizes
+#&gt; 20:        0.00/0.01, p = .198   Effect Sizes</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='no'>testm1</span>,
   <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
     <span class='kw'>FixedEffects</span> <span class='kw'>=</span> <span class='st'>"%s, %s (%s, %s)"</span>,
     <span class='kw'>RandomEffects</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s"</span>, <span class='st'>"%s (%s, %s)"</span>),
     <span class='kw'>EffectSizes</span> <span class='kw'>=</span> <span class='st'>"%s, %s; %s"</span>),
   <span class='kw'>pcontrol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                   <span class='kw'>includeP</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>includeSign</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                  <span class='kw'>dropLeadingZero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+                  <span class='kw'>dropLeadingZero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;                             Term                               Est
+#&gt;  1:                  (Intercept) 251.41, p &lt; .001 (238.03, 264.78)
+#&gt;  2:                         Days  10.47, p &lt; .001 (  7.44,  13.50)
+#&gt;  3: cor_Days.(Intercept)|Subject                              0.07
+#&gt;  4:       sd_(Intercept)|Subject                             24.74
+#&gt;  5:              sd_Days|Subject                              5.92
+#&gt;  6:                        sigma                             25.59
+#&gt;  7:                     Model DF                                 6
+#&gt;  8:                   N (Groups)                      Subject (18)
+#&gt;  9:             N (Observations)                               180
+#&gt; 10:                       logLik                           -875.97
+#&gt; 11:                          AIC                           1763.94
+#&gt; 12:                          BIC                           1783.10
+#&gt; 13:                  Marginal R2                              0.29
+#&gt; 14:                  Marginal F2                              0.40
+#&gt; 15:               Conditional R2                              0.79
+#&gt; 16:               Conditional F2                              3.82
+#&gt; 17:        Days (Fixed + Random)              0.40, 1.99; p &lt; .001
+#&gt; 18:                Days (Random)              0.00, 0.46; p &lt; .001
+#&gt;               Type
+#&gt;  1:  Fixed Effects
+#&gt;  2:  Fixed Effects
+#&gt;  3: Random Effects
+#&gt;  4: Random Effects
+#&gt;  5: Random Effects
+#&gt;  6: Random Effects
+#&gt;  7:  Overall Model
+#&gt;  8:  Overall Model
+#&gt;  9:  Overall Model
+#&gt; 10:  Overall Model
+#&gt; 11:  Overall Model
+#&gt; 12:  Overall Model
+#&gt; 13:  Overall Model
+#&gt; 14:  Overall Model
+#&gt; 15:  Overall Model
+#&gt; 16:  Overall Model
+#&gt; 17:   Effect Sizes
+#&gt; 18:   Effect Sizes</div><div class='input'>
+<span class='co'># \donttest{</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m1</span>, <span class='no'>m2</span>, <span class='no'>testm1</span>, <span class='no'>testm2</span>)
-}</div></pre>
+<span class='no'>testm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)</div><div class='output co'>#&gt; <span class='message'>Computing profile confidence intervals ...</span></div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='input'><span class='no'>testm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/modelTest.html'>modelTest</a></span>(<span class='no'>m2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"profile"</span>)</div><div class='output co'>#&gt; <span class='message'>Computing profile confidence intervals ...</span></div><div class='output co'>#&gt; <span class='message'>Parameters and CIs are based on REML, </span>
+#&gt; <span class='message'>but modelTests requires ML not REML fit for comparisons, </span>
+#&gt; <span class='message'>and these are used in effect sizes. Refitting.</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='no'>testm1</span>)</div><div class='output co'>#&gt;                             Term                        Est           Type
+#&gt;  1:                  (Intercept) 251.41*** [237.68, 265.13]  Fixed Effects
+#&gt;  2:                         Days  10.47*** [  7.36,  13.58]  Fixed Effects
+#&gt;  3: cor_Days.(Intercept)|Subject        0.07 [-0.48,  0.68] Random Effects
+#&gt;  4:       sd_(Intercept)|Subject       24.74 [14.38, 37.72] Random Effects
+#&gt;  5:              sd_Days|Subject        5.92 [ 3.80,  8.75] Random Effects
+#&gt;  6:                        sigma       25.59 [22.90, 28.86] Random Effects
+#&gt;  7:                     Model DF                          6  Overall Model
+#&gt;  8:                   N (Groups)               Subject (18)  Overall Model
+#&gt;  9:             N (Observations)                        180  Overall Model
+#&gt; 10:                       logLik                    -875.97  Overall Model
+#&gt; 11:                          AIC                    1763.94  Overall Model
+#&gt; 12:                          BIC                    1783.10  Overall Model
+#&gt; 13:                  Marginal R2                       0.29  Overall Model
+#&gt; 14:                  Marginal F2                       0.40  Overall Model
+#&gt; 15:               Conditional R2                       0.79  Overall Model
+#&gt; 16:               Conditional F2                       3.82  Overall Model
+#&gt; 17:        Days (Fixed + Random)        0.40/1.99, p &lt; .001   Effect Sizes
+#&gt; 18:                Days (Random)        0.00/0.46, p &lt; .001   Effect Sizes</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linear</span> <span class='kw'>=</span> <span class='no'>testm1</span>, <span class='kw'>Quadratic</span> <span class='kw'>=</span> <span class='no'>testm2</span>))</div><div class='output co'>#&gt;                             Term                     Linear
+#&gt;  1:                  (Intercept) 251.41*** [237.68, 265.13]
+#&gt;  2:                         Days  10.47*** [  7.36,  13.58]
+#&gt;  3:                    I(Days^2)                           
+#&gt;  4: cor_Days.(Intercept)|Subject        0.07 [-0.48,  0.68]
+#&gt;  5:       sd_(Intercept)|Subject       24.74 [14.38, 37.72]
+#&gt;  6:              sd_Days|Subject        5.92 [ 3.80,  8.75]
+#&gt;  7:                        sigma       25.59 [22.90, 28.86]
+#&gt;  8:                     Model DF                          6
+#&gt;  9:                   N (Groups)               Subject (18)
+#&gt; 10:             N (Observations)                        180
+#&gt; 11:                       logLik                    -875.97
+#&gt; 12:                          AIC                    1763.94
+#&gt; 13:                          BIC                    1783.10
+#&gt; 14:                  Marginal R2                       0.29
+#&gt; 15:                  Marginal F2                       0.40
+#&gt; 16:               Conditional R2                       0.79
+#&gt; 17:               Conditional F2                       3.82
+#&gt; 18:        Days (Fixed + Random)        0.40/1.99, p &lt; .001
+#&gt; 19:                Days (Random)        0.00/0.46, p &lt; .001
+#&gt; 20:            I(Days^2) (Fixed)                           
+#&gt;                      Quadratic           Type
+#&gt;  1: 255.45*** [240.52, 270.38]  Fixed Effects
+#&gt;  2:    7.43** [  1.93,  12.94]  Fixed Effects
+#&gt;  3:      0.34 [ -0.18,   0.85]  Fixed Effects
+#&gt;  4:        0.06 [-0.48,  0.68] Random Effects
+#&gt;  5:       24.76 [14.48, 37.75] Random Effects
+#&gt;  6:        5.93 [ 3.81,  8.76] Random Effects
+#&gt;  7:       25.53 [22.77, 28.69] Random Effects
+#&gt;  8:                          7  Overall Model
+#&gt;  9:               Subject (18)  Overall Model
+#&gt; 10:                        180  Overall Model
+#&gt; 11:                    -875.14  Overall Model
+#&gt; 12:                    1764.28  Overall Model
+#&gt; 13:                    1786.63  Overall Model
+#&gt; 14:                       0.29  Overall Model
+#&gt; 15:                       0.41  Overall Model
+#&gt; 16:                       0.79  Overall Model
+#&gt; 17:                       3.87  Overall Model
+#&gt; 18:        0.01/0.52, p &lt; .001   Effect Sizes
+#&gt; 19:        0.00/0.46, p &lt; .001   Effect Sizes
+#&gt; 20:        0.00/0.01, p = .198   Effect Sizes</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/APAStyler.html'>APAStyler</a></span>(<span class='no'>testm1</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw'>FixedEffects</span> <span class='kw'>=</span> <span class='st'>"%s, %s (%s, %s)"</span>,
+    <span class='kw'>RandomEffects</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%s"</span>, <span class='st'>"%s (%s, %s)"</span>),
+    <span class='kw'>EffectSizes</span> <span class='kw'>=</span> <span class='st'>"%s, %s; %s"</span>),
+  <span class='kw'>pcontrol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>stars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                  <span class='kw'>includeP</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>includeSign</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                  <span class='kw'>dropLeadingZero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;                             Term                               Est
+#&gt;  1:                  (Intercept) 251.41, p &lt; .001 (237.68, 265.13)
+#&gt;  2:                         Days  10.47, p &lt; .001 (  7.36,  13.58)
+#&gt;  3: cor_Days.(Intercept)|Subject               0.07 (-0.48,  0.68)
+#&gt;  4:       sd_(Intercept)|Subject              24.74 (14.38, 37.72)
+#&gt;  5:              sd_Days|Subject               5.92 ( 3.80,  8.75)
+#&gt;  6:                        sigma              25.59 (22.90, 28.86)
+#&gt;  7:                     Model DF                                 6
+#&gt;  8:                   N (Groups)                      Subject (18)
+#&gt;  9:             N (Observations)                               180
+#&gt; 10:                       logLik                           -875.97
+#&gt; 11:                          AIC                           1763.94
+#&gt; 12:                          BIC                           1783.10
+#&gt; 13:                  Marginal R2                              0.29
+#&gt; 14:                  Marginal F2                              0.40
+#&gt; 15:               Conditional R2                              0.79
+#&gt; 16:               Conditional F2                              3.82
+#&gt; 17:        Days (Fixed + Random)              0.40, 1.99; p &lt; .001
+#&gt; 18:                Days (Random)              0.00, 0.46; p &lt; .001
+#&gt;               Type
+#&gt;  1:  Fixed Effects
+#&gt;  2:  Fixed Effects
+#&gt;  3: Random Effects
+#&gt;  4: Random Effects
+#&gt;  5: Random Effects
+#&gt;  6: Random Effects
+#&gt;  7:  Overall Model
+#&gt;  8:  Overall Model
+#&gt;  9:  Overall Model
+#&gt; 10:  Overall Model
+#&gt; 11:  Overall Model
+#&gt; 12:  Overall Model
+#&gt; 13:  Overall Model
+#&gt; 14:  Overall Model
+#&gt; 15:  Overall Model
+#&gt; 16:  Overall Model
+#&gt; 17:   Effect Sizes
+#&gt; 18:   Effect Sizes</div><div class='input'>
+<span class='co'># }</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m1</span>, <span class='no'>m2</span>, <span class='no'>testm1</span>, <span class='no'>testm2</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

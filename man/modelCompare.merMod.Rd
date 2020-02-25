@@ -23,7 +23,7 @@ model comparisons.  The models must be nested.
 }
 \examples{
 
-\dontrun{
+library(JWileymisc)
 data(aces_daily, package = "JWileymisc")
 m1 <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID),
   data = aces_daily)
@@ -36,7 +36,6 @@ modelCompare(m1, m2)
 modelCompare(m2, m3)
 
 rm(m1, m2, m3)
-}
 }
 \references{
 For estimating the marginal and conditional R-squared values,

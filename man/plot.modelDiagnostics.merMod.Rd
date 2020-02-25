@@ -35,12 +35,13 @@ This function creates a number of diagnostic plots
 from lmer models.
 }
 \examples{
-\dontrun{
-  sleep[1,1] <- NA
-  m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
 
- md <- modelDiagnostics(m, ev.perc = .1)
- md$extremeValues
+library(JWileymisc)
+sleep[1,1] <- NA
+m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
+
+md <- modelDiagnostics(m, ev.perc = .1)
+md$extremeValues
 
 data(aces_daily, package = "JWileymisc")
 m <- lme4::lmer(PosAff ~ STRESS + (1 + STRESS | UserID), data = aces_daily)
@@ -50,16 +51,7 @@ md$extremeValues
 plot(md$modelDiagnostics[[2]][[2]])
 plot(md, ncol = 2, nrow = 2)
 plot(md, ncol = 2, nrow = 3)
-tmp <- lapply(md$modelDiagnostics[[2]], plot, plot=FALSE)
-names(tmp[[1]])
-tmp$DensityPlot
-
-str(md)
-class(md)
-
-plot(md)
 
 rm(m, md, sleep)
-}
 }
 \keyword{plot}
