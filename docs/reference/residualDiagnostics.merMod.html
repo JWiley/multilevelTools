@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="residualDiagnostics methods for merMod objects — residualDiagnostics.merMod" />
 <meta property="og:description" content="residualDiagnostics methods for merMod objects" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multilevelTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -102,7 +105,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/JWiley/multilevelTools">
+  <a href="https://github.com/JWiley/multilevelTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -186,39 +189,35 @@ residual values or not. Defaults to <code>TRUE</code>.</p></td>
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
 
 <span class='fu'><a href='https://rdrr.io/pkg/JWileymisc/man/residualDiagnostics.html'>residualDiagnostics</a></span>(<span class='no'>m</span>)$<span class='no'>Residuals</span></div><div class='output co'>#&gt;        Residuals  Predicted isEV Index
-#&gt;  1: -0.700128914 -0.9621662   No     2
-#&gt;  2:  0.021691013 -0.2197610   No     3
-#&gt;  3: -0.117254013 -1.0931789   No     4
-#&gt;  4:  0.658754568 -0.7001408   No     5
-#&gt;  5:  0.665701352  2.7935305   No     6
-#&gt;  6:  0.323896212  3.4049230   No     7
-#&gt;  7:  0.400316445  0.4353024   No     8
-#&gt;  8: -1.532410653  1.3960620   No     9
-#&gt;  9:  0.279433991  1.7454291   No    10
-#&gt; 10: -0.106066584  1.9966291   No    11
-#&gt; 11:  0.165396986  0.6493195   No    12
-#&gt; 12: -0.320216396  1.3917246   No    13
-#&gt; 13: -0.459161423  0.5183068   No    14
-#&gt; 14: -1.110119481  0.9113448   No    15
-#&gt; 15: -0.005506052  4.4050161   No    16
-#&gt; 16:  0.530822125  5.0164086   No    17
-#&gt; 17: -0.490424288  2.0467880   No    18
-#&gt; 18:  1.747981868  3.0075476   No    19
-#&gt; 19:  0.047293245  3.3569147   No    20</div><div class='input'>
+#&gt;  1: -0.700128956 -0.9621661   No     2
+#&gt;  2:  0.021690939 -0.2197610   No     3
+#&gt;  3: -0.117254135 -1.0931787   No     4
+#&gt;  4:  0.658754382 -0.7001407   No     5
+#&gt;  5:  0.665701421  2.7935304   No     6
+#&gt;  6:  0.323896367  3.4049228   No     7
+#&gt;  7:  0.400316373  0.4353024   No     8
+#&gt;  8: -1.532410421  1.3960619   No     9
+#&gt;  9:  0.279434030  1.7454290   No    10
+#&gt; 10: -0.106066615  1.9966292   No    11
+#&gt; 11:  0.165396845  0.6493196   No    12
+#&gt; 12: -0.320216425  1.3917247   No    13
+#&gt; 13: -0.459161498  0.5183069   No    14
+#&gt; 14: -1.110119449  0.9113449   No    15
+#&gt; 15: -0.005505897  4.4050160   No    16
+#&gt; 16:  0.530822260  5.0164084   No    17
+#&gt; 17: -0.490424247  2.0467880   No    18
+#&gt; 18:  1.747981709  3.0075476   No    19
+#&gt; 19:  0.047293317  3.3569147   No    20</div><div class='input'>
 <span class='co'>#  gm1 &lt;- lme4::glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),</span>
 <span class='co'>#    data = lme4::cbpp, family = binomial)</span>
 <span class='co'># residualDiagnostics(gm1) ## should be an error</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -229,7 +228,7 @@ residual values or not. Defaults to <code>TRUE</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

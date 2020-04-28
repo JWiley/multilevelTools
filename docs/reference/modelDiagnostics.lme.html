@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="modelDiagnostics method for lme objects — modelDiagnostics.lme" />
 <meta property="og:description" content="This function creates a number of diagnostics
 for lme models." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ for lme models." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ for lme models." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multilevelTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -103,7 +106,7 @@ for lme models." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/JWiley/multilevelTools">
+  <a href="https://github.com/JWiley/multilevelTools/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -200,7 +203,7 @@ method.</p></td>
 #&gt; 5:   3.7  7     7 Random Effect ID : (Intercept)
 #&gt; 6:   4.4  6    16 Random Effect ID : (Intercept)
 #&gt; 7:   5.5  7    17 Random Effect ID : (Intercept)</div><div class='input'>
- <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-3.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='modelDiagnostics.lme-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>aces_daily</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"JWileymisc"</span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>PosAff</span> ~ <span class='no'>STRESS</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>aces_daily</span>,
   <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> + <span class='no'>STRESS</span> <span class='kw'>|</span> <span class='no'>UserID</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
@@ -263,7 +266,7 @@ method.</p></td>
 #&gt; 55: 3.671293    123  4239 Multivariate Random Effect UserID
 #&gt; 56: 4.893790    123  4240 Multivariate Random Effect UserID
 #&gt; 57: 4.633870    123  4242 Multivariate Random Effect UserID
-#&gt;       PosAff UserID Index                        EffectType</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-8.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt;       PosAff UserID Index                        EffectType</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='modelDiagnostics.lme-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-8.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>nlme</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlme/man/lme.html'>lme</a></span>(<span class='no'>extra</span> ~ <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>, <span class='kw'>random</span> <span class='kw'>=</span> ~ <span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>/<span class='no'>group</span>,
   <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='st'>"na.omit"</span>)
@@ -277,16 +280,12 @@ method.</p></td>
 #&gt; 5:   3.4  6     1     6 Random Effect ID : (Intercept)
 #&gt; 6:   3.7  7     1     7 Random Effect ID : (Intercept)
 #&gt; 7:   4.4  6     2    16 Random Effect ID : (Intercept)
-#&gt; 8:   5.5  7     2    17 Random Effect ID : (Intercept)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='img'><img src='modelDiagnostics.lme-9.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-10.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-11.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)</div></pre>
+#&gt; 8:   5.5  7     2    17 Random Effect ID : (Intercept)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>md</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='modelDiagnostics.lme-9.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-10.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-11.png' alt='' width='700' height='433' /></div><div class='img'><img src='modelDiagnostics.lme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>m</span>, <span class='no'>md</span>, <span class='no'>sleep</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -297,7 +296,7 @@ method.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

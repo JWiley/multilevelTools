@@ -1,7 +1,7 @@
 Package: multilevelTools
 Title: Multilevel and Mixed Effects Model Diagnostics and Effect Sizes
-Version: 0.1.1
-Date: 2020-02-25
+Version: 0.1.2
+Date: 2020-04-28
 Authors@R: 
     person(given = "Joshua F.",
            family = "Wiley",
@@ -36,4 +36,4 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

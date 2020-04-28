@@ -1,3 +1,10 @@
+# multilevelTools 0.1.2
+
+## New Features
+
+* New `weighted.sma` function to calculate weighted simple 
+  moving averages.
+
 # multilevelTools 0.1.1
 
 ## New Features

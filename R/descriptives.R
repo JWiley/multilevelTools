@@ -342,3 +342,137 @@ acfByID <- function(xvar, timevar, idvar, data, lag.max = 10L,
                           lag.max = lag.max, plot = FALSE, ...)$acf[, 1, 1]),
     by = idvar]
 }
+
+#' Weighted Simple Moving Average
+#'
+#' This function estimates the simple moving average for a specific window
+#' and weights it with a variety of optional decays (e.g., exponential, linear, none).
+#' Whether to omit missing data or not is based on the missing threshold, which is a
+#' proportion and indicates the tolerance. If the weighted proportion missing exceeds
+#' this threshold, then that observvation is missing, otherwise, missing data are excluded
+#' and the weighted simple moving average calculated on the non missing data.
+#'
+#' @param x Time series data on which to calculate the weighted simple moving average.
+#' It is assumed that these data are in the correct order and that time is
+#' equally spaced. Any missing data should be filled in with NAs.
+#' @param window An integer indicating the size of the window to use.
+#' This window will include the current value.
+#' @param decay A character string indicating the type of decay to use on the weights.
+#' @param alpha An optional value. Not needed for \code{decay} = \dQuote{none}, but it
+#' is required for the exponential and linear decay. For exponential and linear decay,
+#' alpha should range between 0 and 1. 0 will result in no decay.
+#' @param missThreshold A numeric value indicating the proportion of data that can be
+#' missing for a given window before the resulting simple moving average is set to
+#' missing. This is a proportion of the weighted data, so not all data points will
+#' necessarily be equally weighted.
+#' @return A numeric vector of the weighted simple moving averages
+#' @keywords descriptives
+#' @export
+#' @examples
+#' dweights <- expand.grid(
+#'   time = 0:10,
+#'   alpha = seq(0, 1, by = .1))
+#'
+#' library(ggplot2)
+#'
+#' ggplot(dweights, aes(time, (1 - alpha)^time, colour = factor(alpha))) +
+#'   geom_line() + geom_point() + theme_bw() +
+#'   scale_x_reverse() +
+#'   theme(legend.position = "bottom") +
+#'   ggtitle("Exponential Decay in Weights")
+#'
+#' ggplot(dweights, aes(time, pmax(1 - alpha * time, 0), colour = factor(alpha))) +
+#'   geom_line() + geom_point() + theme_bw() +
+#'   scale_x_reverse() +
+#'   theme(legend.position = "bottom") +
+#'   ggtitle("Linear Decay in Weights")
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "none",
+#'              missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "exponential",
+#'              alpha = 0, missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "linear",
+#'              alpha = 0, missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "exponential",
+#'              alpha = .1, missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "exponential",
+#'              alpha = .5, missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "linear",
+#'              alpha = .1, missThreshold = 0)
+#'
+#' weighted.sma(c(1, 2, 3, 4, 5),
+#'              window = 3L, decay = "linear",
+#'              alpha = .3, missThreshold = 0)
+#'
+#' weighted.sma(c(1, NA, NA, 4, 5),
+#'              window = 4L, decay = "exponential",
+#'              alpha = .4, missThreshold = .4)
+#'
+#' ## clean up
+#' rm(dweights)
+weighted.sma <- function(x, window, decay = c("exponential", "linear", "none"), alpha, missThreshold = 0) {
+  stopifnot(identical(length(window), 1L))
+  if (!is.integer(window)) {
+    stopifnot(as.integer(window) == window)
+  }
+  stopifnot(window > 0)
+
+  n <- length(x)
+
+  if (n < window) {
+    out <- rep(NA_real_, n)
+  } else {
+    decay <- match.arg(decay)
+
+    ## window minus 1 used for selecting
+    window1 <- window - 1
+
+    w <- switch(decay,
+                exponential = {stopifnot(alpha >= 0); (1 - alpha)^(window1:0)},
+                linear = {stopifnot(alpha >= 0); pmax(1 - alpha * (window1:0), 0)},
+                none = rep(1, window))
+
+    if (any(w < 1e-5)) {
+      warning("At least one weight is effectively 0 leading to an effective window narrower than specified\nConsider decreasing alpha.")
+    }
+
+    ## adjust missing threshold proportion
+    ## to absolute values based on sum of weights
+    missThresholdUse <- missThreshold * sum(w)
+
+    ## initialize logical vector of whether x is missing
+    xna <- is.na(x)
+
+    ## initialize output vector
+    out <- numeric(n)
+    ## set first few to missing
+    out[1:window1] <- NA_real_
+
+    for (i in window:n) {
+      usex <- x[(i - window1):i]
+      m <- xna[(i - window1):i]
+      msum <- sum(m * w)
+      if (msum > missThresholdUse) {
+        out[i] <- NA_real_
+      } else {
+        usex <- usex[!m]
+        usew <- w[!m]
+        out[i] <- sum(usex * usew) / sum(usew)
+      }
+    }
+  }
+
+  return(out)
+}
+
