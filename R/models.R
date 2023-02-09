@@ -701,16 +701,19 @@ modelTest.merMod <- function(object, method = c("Wald", "profile", "boot"), cont
   NAtemplate[, Chi2 := NA_real_]
   NAtemplate[, P := NA_real_]
 
+  nparfull <- attr(logLik(object), "df")
   out.tests <- do.call(rbind, lapply(seq_along(testm), function(i) {
     objreduced <- testm[[i]]
     v <- labs.levels$Terms[[i]]
-
-    if (!isTRUE(inherits(objreduced, "merMod"))) {
+    nparreduced <- attr(logLik(objreduced), "df")
+    
+    if (!isTRUE(inherits(objreduced, "merMod")) | nparreduced >= nparfull) {
       tmp <- copy(NAtemplate)
     } else {
       tmp <- modelCompare(object, objreduced)$Comparison[3]
-      tmp$Model <- v
     }
+    tmp$Model <- v
+
     setnames(tmp, old = "Model", new = "Variable")
     return(tmp)
   }))
