@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  lmer-vignette: lmer-vignette.html
+last_built: 2023-02-09T04:38Z
+urls:
+  reference: https://joshuawiley.com/multilevelTools/reference
+  article: https://joshuawiley.com/multilevelTools/articles
+
