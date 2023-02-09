@@ -189,15 +189,16 @@ test_that("merMod model test works for LMMs", {
   data(aces_daily, package = "JWileymisc")
 
   strictControl <- lme4::lmerControl(optCtrl = list(
-                                       algorithm = "NLOPT_LN_NELDERMEAD",
+                                       algorithm = "NLOPT_LN_BOBYQA",
                                        xtol_abs = 1e-18,
                                        ftol_abs = 1e-18))
 
-  m <- lme4::lmer(PosAff ~ STRESS + Female + (1 + STRESS | UserID),
+  suppressWarnings(
+    m <- lme4::lmer(PosAff ~ STRESS + Female + (1 + STRESS | UserID),
                   data = aces_daily,
-                  control = strictControl)
+                  control = strictControl))
 
-  expect_warning(mt <- modelTest(m))
+  suppressWarnings(mt <- modelTest(m))
 
   expect_is(mt, c("modelTest.merMod", "modelTest"))
   expect_is(JWileymisc::as.modelTest(mt),

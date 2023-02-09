@@ -138,8 +138,9 @@ test_that("merMod model diagnostics work for LMMs with on the fly functions and 
                                        ftol_abs = 1e-10))
 
 
-  m <- lme4::lmer(PosAff ~ poly(STRESS, 2) + (1 + poly(STRESS, 2) | UserID),
-                  data = aces_daily, control = strictControl)
+  suppressWarnings(
+    m <- lme4::lmer(PosAff ~ poly(STRESS, 2) + (1 + poly(STRESS, 2) | UserID),
+                  data = aces_daily, control = strictControl))
 
   expect_warning(md <- modelDiagnostics(m, ev.perc = .1))
 
