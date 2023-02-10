@@ -1,6 +1,7 @@
 desktop.ini
 .Rhistory
 .RData
+.DS_Store
 *~
 
 # artifacts of R CMD check/build
