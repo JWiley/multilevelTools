@@ -9,7 +9,7 @@ test_that("omegaSEM works", {
     data = aces_daily,
     savemodel = FALSE)
 
-  expect_is(omega$Results, "data.frame")
+  expect_s3_class(omega$Results, "data.frame")
 
   expect_true(all(
     omega$Results$est >= (omega$Results$ci.lower - .01) &
@@ -22,15 +22,14 @@ test_that("omegaSEM works", {
     data = aces_daily,
     savemodel = TRUE)
 
-  expect_is(omega$Fit, "lavaan")
-  expect_is(omega$Results, "data.frame")
+  expect_s4_class(omega$Fit, "lavaan")
+  expect_s3_class(omega$Results, "data.frame")
 
   expect_true(all(
     omega$Results$est >= (omega$Results$ci.lower - .01) &
     omega$Results$est <= (omega$Results$ci.upper + .01),
     na.rm = TRUE))
 })
-
 
 
 test_that("merMod model performance fail for GLMMs", {
@@ -51,11 +50,11 @@ test_that("merMod model performance works for LMMs", {
   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
   mp <- modelPerformance(m)
 
-  expect_is(mp, c("modelPerformance.merMod", "modelPerformance"))
-  expect_is(JWileymisc::as.modelPerformance(mp),
+  expect_s3_class(mp, c("modelPerformance.merMod", "modelPerformance"))
+  expect_s3_class(JWileymisc::as.modelPerformance(mp),
             c("modelPerformance.merMod", "modelPerformance"))
 
-  expect_equivalent(nrow(mp$Performance), 1)
+  expect_identical(nrow(mp$Performance), 1L)
   ## R2 should be between 0 and 1, with tolerance
   expect_true(mp$Performance$MarginalR2 >= -.05 &
               mp$Performance$MarginalR2 <= 1.05)
@@ -77,11 +76,11 @@ test_that("merMod model performance works for LMMs with intercept only", {
                   data = aces_daily)
   mp <- modelPerformance(m)
 
-  expect_is(mp, c("modelPerformance.merMod", "modelPerformance"))
-  expect_is(JWileymisc::as.modelPerformance(mp),
+  expect_s3_class(mp, c("modelPerformance.merMod", "modelPerformance"))
+  expect_s3_class(JWileymisc::as.modelPerformance(mp),
             c("modelPerformance.merMod", "modelPerformance"))
 
-  expect_equivalent(nrow(mp$Performance), 1)
+  expect_identical(nrow(mp$Performance), 1L)
   ## R2 should be between 0 and 1, with tolerance
   expect_true(mp$Performance$MarginalR2 >= -.05 &
               mp$Performance$MarginalR2 <= 1.05)
@@ -103,11 +102,11 @@ test_that("merMod model performance (& R2) works for LMMs with random slopes", {
                   data = aces_daily)
   mp <- modelPerformance(m)
 
-  expect_is(mp, c("modelPerformance.merMod", "modelPerformance"))
-  expect_is(JWileymisc::as.modelPerformance(mp),
+  expect_s3_class(mp, c("modelPerformance.merMod", "modelPerformance"))
+  expect_s3_class(JWileymisc::as.modelPerformance(mp),
             c("modelPerformance.merMod", "modelPerformance"))
 
-  expect_equivalent(nrow(mp$Performance), 1)
+  expect_identical(nrow(mp$Performance), 1L)
   ## R2 should be between 0 and 1, with tolerance
   expect_true(mp$Performance$MarginalR2 >= -.05 &
               mp$Performance$MarginalR2 <= 1.05)
@@ -121,12 +120,12 @@ test_that("merMod model performance (& R2) works for LMMs with random slopes", {
               (mp$Performance$ConditionalR2 - .01))
 
   m2 <- R2(m)
-  expect_is(m2, "numeric")
+  expect_type(m2, "double")
   ## R2 should be between 0 and 1 with tolerance
   expect_true(all(m2 >= -.05 & m2 <= 1.05, na.rm = TRUE))
 
   m2 <- R2(m, cluster = TRUE)
-  expect_is(m2, "data.table")
+  expect_s3_class(m2, "data.table")
 })
 
 
@@ -144,11 +143,11 @@ test_that("merMod model compare works for LMMs with REML", {
 
   mc <- modelCompare(m1, m2)
 
-  expect_is(mc, c("modelCompare.merMod", "modelCompare"))
-  expect_is(JWileymisc::as.modelCompare(mc),
+  expect_s3_class(mc, c("modelCompare.merMod", "modelCompare"))
+  expect_s3_class(JWileymisc::as.modelCompare(mc),
             c("modelCompare.merMod", "modelCompare"))
 
-  expect_equivalent(nrow(mc$Comparison), 3)
+  expect_identical(nrow(mc$Comparison), 3L)
   ## R2 should be between 0 and 1, with tolerance
   expect_true(all(mc$Comparison$MarginalR2 >= -.05 &
               mc$Comparison$MarginalR2 <= 1.05))
@@ -162,13 +161,13 @@ test_that("merMod model compare works for LMMs with REML", {
               (mc$Comparison$ConditionalR2 - .01)))
 
 
-  mc <- modelCompare(m2, m3)
+  expect_message(mc <- modelCompare(m2, m3))
 
-  expect_is(mc, c("modelCompare.merMod", "modelCompare"))
-  expect_is(JWileymisc::as.modelCompare(mc),
+  expect_s3_class(mc, c("modelCompare.merMod", "modelCompare"))
+  expect_s3_class(JWileymisc::as.modelCompare(mc),
             c("modelCompare.merMod", "modelCompare"))
 
-  expect_equivalent(nrow(mc$Comparison), 3)
+  expect_identical(nrow(mc$Comparison), 3L)
   ## R2 should be between 0 and 1, with tolerance
   expect_true(all(mc$Comparison$MarginalR2 >= -.05 &
               mc$Comparison$MarginalR2 <= 1.05))
@@ -198,10 +197,10 @@ test_that("merMod model test works for LMMs", {
                   data = aces_daily,
                   control = strictControl))
 
-  suppressWarnings(mt <- modelTest(m))
+  expect_message(suppressWarnings(mt <- modelTest(m)))
 
-  expect_is(mt, c("modelTest.merMod", "modelTest"))
-  expect_is(JWileymisc::as.modelTest(mt),
+  expect_s3_class(mt, c("modelTest.merMod", "modelTest"))
+  expect_s3_class(JWileymisc::as.modelTest(mt),
             c("modelTest.merMod", "modelTest"))
 
   ## effect size R2 should be between 0 and 1, with tolerance

@@ -8,11 +8,11 @@ test_that("plot method for merMod model diagnostics works", {
 
   pm <- plot(md, plot = FALSE)
 
-  expect_is(pm$Residuals$ResPlot, "ggplot")
-  expect_is(pm$Residuals$ResFittedPlot, "ggplot")
-  expect_is(pm$RandomEffects[[1]], "ggplot")
-  expect_is(pm$RandomEffects[[2]], "ggplot")
-  expect_is(pm$RandomEffects[[3]], "ggplot")
+  expect_s3_class(pm$Residuals$ResPlot, "ggplot")
+  expect_s3_class(pm$Residuals$ResFittedPlot, "ggplot")
+  expect_s3_class(pm$RandomEffects[[1]], "ggplot")
+  expect_s3_class(pm$RandomEffects[[2]], "ggplot")
+  expect_s3_class(pm$RandomEffects[[3]], "ggplot")
 
   expect_invisible(plot(md, plot = TRUE, ask = FALSE, ncol = 3, nrow = 3))
 })

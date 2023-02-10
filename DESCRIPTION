@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jwiley.psych@gmail.com",
            comment = c(ORCID = "0000-0002-0271-6702"))	   
-URL: http://joshuawiley.com/multilevelTools, https://github.com/JWiley/multilevelTools
+URL: https://joshuawiley.com/multilevelTools, https://github.com/JWiley/multilevelTools
 BugReports: https://github.com/JWiley/multilevelTools/issues	   
 Description: Effect sizes, diagnostics and performance metrics for
   multilevel and mixed effects models.
@@ -16,24 +16,25 @@ Description: Effect sizes, diagnostics and performance metrics for
   based on Johnson (2014) <doi:10.1111/2041-210X.12225>.
 License: GPL (>= 3)
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.0.0)
 Imports:
     lme4,
     lmerTest,
-    data.table (>= 1.12.0),
+    data.table (>= 1.14.6),
     nlme,
     extraoperators (>= 0.1.1),
-    JWileymisc (>= 1.1.0),
+    JWileymisc (>= 1.4.0),
     cowplot,
     ggplot2,
     lavaan,
     zoo
 Suggests: 
-    testthat (>= 2.1.0),
+    testthat (>= 3.1.0),
     covr,
     knitr,
     rmarkdown
 Encoding: UTF-8
 LazyData: true
+Config/testthat/edition: 3
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3

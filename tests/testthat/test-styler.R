@@ -7,10 +7,10 @@ test_that("APAStyler method for merMod modelTest works", {
 
   s1 <- APAStyler(mt)
 
-  expect_is(s1, "data.table")
+  expect_s3_class(s1, "data.table")
   expect_identical(names(s1), c("Term", "Est", "Type"))
-  expect_is(s1$Term, "character")
-  expect_is(s1$Est, "character")
+  expect_type(s1$Term, "character")
+  expect_type(s1$Est, "character")
   expect_true(any(grepl("\\[", s1$Est)))
   expect_true(any(grepl("\\]", s1$Est)))
   expect_true(any(grepl("\\*", s1$Est)))
@@ -24,10 +24,10 @@ test_that("APAStyler method for merMod modelTest works", {
                                   includeP = TRUE, includeSign = TRUE,
                                   dropLeadingZero = TRUE))
 
-  expect_is(s2, "data.table")
+  expect_s3_class(s2, "data.table")
   expect_identical(names(s2), c("Term", "Est", "Type"))
-  expect_is(s2$Term, "character")
-  expect_is(s2$Est, "character")
+  expect_type(s2$Term, "character")
+  expect_type(s2$Est, "character")
   expect_true(any(grepl("\\(", s2$Est)))
   expect_true(any(grepl("\\)", s2$Est)))
   expect_false(any(grepl("\\*", s2$Est)))

@@ -2,18 +2,24 @@
 title: "Multilevel Models using lmer"
 author: "Joshua F. Wiley"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{multilevel-lmer-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
-)
+  comment = "#>")
 ```
 
 This vignette shows how to use the `multilevelTools` package for
@@ -25,13 +31,13 @@ models, and the `multilevelTools` package. Although not required, we
 load the `lmerTest` package to get approximate degrees of freedom for
 use in calculating p-values for the fixed effects. Without `lmerTest`
 p-values are based on asymptotic normality.
-We'll also load an example dataset from the `JWileymisc` package,
+We  will also load an example dataset from the `JWileymisc` package,
 `aces_daily`, using the `data()` function. The `aces_daily` dataset is
 simulated data from a daily, ecological momentary assessment study of
 191 participants who completed ratings of **a**ctivity, **c**oping,
 **e**motions, and **s**tress (aces) up to three times per day for
 twelve days. Only a subset of variables were simulated, but it is a
-nice example of messy, real-world type data for mixed effects /
+nice example of messy, real-world type data for mixed effects or
 multilevel models.
 
 ```{r setup}
@@ -43,6 +49,7 @@ library(lmerTest)
 library(extraoperators)
 library(JWileymisc)
 library(multilevelTools)
+library(data.table)
 
 ## load some sample data for examples
 data(aces_daily, package = "JWileymisc")
@@ -472,5 +479,195 @@ differences are for interpretting and utilizing the results.
 mt <- modelTest(m)
 
 APAStyler(list(Original = mt, `Outliers Removed` = mt3))
-
 ``` 
+
+# Interactions
+
+Interactions in models are generally supported by `multilevelTools`.
+However, some functions, specifically `modelTest()` do not work equally 
+well with all types of interactions.
+`modelTest()` has good support for interactions with only continuous variables.
+It has somewhat worse support for interactions involving one or more categorical 
+variables.
+
+## Interactions with Categorical Variable(s)
+
+First let's take a look at an example with all categorical variables.
+We will start with a model that does not have any interactions.
+
+```{r}
+d <- as.data.table(aces_daily)[!is.na(SES_1) & !is.na(BornAUS)]
+d[, SEScat := factor(SES_1)]
+d[, BornAUScat := factor(BornAUS)]
+
+m.noint <- lmer(PosAff ~ BornAUScat + SEScat + (1 | UserID), data = d)
+```
+
+Here are the fixed effeccts for the model with no interactions.
+
+```{r, echo = FALSE, results = "asis"}
+knitr::kable(fixef(m.noint), caption = "no interaction model fixed effects")
+```
+
+Now, suppose that we decided to drop one of the predictors from the model.
+We can update the model using the `update()` function built into `R`.
+
+```{r}
+m.nointdrop <- update(m.noint, . ~ . - SEScat)
+```
+
+Here are the fixed effeccts for the model with no interactions after
+dropping categorical subjective socioeconomic status (`SEScat`).
+
+```{r, echo = FALSE, results = "asis"}
+knitr::kable(
+  fixef(m.nointdrop),
+  caption = "no interaction model fixed effects after dropping a predictor")
+```
+
+We can see that there are four less fixed effect coefficient. These two models 
+are called nested, because one model (the one dropping `SEScat`) is fully 
+nested or contained in the other model. This is essentially what `modelTest()` 
+does for us automatically and then it compares the two models. In the table that
+follows, if you compare the Log Likelihood (LL) degrees of freedom (DF), 
+we can see that one model has 4 fewer degrees of freedom than the other, 
+reflecting a different number of parameters: the coefficients for `SEScat` were 
+dropped.
+
+```{r, results = "asis"}
+knitr::kable(
+  t(modelCompare(m.nointdrop, m.noint)$Comparison),
+  caption = "model comparison")
+```
+
+These results match with those from `modelTest()` shown in the following table.
+Comparing the p-value for `SEScat` under the effect sizes section with
+the model comparison.
+
+```{r, results = "asis"}
+knitr::kable(APAStyler(modelTest(m.noint)))
+```
+
+Now let's look at what happens when there is an interaction.
+
+```{r}
+m.int <- lmer(PosAff ~ BornAUScat * SEScat + (1 | UserID), data = d)
+```
+
+Here are the fixed effeccts for the model with an interaction involving
+a categorical predictor.
+
+```{r, echo = FALSE, results = "asis"}
+knitr::kable(fixef(m.int), caption = "interaction model fixed effects")
+```
+
+Now, suppose that we decided to drop one of the predictors from the model.
+We can update the model using the `update()` function built into `R`.
+
+```{r}
+m.intdrop <- update(m.int, . ~ . - SEScat)
+```
+
+Here are the fixed effects for the model with an interaction after
+dropping categorical subjective socioeconomic status (`SEScat`).
+
+```{r, echo = FALSE, results = "asis"}
+knitr::kable(
+  fixef(m.intdrop),
+  caption = "interaction model fixed effects after dropping a predictor")
+```
+
+You can see immediately that we have the same number of fixed 
+effects coefficients. Before, we had the simple main effects 
+of `SEScat` and then how those differed when `BornAUScat = 1`.
+Now, we have the simple main effects for both `BornAUScat = 0` and
+`BornAUScat = 1`. This happens because of `R`'s formula interface
+and how it decides to dummy code and create the underlying model matrix.
+
+If we tried the following code to compare these two models, we would get an error
+about the models not being nested.
+
+```{r, eval = FALSE}
+modelCompare(m.intdrop, m.int)
+```
+
+The models are *not* nested within each other. In fact, they are the same model,
+just parameterized differently. For example, this can be seen by comparing the 
+log likelihoods, which are the same.
+
+```{r}
+logLik(m.int)
+logLik(m.intdrop)
+```
+
+What we might have wanted is what would have happened if we constrained
+the fixed effects for the `SEScat` dummy codes to 0. That, however, is tricky
+to obtain.
+
+`modelTest()` tries to fail relatively gracefully. It will run, but not report
+a test for the simple main effect overall of `SEScat`. It can, however,
+test whether the two-way interaction adds beyond the main effects only.
+
+```{r, results = "asis"}
+knitr::kable(APAStyler(modelTest(m.int)))
+```
+
+### If you really want
+
+What if you really want those tests for the simple main effects of 
+a categorical predictor? This can be done by manually dummy coding predictors 
+and creating the two, nested, models to compare.
+
+```{r}
+## manually dummy code
+d[, SEScat5 := fifelse(SES_1 == 5, 1, 0)]
+d[, SEScat6 := fifelse(SES_1 == 6, 1, 0)]
+d[, SEScat7 := fifelse(SES_1 == 7, 1, 0)]
+d[, SEScat8 := fifelse(SES_1 == 8, 1, 0)]
+
+## interaction model
+m.intman <- lmer(PosAff ~ BornAUS * (SEScat5 + SEScat6 + SEScat7 + SEScat8) +
+                   (1 | UserID), data = d)
+
+## drop just the simple main effects of SEScat
+m.intmandrop <- update(m.intman, . ~ . - SEScat5 - SEScat6 - SEScat7 - SEScat8)
+
+```
+
+Now we can compare the two models. As expected, they differ by 4 degrees of freedom.
+
+```{r, results = "asis"}
+knitr::kable(
+  t(modelCompare(m.intmandrop, m.intman)$Comparison),
+  caption = "manual model comparison")
+```
+
+Incidentally, while you can still use `modelTest()` with this model, 
+`modelTest()` no longer knows that SEScat5 to 8 belong to the same variable,
+so they are tested individually, and you do not get the omnibus test.
+
+```{r, results = "asis"}
+knitr::kable(APAStyler(modelTest(m.intman)))
+```
+
+The general principle is that with categorical variables, 
+`modelTest()` will support the highest order interaction in the model, 
+but none of the lower order interactions or main effects.
+
+Thus with a two-way interaction, the two-way interaction can be tested but
+not the simple main effects involved.
+With a three-way interaction, the three-way interaction can be tested but
+not the simple two-way interactions nor the simiple main effects involved.
+Any of these can be tested manually using `modelCompare()`.
+
+## Interactions with Continuous Variables
+
+Continuous interactions do not pose the same challenges
+and in `R` we can easily remove specific simple components to test
+whether they differ from zero.
+
+```{r, results = "asis"}
+m.cint <- lmer(PosAff ~ STRESS * NegAff + (1 | UserID), data = aces_daily)
+
+knitr::kable(APAStyler(modelTest(m.cint)))
+```

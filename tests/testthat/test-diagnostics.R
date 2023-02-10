@@ -16,12 +16,12 @@ test_that("merMod residual diagnostics work for LMMs", {
   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
   mrd <- residualDiagnostics(m)
 
-  expect_is(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
-  expect_is(JWileymisc::as.residualDiagnostics(mrd),
+  expect_s3_class(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
+  expect_s3_class(JWileymisc::as.residualDiagnostics(mrd),
             c("residualDiagnostics.merMod", "residualDiagnostics"))
 
-  expect_equivalent(nrow(sleep), nrow(mrd$Residuals))
-  expect_equivalent(
+  expect_identical(nrow(sleep), nrow(mrd$Residuals))
+  expect_equal(
     mean(mrd$Residuals$Residuals, na.rm = TRUE),
     0,
     tolerance = .05)
@@ -35,12 +35,12 @@ test_that("merMod residual diagnostics work with missing data", {
                   na.action = na.omit)
   mrd <- residualDiagnostics(m)
 
-  expect_is(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
-  expect_is(JWileymisc::as.residualDiagnostics(mrd),
+  expect_s3_class(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
+  expect_s3_class(JWileymisc::as.residualDiagnostics(mrd),
             c("residualDiagnostics.merMod", "residualDiagnostics"))
 
   expect_true(nrow(mrd$Residuals) < nrow(sleep))
-  expect_equivalent(
+  expect_equal(
     mean(mrd$Residuals$Residuals, na.rm = TRUE),
     0,
     tolerance = .05)
@@ -53,15 +53,15 @@ test_that("merMod residual diagnostics work for LMMs with on the fly functions",
   aces_daily <- subset(aces_daily, !is.na(STRESS))
   m <- lme4::lmer(PosAff ~ poly(STRESS, 3) + (1 | UserID),
                   data = aces_daily)
-  expect_warning(mrd <- residualDiagnostics(m))
+  suppressWarnings(mrd <- residualDiagnostics(m))
 
-  expect_is(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
-  expect_is(JWileymisc::as.residualDiagnostics(mrd),
+  expect_s3_class(mrd, c("residualDiagnostics.merMod", "residualDiagnostics"))
+  expect_s3_class(JWileymisc::as.residualDiagnostics(mrd),
             c("residualDiagnostics.merMod", "residualDiagnostics"))
 
   expect_true(nrow(mrd$Residuals) <= nrow(aces_daily))
 
-  expect_equivalent(
+  expect_equal(
     mean(mrd$Residuals$Residuals, na.rm = TRUE),
     0,
     tolerance = .05)
@@ -87,13 +87,13 @@ test_that("merMod model diagnostics work for LMMs, ev.perc = 0", {
   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
   md <- modelDiagnostics(m, ev.perc = 0)
 
-  expect_is(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
-  expect_is(JWileymisc::as.modelDiagnostics(md),
+  expect_s3_class(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
+  expect_s3_class(JWileymisc::as.modelDiagnostics(md),
             c("modelDiagnostics.merMod", "modelDiagnostics"))
 
   expect_length(md$modelDiagnostics, 1)
 
-  expect_equivalent(nrow(md$extremeValues), 0)
+  expect_identical(nrow(md$extremeValues), 0L)
 })
 
 test_that("merMod model diagnostics work for LMMs, ev.perc = .5", {
@@ -102,8 +102,8 @@ test_that("merMod model diagnostics work for LMMs, ev.perc = .5", {
   m <- lme4::lmer(extra ~ group + (1 | ID), data = sleep)
   md <- modelDiagnostics(m, ev.perc = .5)
 
-  expect_is(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
-  expect_is(JWileymisc::as.modelDiagnostics(md),
+  expect_s3_class(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
+  expect_s3_class(JWileymisc::as.modelDiagnostics(md),
             c("modelDiagnostics.merMod", "modelDiagnostics"))
 
   expect_length(md$modelDiagnostics, 1)
@@ -119,8 +119,8 @@ test_that("merMod model diagnostics work with missing data", {
                   na.action = na.omit)
   md <- modelDiagnostics(m)
 
-  expect_is(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
-  expect_is(JWileymisc::as.modelDiagnostics(md),
+  expect_s3_class(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
+  expect_s3_class(JWileymisc::as.modelDiagnostics(md),
             c("modelDiagnostics.merMod", "modelDiagnostics"))
 
   expect_length(md$modelDiagnostics, 1)
@@ -142,10 +142,10 @@ test_that("merMod model diagnostics work for LMMs with on the fly functions and 
     m <- lme4::lmer(PosAff ~ poly(STRESS, 2) + (1 + poly(STRESS, 2) | UserID),
                   data = aces_daily, control = strictControl))
 
-  expect_warning(md <- modelDiagnostics(m, ev.perc = .1))
+  suppressWarnings(md <- modelDiagnostics(m, ev.perc = .1))
 
-  expect_is(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
-  expect_is(JWileymisc::as.modelDiagnostics(md),
+  expect_s3_class(md, c("modelDiagnostics.merMod", "modelDiagnostics"))
+  expect_s3_class(JWileymisc::as.modelDiagnostics(md),
             c("modelDiagnostics.merMod", "modelDiagnostics"))
 
   expect_length(md$modelDiagnostics, 4)

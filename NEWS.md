@@ -1,3 +1,18 @@
+# multilevelTools 0.1.3
+
+## Bug Fixes
+
+* `modelTest()` no longer fails for models with a continuous x categorical interaction.
+  Estimates for dropping the "simple" effect of the continuous variable are still 
+  not calculable, but the rest of the calculations are still performed and that line
+  is simply set to NA.
+  
+## Changes
+
+* moved to testthat 3rd edition
+* moved CI to GitHub actions
+* use preferably for package website
+
 # multilevelTools 0.1.2
 
 ## New Features

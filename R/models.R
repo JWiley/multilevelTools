@@ -706,14 +706,21 @@ modelTest.merMod <- function(object, method = c("Wald", "profile", "boot"), cont
     objreduced <- testm[[i]]
     v <- labs.levels$Terms[[i]]
     nparreduced <- attr(logLik(objreduced), "df")
-    
-    if (!isTRUE(inherits(objreduced, "merMod")) | nparreduced >= nparfull) {
+
+    if (nparreduced >= nparfull) {
+      msg <- sprintf("The full and reduced model had %d and %d parameters, respectively.\nThe reduced model should have fewer parameters.\nThis usually happens when there are interactions with categorical variables.\nFor an explanation, see:\nhttps://joshuawiley.com/multilevelTools/articles/lmer-vignette.html", nparfull, nparreduced)
+      message(msg)
       tmp <- copy(NAtemplate)
     } else {
-      tmp <- modelCompare(object, objreduced)$Comparison[3]
+      
+      if (!isTRUE(inherits(objreduced, "merMod"))) {
+        tmp <- copy(NAtemplate)
+      } else {
+        tmp <- modelCompare(object, objreduced)$Comparison[3]
+      }
     }
     tmp$Model <- v
-
+    
     setnames(tmp, old = "Model", new = "Variable")
     return(tmp)
   }))
