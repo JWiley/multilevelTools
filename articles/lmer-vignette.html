@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Joshua F.
 Wiley</h4>
             
-            <h4 data-toc-skip class="date">2023-02-10</h4>
+            <h4 data-toc-skip class="date">2023-02-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JWiley/multilevelTools/blob/HEAD/vignettes/lmer-vignette.Rmd" class="external-link"><code>vignettes/lmer-vignette.Rmd</code></a></small>
       <div class="d-none name"><code>lmer-vignette.Rmd</code></div>
@@ -116,7 +116,7 @@ fits the models, and the <code>multilevelTools</code> package. Although
 not required, we load the <code>lmerTest</code> package to get
 approximate degrees of freedom for use in calculating p-values for the
 fixed effects. Without <code>lmerTest</code> p-values are based on
-asymptotic normality. We’ll also load an example dataset from the
+asymptotic normality. We will also load an example dataset from the
 <code>JWileymisc</code> package, <code>aces_daily</code>, using the
 <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code> function. The <code>aces_daily</code> dataset is
 simulated data from a daily, ecological momentary assessment study of
@@ -124,7 +124,7 @@ simulated data from a daily, ecological momentary assessment study of
 <strong>c</strong>oping, <strong>e</strong>motions, and
 <strong>s</strong>tress (aces) up to three times per day for twelve
 days. Only a subset of variables were simulated, but it is a nice
-example of messy, real-world type data for mixed effects / multilevel
+example of messy, real-world type data for mixed effects or multilevel
 models.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -143,7 +143,8 @@ models.</p>
 <span><span class="co">#&gt;     step</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://joshuawiley.com/extraoperators" class="external-link">extraoperators</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuawiley.com/JWileymisc/" class="external-link">JWileymisc</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://joshuawiley.com/multilevelTools" class="external-link">multilevelTools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuawiley.com/multilevelTools">multilevelTools</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## load some sample data for examples</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">aces_daily</span>, package <span class="op">=</span> <span class="st">"JWileymisc"</span><span class="op">)</span></span></code></pre></div>
@@ -414,11 +415,7 @@ to examine whether results are sensitive to these extreme cases.</p>
 <code class="sourceCode R"><span></span>
 <span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelDiagnostics.html" class="external-link">modelDiagnostics</a></span><span class="op">(</span><span class="va">m</span>, ev.perc <span class="op">=</span> <span class="fl">.001</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">md</span>, ask <span class="op">=</span> <span class="cn">FALSE</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(count)` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">JWileymisc</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/JWiley/JWileymisc/issues&gt;</span>.</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">md</span>, ask <span class="op">=</span> <span class="cn">FALSE</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="lmer-vignette_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 <p>In order to drop people who were extreme on the multivariate
 normality test, we can access a data table of the extreme values from
@@ -689,6 +686,1024 @@ interpretting and utilizing the results.</p>
 <span><span class="co">#&gt; 16:  Overall Model</span></span>
 <span><span class="co">#&gt; 17:   Effect Sizes</span></span>
 <span><span class="co">#&gt; 18:   Effect Sizes</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="interactions">Interactions<a class="anchor" aria-label="anchor" href="#interactions"></a>
+</h2>
+<p>Interactions in models are generally supported by
+<code>multilevelTools</code>. However, some functions, specifically
+<code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> do not work equally well with all types of
+interactions. <code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> has good support for interactions
+with only continuous variables. It has somewhat worse support for
+interactions involving one or more categorical variables.</p>
+<div class="section level3">
+<h3 id="interactions-with-categorical-variables">Interactions with Categorical Variable(s)<a class="anchor" aria-label="anchor" href="#interactions-with-categorical-variables"></a>
+</h3>
+<p>First let’s take a look at an example with all categorical variables.
+We will start with a model that does not have any interactions.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">aces_daily</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">SES_1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">BornAUS</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">SES_1</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">BornAUScat</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">BornAUS</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">m.noint</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">PosAff</span> <span class="op">~</span> <span class="va">BornAUScat</span> <span class="op">+</span> <span class="va">SEScat</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">UserID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<p>Here are the fixed effeccts for the model with no interactions.</p>
+<table class="table">
+<caption>no interaction model fixed effects</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.6283333</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="right">0.2111452</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat5</td>
+<td align="right">-0.1707281</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat6</td>
+<td align="right">0.0307653</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat7</td>
+<td align="right">0.0216888</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat8</td>
+<td align="right">0.0874991</td>
+</tr>
+</tbody>
+</table>
+<p>Now, suppose that we decided to drop one of the predictors from the
+model. We can update the model using the <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> function
+built into <code>R</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m.nointdrop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">m.noint</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">SEScat</span><span class="op">)</span></span></code></pre></div>
+<p>Here are the fixed effeccts for the model with no interactions after
+dropping categorical subjective socioeconomic status
+(<code>SEScat</code>).</p>
+<table class="table">
+<caption>no interaction model fixed effects after dropping a
+predictor</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.6086056</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="right">0.2414211</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that there are four less fixed effect coefficient. These
+two models are called nested, because one model (the one dropping
+<code>SEScat</code>) is fully nested or contained in the other model.
+This is essentially what <code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> does for us
+automatically and then it compares the two models. In the table that
+follows, if you compare the Log Likelihood (LL) degrees of freedom (DF),
+we can see that one model has 4 fewer degrees of freedom than the other,
+reflecting a different number of parameters: the coefficients for
+<code>SEScat</code> were dropped.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelCompare.html" class="external-link">modelCompare</a></span><span class="op">(</span><span class="va">m.nointdrop</span>, <span class="va">m.noint</span><span class="op">)</span><span class="op">$</span><span class="va">Comparison</span><span class="op">)</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">"model comparison"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; When using REML, the fixed effects structure must be identical,</span></span>
+<span><span class="co">#&gt; but was different. Refitting with ML.</span></span></code></pre></div>
+<table class="table">
+<caption>model comparison</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Model</td>
+<td align="left">Model 1</td>
+<td align="left">Model 2</td>
+<td align="left">Difference</td>
+</tr>
+<tr class="even">
+<td align="left">Estimator</td>
+<td align="left">ML</td>
+<td align="left">ML</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">N_Obs</td>
+<td align="left">6210</td>
+<td align="left">6210</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">N_Groups</td>
+<td align="left">UserID (185)</td>
+<td align="left">UserID (185)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">14311.531185</td>
+<td align="left">14317.515173</td>
+<td align="left">5.983988</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">14338.46685</td>
+<td align="left">14371.38650</td>
+<td align="left">32.91965</td>
+</tr>
+<tr class="odd">
+<td align="left">LL</td>
+<td align="left">-7151.765593</td>
+<td align="left">-7150.757587</td>
+<td align="left">1.008006</td>
+</tr>
+<tr class="even">
+<td align="left">LLDF</td>
+<td align="left">4</td>
+<td align="left">8</td>
+<td align="left">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Sigma</td>
+<td align="left">7.244037e-01</td>
+<td align="left">7.244031e-01</td>
+<td align="left">-5.616652e-07</td>
+</tr>
+<tr class="even">
+<td align="left">MarginalR2</td>
+<td align="left">0.011454545</td>
+<td align="left">0.017427470</td>
+<td align="left">0.005972925</td>
+</tr>
+<tr class="odd">
+<td align="left">ConditionalR2</td>
+<td align="left">5.475067e-01</td>
+<td align="left">5.475264e-01</td>
+<td align="left">1.972763e-05</td>
+</tr>
+<tr class="even">
+<td align="left">MarginalF2</td>
+<td align="left">0.011587272</td>
+<td align="left">0.017736574</td>
+<td align="left">0.006078864</td>
+</tr>
+<tr class="odd">
+<td align="left">ConditionalF2</td>
+<td align="left">1.209977e+00</td>
+<td align="left">1.210074e+00</td>
+<td align="left">4.359951e-05</td>
+</tr>
+<tr class="even">
+<td align="left">Chi2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2.016012</td>
+</tr>
+<tr class="odd">
+<td align="left">P</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">0.7328137</td>
+</tr>
+</tbody>
+</table>
+<p>These results match with those from <code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> shown in
+the following table. Comparing the p-value for <code>SEScat</code> under
+the effect sizes section with the model comparison.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest</a></span><span class="op">(</span><span class="va">m.noint</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Parameters and CIs are based on REML, </span></span>
+<span><span class="co">#&gt; but modelTests requires ML not REML fit for comparisons, </span></span>
+<span><span class="co">#&gt; and these are used in effect sizes. Refitting.</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Term</th>
+<th align="left">Est</th>
+<th align="left">Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="left">2.63*** [ 2.32, 2.94]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="left">0.21 [-0.04, 0.46]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat5</td>
+<td align="left">-0.17 [-0.57, 0.23]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat6</td>
+<td align="left">0.03 [-0.37, 0.43]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat7</td>
+<td align="left">0.02 [-0.35, 0.39]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat8</td>
+<td align="left">0.09 [-0.36, 0.54]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">sd_(Intercept)|UserID</td>
+<td align="left">0.80</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="even">
+<td align="left">sigma</td>
+<td align="left">0.72</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">Model DF</td>
+<td align="left">8</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">N (Groups)</td>
+<td align="left">UserID (185)</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">N (Observations)</td>
+<td align="left">6210</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">logLik</td>
+<td align="left">-7150.76</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">14317.52</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">14371.39</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Marginal R2</td>
+<td align="left">0.02</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Marginal F2</td>
+<td align="left">0.02</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Conditional R2</td>
+<td align="left">0.55</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Conditional F2</td>
+<td align="left">1.21</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat (Fixed)</td>
+<td align="left">0.01/0.00, p = .098</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat (Fixed)</td>
+<td align="left">0.01/0.00, p = .733</td>
+<td align="left">Effect Sizes</td>
+</tr>
+</tbody>
+</table>
+<p>Now let’s look at what happens when there is an interaction.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m.int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">PosAff</span> <span class="op">~</span> <span class="va">BornAUScat</span> <span class="op">*</span> <span class="va">SEScat</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">UserID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<p>Here are the fixed effeccts for the model with an interaction
+involving a categorical predictor.</p>
+<table class="table">
+<caption>interaction model fixed effects</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.6206523</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="right">0.2408151</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat5</td>
+<td align="right">-0.2502179</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat6</td>
+<td align="right">0.0017685</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat7</td>
+<td align="right">0.0643894</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat8</td>
+<td align="right">0.3253807</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat1:SEScat5</td>
+<td align="right">0.3284179</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat6</td>
+<td align="right">0.0746243</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat1:SEScat7</td>
+<td align="right">-0.1382994</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat8</td>
+<td align="right">-0.3894738</td>
+</tr>
+</tbody>
+</table>
+<p>Now, suppose that we decided to drop one of the predictors from the
+model. We can update the model using the <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> function
+built into <code>R</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m.intdrop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">m.int</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">SEScat</span><span class="op">)</span></span></code></pre></div>
+<p>Here are the fixed effects for the model with an interaction after
+dropping categorical subjective socioeconomic status
+(<code>SEScat</code>).</p>
+<table class="table">
+<caption>interaction model fixed effects after dropping a
+predictor</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.6206523</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="right">0.2408151</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat0:SEScat5</td>
+<td align="right">-0.2502179</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat5</td>
+<td align="right">0.0781999</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat0:SEScat6</td>
+<td align="right">0.0017685</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat6</td>
+<td align="right">0.0763928</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat0:SEScat7</td>
+<td align="right">0.0643894</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat7</td>
+<td align="right">-0.0739101</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat0:SEScat8</td>
+<td align="right">0.3253807</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat8</td>
+<td align="right">-0.0640931</td>
+</tr>
+</tbody>
+</table>
+<p>You can see immediately that we have the same number of fixed effects
+coefficients. Before, we had the simple main effects of
+<code>SEScat</code> and then how those differed when
+<code>BornAUScat = 1</code>. Now, we have the simple main effects for
+both <code>BornAUScat = 0</code> and <code>BornAUScat = 1</code>. This
+happens because of <code>R</code>’s formula interface and how it decides
+to dummy code and create the underlying model matrix.</p>
+<p>If we tried the following code to compare these two models, we would
+get an error about the models not being nested.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelCompare.html" class="external-link">modelCompare</a></span><span class="op">(</span><span class="va">m.intdrop</span>, <span class="va">m.int</span><span class="op">)</span></span></code></pre></div>
+<p>The models are <em>not</em> nested within each other. In fact, they
+are the same model, just parameterized differently. For example, this
+can be seen by comparing the log likelihoods, which are the same.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html" class="external-link">logLik</a></span><span class="op">(</span><span class="va">m.int</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'log Lik.' -7156.232 (df=12)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html" class="external-link">logLik</a></span><span class="op">(</span><span class="va">m.intdrop</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'log Lik.' -7156.232 (df=12)</span></span></code></pre></div>
+<p>What we might have wanted is what would have happened if we
+constrained the fixed effects for the <code>SEScat</code> dummy codes to
+0. That, however, is tricky to obtain.</p>
+<p><code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> tries to fail relatively gracefully. It will
+run, but not report a test for the simple main effect overall of
+<code>SEScat</code>. It can, however, test whether the two-way
+interaction adds beyond the main effects only.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest</a></span><span class="op">(</span><span class="va">m.int</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Parameters and CIs are based on REML, </span></span>
+<span><span class="co">#&gt; but modelTests requires ML not REML fit for comparisons, </span></span>
+<span><span class="co">#&gt; and these are used in effect sizes. Refitting.</span></span>
+<span><span class="co">#&gt; The full and reduced model had 12 and 12 parameters, respectively.</span></span>
+<span><span class="co">#&gt; The reduced model should have fewer parameters.</span></span>
+<span><span class="co">#&gt; This usually happens when there are interactions with categorical variables.</span></span>
+<span><span class="co">#&gt; For an explanation, see:</span></span>
+<span><span class="co">#&gt; https://joshuawiley.com/multilevelTools/articles/lmer-vignette.html</span></span>
+<span><span class="co">#&gt; The full and reduced model had 12 and 12 parameters, respectively.</span></span>
+<span><span class="co">#&gt; The reduced model should have fewer parameters.</span></span>
+<span><span class="co">#&gt; This usually happens when there are interactions with categorical variables.</span></span>
+<span><span class="co">#&gt; For an explanation, see:</span></span>
+<span><span class="co">#&gt; https://joshuawiley.com/multilevelTools/articles/lmer-vignette.html</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Term</th>
+<th align="left">Est</th>
+<th align="left">Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="left">2.62*** [ 2.27, 2.98]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1</td>
+<td align="left">0.24 [-0.46, 0.94]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat1:SEScat5</td>
+<td align="left">0.33 [-0.60, 1.25]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat6</td>
+<td align="left">0.07 [-0.81, 0.96]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat1:SEScat7</td>
+<td align="left">-0.14 [-0.96, 0.69]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUScat1:SEScat8</td>
+<td align="left">-0.39 [-1.35, 0.57]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat5</td>
+<td align="left">-0.25 [-0.71, 0.21]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat6</td>
+<td align="left">0.00 [-0.48, 0.48]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat7</td>
+<td align="left">0.06 [-0.37, 0.50]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat8</td>
+<td align="left">0.33 [-0.31, 0.96]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">sd_(Intercept)|UserID</td>
+<td align="left">0.80</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="even">
+<td align="left">sigma</td>
+<td align="left">0.72</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">Model DF</td>
+<td align="left">12</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">N (Groups)</td>
+<td align="left">UserID (185)</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">N (Observations)</td>
+<td align="left">6210</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">logLik</td>
+<td align="left">-7149.26</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">14322.53</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">14403.34</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Marginal R2</td>
+<td align="left">0.03</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Marginal F2</td>
+<td align="left">0.03</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Conditional R2</td>
+<td align="left">0.55</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Conditional F2</td>
+<td align="left">1.21</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat (Fixed)</td>
+<td align="left">NA/ NA, NA</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat (Fixed)</td>
+<td align="left">NA/ NA, NA</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUScat:SEScat (Fixed)</td>
+<td align="left">0.01/0.00, p = .560</td>
+<td align="left">Effect Sizes</td>
+</tr>
+</tbody>
+</table>
+<div class="section level4">
+<h4 id="if-you-really-want">If you really want<a class="anchor" aria-label="anchor" href="#if-you-really-want"></a>
+</h4>
+<p>What if you really want those tests for the simple main effects of a
+categorical predictor? This can be done by manually dummy coding
+predictors and creating the two, nested, models to compare.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## manually dummy code</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat5</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat6</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">6</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat7</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">7</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat8</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">## interaction model</span></span>
+<span><span class="va">m.intman</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">PosAff</span> <span class="op">~</span> <span class="va">BornAUS</span> <span class="op">*</span> <span class="op">(</span><span class="va">SEScat5</span> <span class="op">+</span> <span class="va">SEScat6</span> <span class="op">+</span> <span class="va">SEScat7</span> <span class="op">+</span> <span class="va">SEScat8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                   <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">UserID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## drop just the simple main effects of SEScat</span></span>
+<span><span class="va">m.intmandrop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">m.intman</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">SEScat5</span> <span class="op">-</span> <span class="va">SEScat6</span> <span class="op">-</span> <span class="va">SEScat7</span> <span class="op">-</span> <span class="va">SEScat8</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can compare the two models. As expected, they differ by 4
+degrees of freedom.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelCompare.html" class="external-link">modelCompare</a></span><span class="op">(</span><span class="va">m.intmandrop</span>, <span class="va">m.intman</span><span class="op">)</span><span class="op">$</span><span class="va">Comparison</span><span class="op">)</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">"manual model comparison"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; When using REML, the fixed effects structure must be identical,</span></span>
+<span><span class="co">#&gt; but was different. Refitting with ML.</span></span></code></pre></div>
+<table class="table">
+<caption>manual model comparison</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Model</td>
+<td align="left">Model 1</td>
+<td align="left">Model 2</td>
+<td align="left">Difference</td>
+</tr>
+<tr class="even">
+<td align="left">Estimator</td>
+<td align="left">ML</td>
+<td align="left">ML</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">N_Obs</td>
+<td align="left">6210</td>
+<td align="left">6210</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">N_Groups</td>
+<td align="left">UserID (185)</td>
+<td align="left">UserID (185)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">14319.07236</td>
+<td align="left">14322.52961</td>
+<td align="left">3.45726</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">14372.94368</td>
+<td align="left">14403.33661</td>
+<td align="left">30.39292</td>
+</tr>
+<tr class="odd">
+<td align="left">LL</td>
+<td align="left">-7151.53618</td>
+<td align="left">-7149.26481</td>
+<td align="left">2.27137</td>
+</tr>
+<tr class="even">
+<td align="left">LLDF</td>
+<td align="left">8</td>
+<td align="left">12</td>
+<td align="left">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Sigma</td>
+<td align="left">7.244035e-01</td>
+<td align="left">7.244022e-01</td>
+<td align="left">-1.323768e-06</td>
+</tr>
+<tr class="even">
+<td align="left">MarginalR2</td>
+<td align="left">0.01283841</td>
+<td align="left">0.02618203</td>
+<td align="left">0.01334362</td>
+</tr>
+<tr class="odd">
+<td align="left">ConditionalR2</td>
+<td align="left">5.475209e-01</td>
+<td align="left">5.475707e-01</td>
+<td align="left">4.989143e-05</td>
+</tr>
+<tr class="even">
+<td align="left">MarginalF2</td>
+<td align="left">0.01300538</td>
+<td align="left">0.02688596</td>
+<td align="left">0.01370238</td>
+</tr>
+<tr class="odd">
+<td align="left">ConditionalF2</td>
+<td align="left">1.2100466088</td>
+<td align="left">1.2102903207</td>
+<td align="left">0.0001102745</td>
+</tr>
+<tr class="even">
+<td align="left">Chi2</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">4.54274</td>
+</tr>
+<tr class="odd">
+<td align="left">P</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">0.3375096</td>
+</tr>
+</tbody>
+</table>
+<p>Incidentally, while you can still use <code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> with
+this model, <code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> no longer knows that SEScat5 to 8
+belong to the same variable, so they are tested individually, and you do
+not get the omnibus test.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest</a></span><span class="op">(</span><span class="va">m.intman</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Parameters and CIs are based on REML, </span></span>
+<span><span class="co">#&gt; but modelTests requires ML not REML fit for comparisons, </span></span>
+<span><span class="co">#&gt; and these are used in effect sizes. Refitting.</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Term</th>
+<th align="left">Est</th>
+<th align="left">Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="left">2.62*** [ 2.27, 2.98]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUS</td>
+<td align="left">0.24 [-0.46, 0.94]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUS:SEScat5</td>
+<td align="left">0.33 [-0.60, 1.25]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUS:SEScat6</td>
+<td align="left">0.07 [-0.81, 0.96]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUS:SEScat7</td>
+<td align="left">-0.14 [-0.96, 0.69]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUS:SEScat8</td>
+<td align="left">-0.39 [-1.35, 0.57]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat5</td>
+<td align="left">-0.25 [-0.71, 0.21]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat6</td>
+<td align="left">0.00 [-0.48, 0.48]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat7</td>
+<td align="left">0.06 [-0.37, 0.50]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat8</td>
+<td align="left">0.33 [-0.31, 0.96]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">sd_(Intercept)|UserID</td>
+<td align="left">0.80</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="even">
+<td align="left">sigma</td>
+<td align="left">0.72</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">Model DF</td>
+<td align="left">12</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">N (Groups)</td>
+<td align="left">UserID (185)</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">N (Observations)</td>
+<td align="left">6210</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">logLik</td>
+<td align="left">-7149.26</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">14322.53</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">14403.34</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Marginal R2</td>
+<td align="left">0.03</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Marginal F2</td>
+<td align="left">0.03</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Conditional R2</td>
+<td align="left">0.55</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Conditional F2</td>
+<td align="left">1.21</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUS (Fixed)</td>
+<td align="left">0.00/0.00, p = .487</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat5 (Fixed)</td>
+<td align="left">0.00/0.00, p = .279</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat6 (Fixed)</td>
+<td align="left">0.00/0.00, p = .994</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">SEScat7 (Fixed)</td>
+<td align="left">0.00/0.00, p = .765</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">SEScat8 (Fixed)</td>
+<td align="left">0.00/0.00, p = .304</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUS:SEScat5 (Fixed)</td>
+<td align="left">0.00/0.00, p = .475</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUS:SEScat6 (Fixed)</td>
+<td align="left">0.00/0.00, p = .865</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">BornAUS:SEScat7 (Fixed)</td>
+<td align="left">0.00/0.00, p = .736</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">BornAUS:SEScat8 (Fixed)</td>
+<td align="left">0.00/0.00, p = .415</td>
+<td align="left">Effect Sizes</td>
+</tr>
+</tbody>
+</table>
+<p>The general principle is that with categorical variables,
+<code><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest()</a></code> will support the highest order interaction in
+the model, but none of the lower order interactions or main effects.</p>
+<p>Thus with a two-way interaction, the two-way interaction can be
+tested but not the simple main effects involved. With a three-way
+interaction, the three-way interaction can be tested but not the simple
+two-way interactions nor the simiple main effects involved. Any of these
+can be tested manually using <code><a href="https://joshuawiley.com/JWileymisc/reference/modelCompare.html" class="external-link">modelCompare()</a></code>.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="interactions-with-continuous-variables">Interactions with Continuous Variables<a class="anchor" aria-label="anchor" href="#interactions-with-continuous-variables"></a>
+</h3>
+<p>Continuous interactions do not pose the same challenges and in
+<code>R</code> we can easily remove specific simple components to test
+whether they differ from zero.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m.cint</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">PosAff</span> <span class="op">~</span> <span class="va">STRESS</span> <span class="op">*</span> <span class="va">NegAff</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">UserID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">aces_daily</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelTest.html" class="external-link">modelTest</a></span><span class="op">(</span><span class="va">m.cint</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Parameters and CIs are based on REML, </span></span>
+<span><span class="co">#&gt; but modelTests requires ML not REML fit for comparisons, </span></span>
+<span><span class="co">#&gt; and these are used in effect sizes. Refitting.</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Term</th>
+<th align="left">Est</th>
+<th align="left">Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="left">3.85*** [ 3.73, 3.98]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">NegAff</td>
+<td align="left">-0.61*** [-0.66, -0.56]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">STRESS</td>
+<td align="left">-0.21*** [-0.23, -0.20]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="even">
+<td align="left">STRESS:NegAff</td>
+<td align="left">0.06*** [ 0.05, 0.07]</td>
+<td align="left">Fixed Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">sd_(Intercept)|UserID</td>
+<td align="left">0.72</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="even">
+<td align="left">sigma</td>
+<td align="left">0.62</td>
+<td align="left">Random Effects</td>
+</tr>
+<tr class="odd">
+<td align="left">Model DF</td>
+<td align="left">6</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">N (Groups)</td>
+<td align="left">UserID (191)</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">N (Observations)</td>
+<td align="left">6386</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">logLik</td>
+<td align="left">-6405.06</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">AIC</td>
+<td align="left">12822.13</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">BIC</td>
+<td align="left">12862.70</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Marginal R2</td>
+<td align="left">0.21</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Marginal F2</td>
+<td align="left">0.27</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">Conditional R2</td>
+<td align="left">0.66</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="even">
+<td align="left">Conditional F2</td>
+<td align="left">1.94</td>
+<td align="left">Overall Model</td>
+</tr>
+<tr class="odd">
+<td align="left">STRESS (Fixed)</td>
+<td align="left">0.07/0.10, p &lt; .001</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="even">
+<td align="left">NegAff (Fixed)</td>
+<td align="left">0.08/0.11, p &lt; .001</td>
+<td align="left">Effect Sizes</td>
+</tr>
+<tr class="odd">
+<td align="left">STRESS:NegAff (Fixed)</td>
+<td align="left">0.02/0.03, p &lt; .001</td>
+<td align="left">Effect Sizes</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
