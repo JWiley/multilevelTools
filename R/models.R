@@ -740,3 +740,119 @@ modelTest.merMod <- function(object, method = c("Wald", "profile", "boot"), cont
   as.modelTest(out)
 }
 
+
+#' Create lag variables and evaluate models with different number of lags
+#'
+#' This function creates the desired number of lags and tests consecutive models
+#' from a model with no lags (lag 0), lag 0 + lag1, etc. and reports model performance.
+#' This helps evaluate how many lags are needed.
+#'
+#' Currently only linear mixed effects models are allowed.
+#'
+#' @param formula A \code{character} string giving the \code{lmer()} formula
+#'   to use as a base. The variable to be tested with lags gets added as fixed effects
+#'   only to this, currently.
+#' @param lagvar A \code{character} string giving the name of the variable to test lags for.
+#' @param nlags An \code{integer} (e.g., 0L, 3L) giving the number of lags to test. Defaults
+#'   to 0L but really should be more. Must be a positive integer.
+#' @param idvar A \code{character} string giving the name o the ID variable.
+#' @param data A \code{data.table} dataset ideally or at least a \code{data.frame}.
+#' @param ... Additional arguments passed to \code{lmer}, used to control model fitting.
+#' @importFrom JWileymisc lagk
+#' @importFrom data.table as.data.table is.data.table copy
+#' @importFrom stats formula as.formula get_all_vars
+#' @importFrom lme4 lmer
+#' @export
+#' @examples
+#' ## these examples are slow to run
+#' data(aces_daily, package = "JWileymisc")
+#'
+#' evaluateLags(
+#'  "NegAff ~ Female + Age + BornAUS + (1 | UserID)",
+#'  "STRESS",
+#'  4L,
+#'  "UserID",
+#'  aces_daily)
+#'
+#' \donttest{
+#'  ## not run, more complex example with random slope, fails to converge
+#' evaluateLags(
+#'  "NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID)",
+#'  "STRESS",
+#'  5L,
+#'  "UserID",
+#'  aces_daily)
+#'
+#' ## use different control to fit model and now converges
+#' strictControl <- lme4::lmerControl(optCtrl = list(
+#'    algorithm = "NLOPT_LN_NELDERMEAD",
+#'    xtol_abs = 1e-10,
+#'    ftol_abs = 1e-10))
+#' evaluateLags(
+#'  "NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID)",
+#'  "STRESS",
+#'  5L,
+#'  "UserID",
+#'  aces_daily,
+#' control = strictControl)
+#' }
+evaluateLags <- function(formula, lagvar, nlags = 0L, idvar, data, ...) {
+  ## data(aces_daily)
+  ## aces_daily <- as.data.table(aces_daily)
+  ## formula <- "NegAff ~ Female + Age + BornAUS + (1 | UserID)"
+  ## lagvar <- "STRESS"
+  ## nlags <- 2L
+  ## idvar <- "UserID"
+  ## data <- copy(aces_daily)
+  stopifnot(is.character(formula) && identical(length(formula), 1L))
+  stopifnot(is.character(lagvar) && identical(length(lagvar), 1L))
+  stopifnot(is.character(idvar) && identical(length(idvar), 1L))
+  stopifnot(is.integer(nlags) && identical(length(nlags), 1L))
+  stopifnot(nlags >= 0)
+
+  stopifnot(is.data.frame(data) || is.data.table(data))
+  if (!is.data.table(data)) {
+    data <- as.data.table(data)
+  }
+  data <- copy(data)
+
+  if (nlags > 0) {
+    lags <- paste0(lagvar, "Lag", 1:nlags)
+    data[, (lags) := lapply(1:nlags, function(i) lagk(get(lagvar), k=i)), by = idvar]
+    lags <- c(lagvar, lags)
+  }
+
+  formula <- lapply(seq_along(lags), function(i) {
+   sprintf("%s + %s", formula, paste(lags[1:i], collapse = " + "))
+  })
+
+  mf <- na.omit(get_all_vars(
+    as.formula(formula[[length(formula)]]),
+    data = data))
+
+  stopifnot(isFALSE(anyNA(mf)))
+
+  do.call(rbind, lapply(seq_along(formula), function(i) {
+    m <- tryCatch(lmer(as.formula(formula[[i]]), data = mf, REML = FALSE, ...),
+                  error = function(e) e)
+    if (isTRUE(inherits(m, "error"))) {
+      mp <- data.table(
+        Model = "Error/Failed",
+        Estimator = "ML",
+        N_Obs = NA_real_,
+        N_Groups = NA_character_,
+        AIC = NA_real_,
+        BIC = NA_real_,
+        LL = NA_real_,
+        LLDF = NA_real_,
+        Sigma = NA_real_,
+        MarginalR2 = NA_real_,
+        ConditionalR2 = NA_real_,
+        MarginalF2 = NA_real_,
+        ConditionalF2 = NA_real_)
+    } else {
+      mp <- modelPerformance(m)$Performance
+    }
+    cbind(Lag = i - 1L, mp, Formula = formula[[i]])
+  }))
+}
