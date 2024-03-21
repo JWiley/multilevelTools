@@ -11,7 +11,7 @@
       "<link id=\"css\" rel=\"stylesheet\" href=\"https://bootswatch.com/5/flatly/bootstrap.css\" onload=\"document.documentElement.style.display = ''\">"
     );
   }
-</script><title>residualDiagnostics methods for lme objects — residualDiagnostics.lme • multilevelTools</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="residualDiagnostics methods for lme objects — residualDiagnostics.lme"><meta property="og:description" content="residualDiagnostics methods for lme objects"><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@WileyResearch"><meta name="twitter:site" content="https://joshuawiley.com"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+</script><title>residualDiagnostics methods for lme objects — residualDiagnostics.lme • multilevelTools</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="residualDiagnostics methods for lme objects — residualDiagnostics.lme"><meta property="og:description" content="residualDiagnostics methods for lme objects"><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@WileyResearch"><meta name="twitter:site" content="https://joshuawiley.com"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--><!-- Flatly Theme - Light  --><link id="css-light" rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"><!-- Darkly Theme - Dark --><link id="css-dark" rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.css" media="(prefers-color-scheme: dark)"><!-- preferably CSS --><link rel="stylesheet" href="../preferably.css"><link id="css-code-light" rel="stylesheet" href="../code-color-scheme-light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"><link id="css-code-dark" rel="stylesheet" href="../code-color-scheme-dark.css" media="(prefers-color-scheme: dark)"></head><body>
@@ -134,64 +134,66 @@ residual values or not. Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-in"><span>  na.action <span class="op">=</span> <span class="va">na.omit</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/residualDiagnostics.html" class="external-link">residualDiagnostics</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">$</span><span class="va">Residuals</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Residuals  Predicted isEV Index</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -0.700128686 -0.9621668   No     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.021691421 -0.2197614   No     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -0.117253346 -1.0931795   No     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  0.658755591 -0.7001414   No     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.665700971  2.7935312   No     6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  0.323895359  3.4049239   No     7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.400316839  0.4353022   No     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -1.532411926  1.3960622   No     9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  0.279433777  1.7454295   No    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.106066416  1.9966289   No    11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  0.165397761  0.6493189   No    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: -0.320216242  1.3917243   No    13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13: -0.459161009  0.5183061   No    14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: -1.110119656  0.9113443   No    15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: -0.005506903  4.4050169   No    16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  0.530821382  5.0164096   No    17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: -0.490424510  2.0467879   No    18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  1.747982740  3.0075479   No    19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  0.047292851  3.3569151   No    20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Residuals  Predicted   isEV Index</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;      &lt;num&gt; &lt;fctr&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -0.700128686 -0.9621668     No     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.021691421 -0.2197614     No     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -0.117253346 -1.0931795     No     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  0.658755591 -0.7001414     No     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.665700971  2.7935312     No     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  0.323895359  3.4049239     No     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.400316839  0.4353022     No     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -1.532411926  1.3960622     No     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  0.279433777  1.7454295     No    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.106066416  1.9966289     No    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  0.165397761  0.6493189     No    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: -0.320216242  1.3917243     No    13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: -0.459161009  0.5183061     No    14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: -1.110119656  0.9113443     No    15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: -0.005506903  4.4050169     No    16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  0.530821382  5.0164096     No    17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: -0.490424510  2.0467879     No    18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  1.747982740  3.0075479     No    19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  0.047292851  3.3569151     No    20</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">nlme</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/lme.html" class="external-link">lme</a></span><span class="op">(</span><span class="va">hp</span> <span class="op">~</span> <span class="va">mpg</span>, data <span class="op">=</span> <span class="va">mtcars</span>, random <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">cyl</span>,</span></span>
 <span class="r-in"><span>  na.action <span class="op">=</span> <span class="va">na.omit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/residualDiagnostics.html" class="external-link">residualDiagnostics</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">$</span><span class="va">Residuals</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Residuals Predicted isEV Index</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -0.23664029 118.76861   No     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: -0.23664029 118.76861   No     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -0.22511638 101.34160   No     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: -0.18972936 117.03034   No     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: -0.43428124 191.09211   No     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: -0.71168060 131.37103   No     6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.93880308 210.21303   No     7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.87407610  94.38853   No     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: -0.17114196 101.34160   No     9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.09690578 126.59080   No    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11: -0.26109405 132.67473   No    11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: -0.56908306 201.08714   No    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13: -0.46353346 197.17604   No    13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: -0.70981586 206.30194   No    14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: -0.59806685 227.16112   No    15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: -0.32819477 227.16112   No    16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  0.58090589 208.47477   No    17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  0.17209140  59.62322   No    18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19: -0.44028418  68.31455   No    19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  0.32102019  53.10473   No    20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21: -0.26962808 106.99096   No    21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22: -1.48424891 204.99824   No    22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23: -1.51943211 206.30194   No    23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  0.82152575 214.55870   No    24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25: -0.37564257 188.91928   No    25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26: -0.42602300  81.78611   No    26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  0.09619667  87.43547   No    27</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:  1.20593552  68.31455   No    28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  1.62747604 203.69454   No    29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:  1.36506772 124.41797   No    30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:  3.44974596 207.17107  Yes    31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  0.04249069 107.42552   No    32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Residuals Predicted isEV Index</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Residuals Predicted   isEV Index</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt;     &lt;num&gt; &lt;fctr&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -0.23664029 118.76861     No     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: -0.23664029 118.76861     No     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -0.22511638 101.34160     No     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: -0.18972936 117.03034     No     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: -0.43428124 191.09211     No     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: -0.71168060 131.37103     No     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.93880308 210.21303     No     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.87407610  94.38853     No     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: -0.17114196 101.34160     No     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.09690578 126.59080     No    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: -0.26109405 132.67473     No    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: -0.56908306 201.08714     No    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: -0.46353346 197.17604     No    13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: -0.70981586 206.30194     No    14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: -0.59806685 227.16112     No    15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: -0.32819477 227.16112     No    16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  0.58090589 208.47477     No    17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  0.17209140  59.62322     No    18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: -0.44028418  68.31455     No    19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  0.32102019  53.10473     No    20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21: -0.26962808 106.99096     No    21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22: -1.48424891 204.99824     No    22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23: -1.51943211 206.30194     No    23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24:  0.82152575 214.55870     No    24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25: -0.37564257 188.91928     No    25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26: -0.42602300  81.78611     No    26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27:  0.09619667  87.43547     No    27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28:  1.20593552  68.31455     No    28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29:  1.62747604 203.69454     No    29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30:  1.36506772 124.41797     No    30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31:  3.44974596 207.17107    Yes    31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32:  0.04249069 107.42552     No    32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Residuals Predicted   isEV Index</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">sleep</span><span class="op">)</span></span></span>
 </code></pre></div>

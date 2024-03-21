@@ -21,8 +21,8 @@
   }
 </script><title>Multilevel Models using lmer • multilevelTools</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Multilevel Models using lmer">
 <meta property="og:description" content="multilevelTools">
@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Joshua F.
 Wiley</h4>
             
-            <h4 data-toc-skip class="date">2023-02-14</h4>
+            <h4 data-toc-skip class="date">2024-03-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JWiley/multilevelTools/blob/HEAD/vignettes/lmer-vignette.Rmd" class="external-link"><code>vignettes/lmer-vignette.Rmd</code></a></small>
       <div class="d-none name"><code>lmer-vignette.Rmd</code></div>
@@ -141,7 +141,7 @@ models.</p>
 <span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     step</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://joshuawiley.com/extraoperators" class="external-link">extraoperators</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuawiley.com/extraoperators/" class="external-link">extraoperators</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuawiley.com/JWileymisc/" class="external-link">JWileymisc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuawiley.com/multilevelTools">multilevelTools</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
@@ -242,11 +242,13 @@ vary within a person across the day and the 12-days of the study.</p>
 <span>  id <span class="op">=</span> <span class="st">"UserID"</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">aces_daily</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Var     Sigma       ICC</span></span>
+<span><span class="co">#&gt;      &lt;char&gt;     &lt;num&gt;     &lt;num&gt;</span></span>
 <span><span class="co">#&gt; 1:   UserID 0.2100950 0.4374139</span></span>
 <span><span class="co">#&gt; 2: Residual 0.2702166 0.5625861</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/iccMixed.html">iccMixed</a></span><span class="op">(</span><span class="st">"STRESS"</span>, <span class="st">"UserID"</span>, <span class="va">aces_daily</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Var   Sigma       ICC</span></span>
+<span><span class="co">#&gt;      &lt;char&gt;   &lt;num&gt;     &lt;num&gt;</span></span>
 <span><span class="co">#&gt; 1:   UserID 2.04045 0.3228825</span></span>
 <span><span class="co">#&gt; 2: Residual 4.27903 0.6771175</span></span></code></pre></div>
 <p>Finally, we might want to examine the distribution of the variables
@@ -433,6 +435,7 @@ shows it is three IDs.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mvextreme</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      NegAff UserID Index                        EffectType</span></span>
+<span><span class="co">#&gt;       &lt;num&gt;  &lt;int&gt; &lt;int&gt;                            &lt;char&gt;</span></span>
 <span><span class="co">#&gt; 1: 3.861232     56  1929 Multivariate Random Effect UserID</span></span>
 <span><span class="co">#&gt; 2: 2.362821     56  1930 Multivariate Random Effect UserID</span></span>
 <span><span class="co">#&gt; 3: 3.145248     56  1931 Multivariate Random Effect UserID</span></span>
@@ -470,7 +473,6 @@ suggests that now the random effects are fairly “clean”.</p>
 <span>  <span class="va">UserID</span> <span class="op"><a href="https://joshuawiley.com/extraoperators/reference/logicals.html" class="external-link">%!in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">mvextreme</span><span class="op">$</span><span class="va">UserID</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">mvextreme2</span><span class="op">$</span><span class="va">UserID</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">md3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelDiagnostics.html" class="external-link">modelDiagnostics</a></span><span class="op">(</span><span class="va">m3</span>, ev.perc <span class="op">=</span> <span class="fl">.001</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in rq.fit.sfn(x, y, tau = tau, rhs = rhs, control = control, ...): tiny diagonals replaced with Inf when calling blkfct</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">md3</span>, ask <span class="op">=</span> <span class="cn">FALSE</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="lmer-vignette_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
@@ -487,9 +489,11 @@ ML estimator was used.</p>
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/modelPerformance.html" class="external-link">modelPerformance</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Performance</span></span>
-<span><span class="co">#&gt;     Model Estimator N_Obs     N_Groups      AIC      BIC        LL LLDF</span></span>
-<span><span class="co">#&gt; 1: merMod      REML  6262 UserID (187) 7173.374 7213.827 -3580.687    6</span></span>
+<span><span class="co">#&gt;     Model Estimator N_Obs     N_Groups      AIC      BIC        LL  LLDF</span></span>
+<span><span class="co">#&gt;    &lt;char&gt;    &lt;char&gt; &lt;num&gt;       &lt;char&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt; 1: merMod      REML  6262 UserID (187) 7173.374 7213.827 -3580.687     6</span></span>
 <span><span class="co">#&gt;        Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2</span></span>
+<span><span class="co">#&gt;        &lt;num&gt;      &lt;num&gt;         &lt;num&gt;      &lt;num&gt;         &lt;num&gt;</span></span>
 <span><span class="co">#&gt; 1: 0.4070053  0.2428357     0.5173029  0.3207174      1.071693</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
@@ -559,6 +563,7 @@ together.</p>
 <span></span>
 <span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="va">mt3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                              Term                  Est           Type</span></span>
+<span><span class="co">#&gt;                            &lt;char&gt;               &lt;char&gt;         &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:                   (Intercept) 1.22*** [1.19, 1.25]  Fixed Effects</span></span>
 <span><span class="co">#&gt;  2:                        STRESS 0.12*** [0.10, 0.13]  Fixed Effects</span></span>
 <span><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                 0.43 Random Effects</span></span>
@@ -595,6 +600,7 @@ intervals.</p>
 <span>                          includeP <span class="op">=</span> <span class="cn">TRUE</span>, includeSign <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                          dropLeadingZero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                              Term                            Est           Type</span></span>
+<span><span class="co">#&gt;                            &lt;char&gt;                         &lt;char&gt;         &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:                   (Intercept) 1.217, p &lt; .001 (1.189; 1.246)  Fixed Effects</span></span>
 <span><span class="co">#&gt;  2:                        STRESS 0.115, p &lt; .001 (0.104; 0.126)  Fixed Effects</span></span>
 <span><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                          0.427 Random Effects</span></span>
@@ -649,6 +655,7 @@ interpretting and utilizing the results.</p>
 <span></span>
 <span><span class="fu"><a href="https://joshuawiley.com/JWileymisc/reference/APAStyler.html" class="external-link">APAStyler</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Original <span class="op">=</span> <span class="va">mt</span>, `Outliers Removed` <span class="op">=</span> <span class="va">mt3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                              Term             Original     Outliers Removed</span></span>
+<span><span class="co">#&gt;                            &lt;char&gt;               &lt;char&gt;               &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:                   (Intercept) 1.24*** [1.20, 1.27] 1.22*** [1.19, 1.25]</span></span>
 <span><span class="co">#&gt;  2:                        STRESS 0.12*** [0.11, 0.13] 0.12*** [0.10, 0.13]</span></span>
 <span><span class="co">#&gt;  3: cor_STRESS.(Intercept)|UserID                 0.47                 0.43</span></span>
@@ -668,6 +675,7 @@ interpretting and utilizing the results.</p>
 <span><span class="co">#&gt; 17:       STRESS (Fixed + Random)  0.29/0.26, p &lt; .001  0.32/0.24, p &lt; .001</span></span>
 <span><span class="co">#&gt; 18:               STRESS (Random) -0.06/0.02, p &lt; .001 -0.07/0.01, p &lt; .001</span></span>
 <span><span class="co">#&gt;               Type</span></span>
+<span><span class="co">#&gt;             &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:  Fixed Effects</span></span>
 <span><span class="co">#&gt;  2:  Fixed Effects</span></span>
 <span><span class="co">#&gt;  3: Random Effects</span></span>
@@ -702,7 +710,7 @@ interactions involving one or more categorical variables.</p>
 <p>First let’s take a look at an example with all categorical variables.
 We will start with a model that does not have any interactions.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">aces_daily</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">SES_1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">BornAUS</span><span class="op">)</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">aces_daily</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">SES_1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">BornAUS</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">SES_1</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">d</span><span class="op">[</span>, <span class="va">BornAUScat</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">BornAUS</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
@@ -837,7 +845,7 @@ reflecting a different number of parameters: the coefficients for
 <td align="left">Sigma</td>
 <td align="left">7.244037e-01</td>
 <td align="left">7.244031e-01</td>
-<td align="left">-5.616652e-07</td>
+<td align="left">-5.615116e-07</td>
 </tr>
 <tr class="even">
 <td align="left">MarginalR2</td>
@@ -849,7 +857,7 @@ reflecting a different number of parameters: the coefficients for
 <td align="left">ConditionalR2</td>
 <td align="left">5.475067e-01</td>
 <td align="left">5.475264e-01</td>
-<td align="left">1.972763e-05</td>
+<td align="left">1.972412e-05</td>
 </tr>
 <tr class="even">
 <td align="left">MarginalF2</td>
@@ -861,7 +869,7 @@ reflecting a different number of parameters: the coefficients for
 <td align="left">ConditionalF2</td>
 <td align="left">1.209977e+00</td>
 <td align="left">1.210074e+00</td>
-<td align="left">4.359951e-05</td>
+<td align="left">4.359177e-05</td>
 </tr>
 <tr class="even">
 <td align="left">Chi2</td>
@@ -1289,10 +1297,10 @@ categorical predictor? This can be done by manually dummy coding
 predictors and creating the two, nested, models to compare.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## manually dummy code</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat5</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat6</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">6</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat7</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">7</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat8</span> <span class="op">:=</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat5</span> <span class="op">:=</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat6</span> <span class="op">:=</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">6</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat7</span> <span class="op">:=</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">7</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">d</span><span class="op">[</span>, <span class="va">SEScat8</span> <span class="op">:=</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">fifelse</a></span><span class="op">(</span><span class="va">SES_1</span> <span class="op">==</span> <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co">## interaction model</span></span>
 <span><span class="va">m.intman</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">PosAff</span> <span class="op">~</span> <span class="va">BornAUS</span> <span class="op">*</span> <span class="op">(</span><span class="va">SEScat5</span> <span class="op">+</span> <span class="va">SEScat6</span> <span class="op">+</span> <span class="va">SEScat7</span> <span class="op">+</span> <span class="va">SEScat8</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1363,7 +1371,7 @@ degrees of freedom.</p>
 <td align="left">Sigma</td>
 <td align="left">7.244035e-01</td>
 <td align="left">7.244022e-01</td>
-<td align="left">-1.323768e-06</td>
+<td align="left">-1.322381e-06</td>
 </tr>
 <tr class="even">
 <td align="left">MarginalR2</td>
@@ -1373,9 +1381,9 @@ degrees of freedom.</p>
 </tr>
 <tr class="odd">
 <td align="left">ConditionalR2</td>
-<td align="left">5.475209e-01</td>
+<td align="left">5.475208e-01</td>
 <td align="left">5.475707e-01</td>
-<td align="left">4.989143e-05</td>
+<td align="left">4.986076e-05</td>
 </tr>
 <tr class="even">
 <td align="left">MarginalF2</td>
@@ -1385,9 +1393,9 @@ degrees of freedom.</p>
 </tr>
 <tr class="odd">
 <td align="left">ConditionalF2</td>
-<td align="left">1.2100466088</td>
-<td align="left">1.2102903207</td>
-<td align="left">0.0001102745</td>
+<td align="left">1.2100465035</td>
+<td align="left">1.2102900655</td>
+<td align="left">0.0001102067</td>
 </tr>
 <tr class="even">
 <td align="left">Chi2</td>

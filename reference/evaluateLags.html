@@ -13,7 +13,7 @@ This helps evaluate how many lags are needed."><!-- Inform modern browsers that 
       "<link id=\"css\" rel=\"stylesheet\" href=\"https://bootswatch.com/5/flatly/bootstrap.css\" onload=\"document.documentElement.style.display = ''\">"
     );
   }
-</script><title>Create lag variables and evaluate models with different number of lags — evaluateLags • multilevelTools</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create lag variables and evaluate models with different number of lags — evaluateLags"><meta property="og:description" content="This function creates the desired number of lags and tests consecutive models
+</script><title>Create lag variables and evaluate models with different number of lags — evaluateLags • multilevelTools</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create lag variables and evaluate models with different number of lags — evaluateLags"><meta property="og:description" content="This function creates the desired number of lags and tests consecutive models
 from a model with no lags (lag 0), lag 0 + lag1, etc. and reports model performance.
 This helps evaluate how many lags are needed."><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@WileyResearch"><meta name="twitter:site" content="https://joshuawiley.com"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -127,19 +127,22 @@ to 0L but really should be more. Must be a positive integer.</p></dd>
 <span class="r-in"><span> <span class="fl">4L</span>,</span></span>
 <span class="r-in"><span> <span class="st">"UserID"</span>,</span></span>
 <span class="r-in"><span> <span class="va">aces_daily</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL LLDF</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   0 merMod        ML  5372 UserID (190) 6751.190 6797.313 -3368.595    7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   1 merMod        ML  5372 UserID (190) 6681.458 6734.169 -3332.729    8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   2 merMod        ML  5372 UserID (190) 6648.660 6707.960 -3315.330    9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   3 merMod        ML  5372 UserID (190) 6638.343 6704.233 -3309.172   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   4 merMod        ML  5372 UserID (190) 6640.292 6712.771 -3309.146   11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL  LLDF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;char&gt;    &lt;char&gt; &lt;num&gt;       &lt;char&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0 merMod        ML  5372 UserID (190) 6751.190 6797.313 -3368.595     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     1 merMod        ML  5372 UserID (190) 6681.458 6734.169 -3332.729     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     2 merMod        ML  5372 UserID (190) 6648.660 6707.960 -3315.330     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     3 merMod        ML  5372 UserID (190) 6638.343 6704.233 -3309.172    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     4 merMod        ML  5372 UserID (190) 6640.292 6712.771 -3309.146    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;      &lt;num&gt;         &lt;num&gt;      &lt;num&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 0.4301553  0.2941101     0.5707243  0.4166516      1.329505</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: 0.4276613  0.3233266     0.5801990  0.4778178      1.382081</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: 0.4264497  0.3399432     0.5867621  0.5150211      1.419913</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4: 0.4260388  0.3483062     0.5903241  0.5344629      1.440954</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5: 0.4260312  0.3478455     0.5901544  0.5333790      1.439943</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                        Formula</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                         &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                     NegAff ~ Female + Age + BornAUS + (1 | UserID) + STRESS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                        NegAff ~ Female + Age + BornAUS + (1 | UserID) + STRESS + STRESSLag1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                           NegAff ~ Female + Age + BornAUS + (1 | UserID) + STRESS + STRESSLag1 + STRESSLag2</span>
@@ -155,14 +158,16 @@ to 0L but really should be more. Must be a positive integer.</p></dd>
 <span class="r-in"><span> <span class="st">"UserID"</span>,</span></span>
 <span class="r-in"><span> <span class="va">aces_daily</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Model failed to converge with max|grad| = 0.00302696 (tol = 0.002, component 1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL LLDF</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   0 merMod        ML  5144 UserID (190) 5903.510 5962.420 -2942.755    9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   1 merMod        ML  5144 UserID (190) 5837.591 5903.046 -2908.795   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   2 merMod        ML  5144 UserID (190) 5816.798 5888.799 -2897.399   11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   3 merMod        ML  5144 UserID (190) 5806.522 5885.069 -2891.261   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   4 merMod        ML  5144 UserID (190) 5808.423 5893.515 -2891.211   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   5 merMod        ML  5144 UserID (190) 5810.158 5901.796 -2891.079   14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL  LLDF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;char&gt;    &lt;char&gt; &lt;num&gt;       &lt;char&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0 merMod        ML  5144 UserID (190) 5903.510 5962.420 -2942.755     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     1 merMod        ML  5144 UserID (190) 5837.591 5903.046 -2908.795    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     2 merMod        ML  5144 UserID (190) 5816.798 5888.799 -2897.399    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     3 merMod        ML  5144 UserID (190) 5806.522 5885.069 -2891.261    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     4 merMod        ML  5144 UserID (190) 5808.423 5893.515 -2891.211    13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:     5 merMod        ML  5144 UserID (190) 5810.158 5901.796 -2891.079    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;      &lt;num&gt;         &lt;num&gt;      &lt;num&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 0.4021802  0.2441862     0.5872656  0.3230772      1.422865</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: 0.4001612  0.2785727     0.5956186  0.3861410      1.472913</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: 0.3994679  0.2943976     0.6000910  0.4172287      1.500569</span>
@@ -170,6 +175,7 @@ to 0L but really should be more. Must be a positive integer.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5: 0.3989923  0.3033384     0.6036954  0.4354171      1.523311</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6: 0.3989851  0.3044128     0.6041170  0.4376342      1.525999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                              Formula</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                               &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                  NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                     NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS + STRESSLag1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                        NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS + STRESSLag1 + STRESSLag2</span>
@@ -189,14 +195,16 @@ to 0L but really should be more. Must be a positive integer.</p></dd>
 <span class="r-in"><span> <span class="st">"UserID"</span>,</span></span>
 <span class="r-in"><span> <span class="va">aces_daily</span>,</span></span>
 <span class="r-in"><span>control <span class="op">=</span> <span class="va">strictControl</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL LLDF</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   0 merMod        ML  5144 UserID (190) 5903.510 5962.420 -2942.755    9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   1 merMod        ML  5144 UserID (190) 5837.591 5903.046 -2908.795   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   2 merMod        ML  5144 UserID (190) 5816.798 5888.799 -2897.399   11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   3 merMod        ML  5144 UserID (190) 5806.522 5885.069 -2891.261   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   4 merMod        ML  5144 UserID (190) 5808.423 5893.515 -2891.211   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   5 merMod        ML  5144 UserID (190) 5810.158 5901.796 -2891.079   14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Lag  Model Estimator N_Obs     N_Groups      AIC      BIC        LL  LLDF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;char&gt;    &lt;char&gt; &lt;num&gt;       &lt;char&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0 merMod        ML  5144 UserID (190) 5903.510 5962.420 -2942.755     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     1 merMod        ML  5144 UserID (190) 5837.591 5903.046 -2908.795    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     2 merMod        ML  5144 UserID (190) 5816.798 5888.799 -2897.399    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     3 merMod        ML  5144 UserID (190) 5806.522 5885.069 -2891.261    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     4 merMod        ML  5144 UserID (190) 5808.423 5893.515 -2891.211    13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:     5 merMod        ML  5144 UserID (190) 5810.158 5901.796 -2891.079    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Sigma MarginalR2 ConditionalR2 MarginalF2 ConditionalF2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;      &lt;num&gt;         &lt;num&gt;      &lt;num&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 0.4021799  0.2441830     0.5872689  0.3230717      1.422885</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: 0.4001612  0.2785749     0.5956152  0.3861453      1.472892</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: 0.3994694  0.2944043     0.6000779  0.4172423      1.500487</span>
@@ -204,6 +212,7 @@ to 0L but really should be more. Must be a positive integer.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5: 0.3989926  0.3033362     0.6036964  0.4354127      1.523318</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6: 0.3989852  0.3044130     0.6041160  0.4376347      1.525992</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                              Formula</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                               &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                  NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                     NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS + STRESSLag1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                        NegAff ~ Female + Age + BornAUS + (1 + STRESS | UserID) + STRESS + STRESSLag1 + STRESSLag2</span>
