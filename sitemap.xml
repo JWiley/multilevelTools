@@ -28,6 +28,9 @@
     <loc>https://joshuawiley.com/multilevelTools/reference/acfByID.html</loc>
   </url>
   <url>
+    <loc>https://joshuawiley.com/multilevelTools/reference/dot-make.replotdat.html</loc>
+  </url>
+  <url>
     <loc>https://joshuawiley.com/multilevelTools/reference/evaluateLags.html</loc>
   </url>
   <url>
@@ -68,6 +71,12 @@
   </url>
   <url>
     <loc>https://joshuawiley.com/multilevelTools/reference/plot.modelDiagnostics.merMod.html</loc>
+  </url>
+  <url>
+    <loc>https://joshuawiley.com/multilevelTools/reference/ranef2long.html</loc>
+  </url>
+  <url>
+    <loc>https://joshuawiley.com/multilevelTools/reference/ranefdata.html</loc>
   </url>
   <url>
     <loc>https://joshuawiley.com/multilevelTools/reference/residualDiagnostics.lme.html</loc>
