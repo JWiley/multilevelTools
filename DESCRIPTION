@@ -22,15 +22,16 @@ Imports:
     lmerTest,
     data.table (>= 1.14.6),
     nlme,
-    extraoperators (>= 0.1.1),
+    extraoperators (>= 0.2.0),
     JWileymisc (>= 1.4.0),
-    cowplot,
     ggplot2,
+    ggpubr,
+    scales,
     lavaan,
     zoo,
-    brms
+    brms,
+    testthat (>= 3.1.0)
 Suggests: 
-    testthat (>= 3.1.0),
     covr,
     knitr,
     rmarkdown

@@ -26,7 +26,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("EffectType", "OriginalO
 #' @importFrom extraoperators %sle%
 #' @importFrom nlme VarCorr ranef
 #' @importFrom data.table as.data.table :=
-#' @importFrom cowplot plot_grid
+#' @importFrom ggpubr ggarrange
 #' @importFrom ggplot2 ggtitle
 #' @importFrom grDevices dev.interactive devAskNewPage
 #' @method plot modelDiagnostics.merMod
@@ -77,7 +77,7 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
         on.exit(devAskNewPage(oask))
     }
     for (i in 1:figs) {
-      print(do.call(plot_grid, c(p[((i * k - k + 1):(i * k)) %sle% n],
+      print(do.call(ggarrange, c(p[((i * k - k + 1):(i * k)) %sle% n],
                                  ncol = ncol, nrow = nrow)))
     }
   }
@@ -111,7 +111,7 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
 #' @importFrom extraoperators %sle%
 #' @importFrom nlme VarCorr ranef
 #' @importFrom data.table as.data.table :=
-#' @importFrom cowplot plot_grid
+#' @importFrom ggpubr ggarrange
 #' @importFrom ggplot2 ggtitle
 #' @importFrom grDevices dev.interactive devAskNewPage
 #' @method plot modelDiagnostics.lme
@@ -165,7 +165,7 @@ plot.modelDiagnostics.lme <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1, n
         on.exit(devAskNewPage(oask))
     }
     for (i in 1:figs) {
-      print(do.call(plot_grid, c(p[((i * k - k + 1):(i * k)) %sle% n],
+      print(do.call(ggarrange, c(p[((i * k - k + 1):(i * k)) %sle% n],
                                  ncol = ncol, nrow = nrow)))
     }
   }

@@ -20,24 +20,33 @@ ranef2long <- function(x, idvar) {
   return(out)
 }
 
+
+## clear R CMD CHECK notes
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("iteration"))
+
 #' @rdname ranef2long
 #' @param d A \code{ranef} object
 #' @param i an integer, which random effect to pull out
+#' @importFrom data.table melt
 .re.data <- function(d, i, idvar) {
   xw <- as.data.table(t(d[, , i]))
   xw[, (idvar) := dimnames(d)[[2]]]
-  xlong <- melt(xw, id.vars = idvar, 
-    value.name = dimnames(d)[[3]][i], 
+  xlong <- melt(xw, id.vars = idvar,
+    value.name = dimnames(d)[[3]][i],
     variable.name = "iteration")
   xlong[, iteration := as.integer(iteration)]
   return(xlong)
 }
+
+## clear R CMD CHECK notes
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("var", "Estimate", "Q2.5", "Q97.5"))
 
 #' Convert re.data() output to a dataset for plotting
 #' 
 #' @param data A data.table object, long format random effects
 #' @param var A character string, the name of the random effect to plot
 #' @return A data.table object with the random effect in a format suitable for plotting
+#' @importFrom stats quantile
 #' @keywords internal
 .make.replotdat <- function(data, var) {
   out <- data[, .(
@@ -48,6 +57,10 @@ ranef2long <- function(x, idvar) {
   out[, ID := factor(ID, levels = ID)]
   return(out)
 }
+
+## clear R CMD CHECK notes
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
+  "interceptA", "interceptB", "sigmaA", "sigmaB", "x", "y"))
 
 #' Create data and plots for brms random effect models
 #' 
@@ -65,11 +78,15 @@ ranef2long <- function(x, idvar) {
 #'   \item{idvar}{a character string specifying the grouping variable name for the random effects}
 #' }
 #' @importFrom nlme ranef fixef
-#' @importFrom brms posterior_epred
+#' @importFrom brms posterior_epred posterior_summary
 #' @importFrom testthat expect_true
 #' @importFrom extraoperators %ain%
 #' @importFrom ggplot2 ggplot aes annotate geom_hex geom_pointrange geom_hline ggtitle
-#' @importFrom ggplot2 stat_smooth scale_fill_continuous theme_classic theme coord_flip
+#' @importFrom ggplot2 stat_smooth scale_fill_continuous theme coord_flip
+#' @importFrom ggplot2 scale_x_continuous scale_y_continuous element_blank xlab ylab
+#' @importFrom scales breaks_log log_trans label_math
+#' @importFrom ggpubr theme_pubr
+#' @importFrom data.table setkey
 #' @export
 ranefdata <- function(object, usevars, newdata, idvar) {
   intercept <- grepl("Intercept", usevars)
@@ -151,7 +168,7 @@ ranefdata <- function(object, usevars, newdata, idvar) {
     tmpplot <- tmpplot +
       xlab("ID") +
       ylab(usevars[i]) +
-      theme_classic() +
+      theme_pubr() +
       theme(axis.text.y = element_blank()) +
       coord_flip()
 
@@ -195,7 +212,7 @@ ranefdata <- function(object, usevars, newdata, idvar) {
       stat_smooth(method = "lm", formula = y ~ x, se = FALSE,
         colour = "white", linewidth = 2) + 
       scale_fill_continuous(type = "viridis") + 
-      theme_classic() + 
+      theme_pubr() + 
       xlab(tmp[i, A]) + ylab(tmp[i, B])
 
     if (tmp[i, interceptA] & tmp[i, sigmaA]) {
@@ -271,6 +288,8 @@ ls.me <- brm(bf(
   data = dmixed, seed = 1234,
   silent = 2, refresh = 0, iter = 4000, warmup = 1000, thin = 3,
   chains = 4L, cores = 4L, backend = "cmdstanr")
+saveRDS(ls.me, "ls.me.rds")
+ls.me <- readRDS("ls.me.rds")
 
 out <- ranefdata(
   ls.me,
@@ -278,6 +297,7 @@ out <- ranefdata(
   usevars = c("Intercept", "x", "sigma_Intercept", "sigma_x"),
   idvar = "ID")
 
+library(ggpubr)
 do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
 do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
 

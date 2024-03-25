@@ -28,7 +28,7 @@ meanDecompose(mpg ~ vs + cyl, data = mtcars)
 
 ## Example plotting the results
 tmp <- meanDecompose(Sepal.Length ~ Species, data = iris)
-do.call(cowplot::plot_grid, c(lapply(names(tmp), function(x) {
+do.call(ggpubr::ggarrange, c(lapply(names(tmp), function(x) {
   plot(JWileymisc::testDistribution(tmp[[x]]$X), plot = FALSE, varlab = x)$Density
 }), ncol = 1))
 
