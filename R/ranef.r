@@ -33,7 +33,7 @@ ranef2long <- function(x, idvar) {
   return(xlong)
 }
 
-#' @name Convert re.data() output to a dataset for plotting
+#' Convert re.data() output to a dataset for plotting
 #' 
 #' @param data A data.table object, long format random effects
 #' @param var A character string, the name of the random effect to plot
@@ -69,7 +69,7 @@ ranef2long <- function(x, idvar) {
 #' @importFrom testthat expect_true
 #' @importFrom extraoperators %ain%
 #' @importFrom ggplot2 ggplot aes annotate geom_hex geom_pointrange geom_hline ggtitle
-#' @importFrom ggplot2 stat_smooth scale_fill_continuous theme_classic theme axis.text.y coord_flip
+#' @importFrom ggplot2 stat_smooth scale_fill_continuous theme_classic theme coord_flip
 #' @export
 ranefdata <- function(object, usevars, newdata, idvar) {
   intercept <- grepl("Intercept", usevars)
