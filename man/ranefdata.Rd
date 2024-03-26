@@ -29,3 +29,56 @@ a list with the following components:
 \description{
 Create data and plots for brms random effect models
 }
+\examples{
+\donttest{
+if (FALSE) {
+library(data.table)
+library(brms)
+library(cmdstanr)
+library(ggpubr)
+
+dmixed <- withr::with_seed(
+  seed = 12345, code = {
+    nGroups <- 100
+    nObs <- 20
+    theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
+    theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
+    theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
+    theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
+    theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
+    theta.location <- theta.location \%*\% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
+    theta.location[, 1] <- theta.location[, 1] - 2.5
+    theta.location[, 2] <- theta.location[, 2] + 1
+    dmixed <- data.table(
+      x = rep(rep(0:1, each = nObs / 2), times = nGroups))
+    dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+
+    for (i in seq_len(nGroups)) {
+      dmixed[ID == i, y := rnorm(
+        n = nObs,
+        mean = theta.location[i, 1] + theta.location[i, 2] * x,
+        sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
+        ]
+    }
+    copy(dmixed)
+  })
+
+ls.me <- brm(bf(
+  y ~ 1 + x + (1 + x | p | ID),
+  sigma ~ 1 + x + (1 + x | p | ID)),
+  family = "gaussian",
+  data = dmixed, seed = 1234,
+  silent = 2, refresh = 0, iter = 2000, warmup = 1000, thin = 1,
+  chains = 4L, cores = 4L, backend = "cmdstanr")
+
+out <- ranefdata(
+  ls.me,
+  newdata = data.table(ID = dmixed$ID[1], x = 0), 
+  usevars = c("Intercept", "x", "sigma_Intercept", "sigma_x"),
+  idvar = "ID")
+
+do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
+do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
+}
+}
+}

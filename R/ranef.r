@@ -27,7 +27,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("iteration"))
 #' @rdname ranef2long
 #' @param d A \code{ranef} object
 #' @param i an integer, which random effect to pull out
-#' @importFrom data.table melt
+#' @importFrom data.table as.data.table melt
 .re.data <- function(d, i, idvar) {
   xw <- as.data.table(t(d[, , i]))
   xw[, (idvar) := dimnames(d)[[2]]]
@@ -86,8 +86,60 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' @importFrom ggplot2 scale_x_continuous scale_y_continuous element_blank xlab ylab
 #' @importFrom scales breaks_log log_trans label_math
 #' @importFrom ggpubr theme_pubr
-#' @importFrom data.table setkey
+#' @importFrom data.table setkey data.table
 #' @export
+#' @examples
+#' \donttest{
+#' if (FALSE) {
+#' library(data.table)
+#' library(brms)
+#' library(cmdstanr)
+#' library(ggpubr)
+#' 
+#' dmixed <- withr::with_seed(
+#'   seed = 12345, code = {
+#'     nGroups <- 100
+#'     nObs <- 20
+#'     theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
+#'     theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
+#'     theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
+#'     theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
+#'     theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
+#'     theta.location <- theta.location %*% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
+#'     theta.location[, 1] <- theta.location[, 1] - 2.5
+#'     theta.location[, 2] <- theta.location[, 2] + 1
+#'     dmixed <- data.table(
+#'       x = rep(rep(0:1, each = nObs / 2), times = nGroups))
+#'     dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+#' 
+#'     for (i in seq_len(nGroups)) {
+#'       dmixed[ID == i, y := rnorm(
+#'         n = nObs,
+#'         mean = theta.location[i, 1] + theta.location[i, 2] * x,
+#'         sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
+#'         ]
+#'     }
+#'     copy(dmixed)
+#'   })
+#' 
+#' ls.me <- brm(bf(
+#'   y ~ 1 + x + (1 + x | p | ID),
+#'   sigma ~ 1 + x + (1 + x | p | ID)),
+#'   family = "gaussian",
+#'   data = dmixed, seed = 1234,
+#'   silent = 2, refresh = 0, iter = 2000, warmup = 1000, thin = 1,
+#'   chains = 4L, cores = 4L, backend = "cmdstanr")
+#' 
+#' out <- ranefdata(
+#'   ls.me,
+#'   newdata = data.table(ID = dmixed$ID[1], x = 0), 
+#'   usevars = c("Intercept", "x", "sigma_Intercept", "sigma_x"),
+#'   idvar = "ID")
+#' 
+#' do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
+#' do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
+#' }
+#' }
 ranefdata <- function(object, usevars, newdata, idvar) {
   intercept <- grepl("Intercept", usevars)
 
@@ -240,65 +292,4 @@ ranefdata <- function(object, usevars, newdata, idvar) {
     idvar = idvar
   )
   return(out)
-}
-
-
-if (FALSE) {
-library(knitr)
-library(data.table)
-library(brms)
-library(cmdstanr)
-library(mice)
-library(miceadds)
-library(ggplot2)
-library(bayesplot)
-library(testthat)
-
-dmixed <- withr::with_seed(
-  seed = 12345, code = {
-    nGroups <- 100
-    nObs <- 20
-    theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
-    theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
-    theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
-    theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
-    theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
-    theta.location <- theta.location %*% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
-    theta.location[, 1] <- theta.location[, 1] - 2.5
-    theta.location[, 2] <- theta.location[, 2] + 1
-    dmixed <- data.table(
-      x = rep(rep(0:1, each = nObs / 2), times = nGroups))
-    dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
-
-    for (i in seq_len(nGroups)) {
-      dmixed[ID == i, y := rnorm(
-        n = nObs,
-        mean = theta.location[i, 1] + theta.location[i, 2] * x,
-        sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
-        ]
-    }
-    copy(dmixed)
-  })
-
-
-ls.me <- brm(bf(
-  y ~ 1 + x + (1 + x | p | ID),
-  sigma ~ 1 + x + (1 + x | p | ID)),
-  family = "gaussian",
-  data = dmixed, seed = 1234,
-  silent = 2, refresh = 0, iter = 4000, warmup = 1000, thin = 3,
-  chains = 4L, cores = 4L, backend = "cmdstanr")
-saveRDS(ls.me, "ls.me.rds")
-ls.me <- readRDS("ls.me.rds")
-
-out <- ranefdata(
-  ls.me,
-  newdata = data.table(ID = dmixed$ID[1], x = 0), 
-  usevars = c("Intercept", "x", "sigma_Intercept", "sigma_x"),
-  idvar = "ID")
-
-library(ggpubr)
-do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
-do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
-
 }
