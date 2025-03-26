@@ -1,7 +1,6 @@
 Package: multilevelTools
 Title: Multilevel and Mixed Effects Model Diagnostics and Effect Sizes
 Version: 0.2.0
-Date: 2024-03-24
 Authors@R: 
     person(given = "Joshua F.",
            family = "Wiley",
@@ -16,14 +15,14 @@ Description: Effect sizes, diagnostics and performance metrics for
   based on Johnson (2014) <doi:10.1111/2041-210X.12225>.
 License: GPL (>= 3)
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports:
     lme4,
     lmerTest,
     data.table (>= 1.14.6),
     nlme,
     extraoperators (>= 0.2.0),
-    JWileymisc (>= 1.4.0),
+    JWileymisc (>= 1.4.2),
     ggplot2,
     ggpubr,
     scales,
@@ -34,9 +33,11 @@ Imports:
 Suggests: 
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    withr,
+    cmdstanr
 Encoding: UTF-8
 LazyData: true
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.2

@@ -209,7 +209,6 @@ plot(testDistribution(tmp[["STRESS by residual"]]$X,
                       extremevalues = "theoretical", ev.perc = .001),
      varlab = "Within Person STRESS")
 
-
 ``` 
 
 # Mixed Effects (Multilevel) Model

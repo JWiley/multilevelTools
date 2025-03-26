@@ -3,7 +3,7 @@ multilevelTools
 
 <!-- badges: start -->
 [![CRAN_status](https://www.r-pkg.org/badges/version/multilevelTools)](https://cran.r-project.org/package=multilevelTools)
-[![R-CMD-check](https://github.com/JWiley/multilevelTools/workflows/R-CMD-check/badge.svg)](https://github.com/JWiley/multilevelTools/actions)
+[![R-CMD-check](https://github.com/JWiley/multilevelTools/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/JWiley/multilevelTools/actions/workflows/check-standard.yaml)
 [![codecov](https://codecov.io/gh/JWiley/multilevelTools/branch/main/graph/badge.svg?token=HK1Ns92mfB)](https://codecov.io/gh/JWiley/multilevelTools)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->

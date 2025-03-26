@@ -17,14 +17,12 @@ ranefdata(object, usevars, newdata, idvar)
 }
 \value{
 a list with the following components:
-\itemize{
-  \item{plot}{a list of ggplot objects}
-  \item{plotdat}{a list of data.table objects with the data used to generate the plots}
-  \item{relong}{a data.table object with the random effects in long format}
-  \item{yhat}{a list of data.table objects with the expected values for the random effects}
-  \item{usevars}{a character vector of the random effects to plot}
-  \item{idvar}{a character string specifying the grouping variable name for the random effects}
-}
+* \code{plot}: a list of ggplot objects
+* \code{plotdat}: a list of data.table objects with the data used to generate the plots
+* \code{relong}: a data.table object with the random effects in long format
+* \code{yhat}: a list of data.table objects with the expected values for the random effects
+* \code{usevars}: a character vector of the random effects to plot
+* \code{idvar}: a character string specifying the grouping variable name for the random effects
 }
 \description{
 Create data and plots for brms random effect models

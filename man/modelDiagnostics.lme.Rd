@@ -32,7 +32,7 @@ Defaults to \dQuote{normal}.}
 Defaults to \code{TRUE} generally where possible but may depend on
 method.}
 
-\item{...}{Additional arguments, not currently used.}
+\item{...}{Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.}
 }
 \value{
 A logical (\code{is.modelDiagnostics}) or

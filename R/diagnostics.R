@@ -18,6 +18,19 @@ if(getRversion() >= "2.15.1") {
 #'   \code{glmer()} models are supported.
 #' @param standardized A logical value whether to use standardized
 #'   residual values or not. Defaults to \code{TRUE}.
+#' @param cut An integer, how many unique predicted values
+#'   there have to be at least for predicted values to be
+#'   treated continuously, otherwise they are treated as discrete values.
+#'   Defaults to 8.
+#' @param quantiles A logical whether to calculate quantiles for the
+#'   residuals.  Defaults to \code{TRUE}. If \code{FALSE}, then
+#'   do not calculate them. These are based on simple quantiles for
+#'   each predicted value if the predicted values are few enough to be
+#'   treated discretely. See \code{cut} argument. Otherwise they are
+#'   based on quantile regression. First trying smoothing splines,
+#'   and falling back to linear quantil regression if the splines
+#'   fail. You may also want to turn these off if they are not working well,
+#'   or are not of value in your diagnostics.
 #' @param ... Additional arguments. Not currently used.
 #' @return A logical (\code{is.residualDiagnostics}) or
 #'   a residualDiagnostics object (list) for
@@ -42,7 +55,7 @@ if(getRversion() >= "2.15.1") {
 #'
 residualDiagnostics.merMod <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
-                                   standardized = TRUE, ...) {
+                                   standardized = TRUE, cut = 8L, quantiles = TRUE, ...) {
   if (isGLMM(object)) stop("currently glmer() models are not supported")
   d.frame <- model.frame(object)
   naaction <- attr(d.frame, "na.action")
@@ -68,9 +81,22 @@ residualDiagnostics.merMod <- function(object, ev.perc = .001,
     Residuals = residuals(object, type = "response", scaled = standardized),
     Predicted = fitted(object))
 
+  if (isTRUE(quantiles)) {
   d.hat <- .quantilePercentiles(
     data = d.res,
-    LL = .1, UL = .9)
+    Mid = 0.5, LL = 0.05, UL = 0.95,
+    cut = cut)
+  } else {
+    d.hat <- data.table(
+      Predicted = seq(
+        min(d.res$Predicted, na.rm = TRUE),
+        max(d.res$Predicted, na.rm = TRUE),
+        length.out = 1000),
+      Mid = NA_real_,
+      LL = NA_real_,
+      UL = NA_real_,
+      cut = cut)
+  }
 
   d.dist <- testDistribution(
     x = d.res$Residuals,
@@ -121,7 +147,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #' @param standardized A logical whether to use standardized residuals.
 #'   Defaults to \code{TRUE} generally where possible but may depend on
 #'   method.
-#' @param ... Additional arguments, not currently used.
+#' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @return A logical (\code{is.modelDiagnostics}) or
 #'   a modelDiagnostics object (list) for
 #'   \code{as.modelDiagnostics} and \code{modelDiagnostics}.
@@ -162,7 +188,8 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
                            ev.perc = ev.perc,
                            robust = robust,
                            distr = distr,
-                           standardized = standardized)
+                           standardized = standardized,
+                           ...)
 
   idvars <- names(VarCorr(object))
 
@@ -234,9 +261,6 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
   as.modelDiagnostics(out)
 }
 
-
-
-
 #' residualDiagnostics methods for lme objects
 #'
 #' @param object An object with class \code{lme}.
@@ -249,6 +273,19 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
 #'   future.
 #' @param standardized A logical value whether to use standardized pearson
 #'   residual values or not. Defaults to \code{TRUE}.
+#' @param cut An integer, how many unique predicted values
+#'   there have to be at least for predicted values to be
+#'   treated continuously, otherwise they are treated as discrete values.
+#'   Defaults to 8.
+#' @param quantiles A logical whether to calculate quantiles for the
+#'   residuals.  Defaults to \code{TRUE}. If \code{FALSE}, then
+#'   do not calculate them. These are based on simple quantiles for
+#'   each predicted value if the predicted values are few enough to be
+#'   treated discretely. See \code{cut} argument. Otherwise they are
+#'   based on quantile regression. First trying smoothing splines,
+#'   and falling back to linear quantil regression if the splines
+#'   fail. You may also want to turn these off if they are not working well,
+#'   or are not of value in your diagnostics.
 #' @param ... Additional arguments. Not currently used.
 #' @return A logical (\code{is.residualDiagnostics}) or
 #'   a residualDiagnostics object (list) for
@@ -275,7 +312,7 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
 #' rm(m, sleep)
 residualDiagnostics.lme <- function(object, ev.perc = .001,
                                    robust = FALSE, distr = "normal",
-                                   standardized = TRUE, ...) {
+                                   standardized = TRUE, cut = 8L, quantiles = TRUE, ...) {
   d.frame <- na.omit(cbind(
     get_all_vars(formula(object), data = object$data),
     get_all_vars(getGroupsFormula(object), data = object$data)))
@@ -303,9 +340,22 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
     Residuals = residuals(object, type = if (standardized) "pearson" else "response"),
     Predicted = fitted(object))
 
+  if (isTRUE(quantiles)) {
   d.hat <- .quantilePercentiles(
     data = d.res,
-    LL = .1, UL = .9)
+    Mid = 0.5, LL = 0.05, UL = 0.95,
+    cut = cut)
+  } else {
+    d.hat <- data.table(
+      Predicted = seq(
+        min(d.res$Predicted, na.rm = TRUE),
+        max(d.res$Predicted, na.rm = TRUE),
+        length.out = 1000),
+      Mid = NA_real_,
+      LL = NA_real_,
+      UL = NA_real_,
+      cut = cut)
+  }
 
   d.dist <- testDistribution(
     x = d.res$Residuals,
@@ -351,7 +401,7 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' @param standardized A logical whether to use standardized pearson residuals.
 #'   Defaults to \code{TRUE} generally where possible but may depend on
 #'   method.
-#' @param ... Additional arguments, not currently used.
+#' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @return A logical (\code{is.modelDiagnostics}) or
 #'   a modelDiagnostics object (list) for
 #'   \code{as.modelDiagnostics} and \code{modelDiagnostics}.
@@ -398,7 +448,8 @@ modelDiagnostics.lme <- function(object, ev.perc = .001,
                            ev.perc = ev.perc,
                            robust = robust,
                            distr = distr,
-                           standardized = standardized)
+                           standardized = standardized,
+                           ...)
 
   idvars <- names(get_all_vars(nlme::getGroupsFormula(object), data = object$data))
 

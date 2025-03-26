@@ -60,7 +60,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("var", "Estimate", "Q2.
 
 ## clear R CMD CHECK notes
 if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
-  "interceptA", "interceptB", "sigmaA", "sigmaB", "x", "y"))
+  "interceptA", "interceptB", "sigmaA", "sigmaB", "x", "y", "vars"))
 
 #' Create data and plots for brms random effect models
 #' 
@@ -69,14 +69,12 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' @param newdata a data.table object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point
 #' @param idvar a character string specifying the grouping variable name for the random effects 
 #' @return a list with the following components:
-#' \itemize{
-#'   \item{plot}{a list of ggplot objects}
-#'   \item{plotdat}{a list of data.table objects with the data used to generate the plots}
-#'   \item{relong}{a data.table object with the random effects in long format}
-#'   \item{yhat}{a list of data.table objects with the expected values for the random effects}
-#'   \item{usevars}{a character vector of the random effects to plot}
-#'   \item{idvar}{a character string specifying the grouping variable name for the random effects}
-#' }
+#' * \code{plot}: a list of ggplot objects
+#' * \code{plotdat}: a list of data.table objects with the data used to generate the plots
+#' * \code{relong}: a data.table object with the random effects in long format
+#' * \code{yhat}: a list of data.table objects with the expected values for the random effects
+#' * \code{usevars}: a character vector of the random effects to plot
+#' * \code{idvar}: a character string specifying the grouping variable name for the random effects
 #' @importFrom nlme ranef fixef
 #' @importFrom brms posterior_epred posterior_summary
 #' @importFrom testthat expect_true
@@ -210,12 +208,14 @@ ranefdata <- function(object, usevars, newdata, idvar) {
       ) +
       geom_hline(yintercept = yhat[[i]][1, Estimate], linetype = "dashed") +
       geom_pointrange()
-      
-    if (sigma[i] & intercept[i]) {
-      tmpplot <- tmpplot + 
-        scale_y_continuous(trans = log_trans(),
-                  breaks = breaks_log(n = 10, base = exp(1)),
-                  labels = label_math(e^.x, format = log))
+
+    if (sigma[i] && intercept[i]) {
+      tmpplot <- tmpplot +
+        scale_y_continuous(
+          trans = log_trans(),
+          breaks = breaks_log(n = 10, base = exp(1)),
+          labels = label_math(e^.x, format = log)
+        )
     }
     tmpplot <- tmpplot +
       xlab("ID") +
@@ -227,14 +227,14 @@ ranefdata <- function(object, usevars, newdata, idvar) {
     plot[[i]] <- tmpplot
   }
 
-
   ## make scatter plots for the random effects
   ## we only want these for all unique pairs of random effects
 
   ## make all pairs of usevars
   tmp <- as.data.table(expand.grid(
     A = usevars, B = usevars,
-    stringsAsFactors = FALSE))
+    stringsAsFactors = FALSE
+  ))
 
   ## remove any pairs that are duplicated or only reversed
   tmp <- tmp[duplicated(apply(tmp, 1, function(x) {
@@ -261,23 +261,30 @@ ranefdata <- function(object, usevars, newdata, idvar) {
 
     tmpplot <- ggplot(tmpdat, aes(x = x, y = y)) +
       geom_hex(show.legend = FALSE) +
-      stat_smooth(method = "lm", formula = y ~ x, se = FALSE,
-        colour = "white", linewidth = 2) + 
-      scale_fill_continuous(type = "viridis") + 
-      theme_pubr() + 
-      xlab(tmp[i, A]) + ylab(tmp[i, B])
+      stat_smooth(
+        method = "lm", formula = y ~ x, se = FALSE,
+        colour = "white", linewidth = 2
+      ) +
+      scale_fill_continuous(type = "viridis") +
+      theme_pubr() +
+      xlab(tmp[i, A]) +
+      ylab(tmp[i, B])
 
     if (tmp[i, interceptA] & tmp[i, sigmaA]) {
-      tmpplot <- tmpplot + 
-        scale_x_continuous(trans = log_trans(),
-                  breaks = breaks_log(n = 10, base = exp(1)),
-                  labels = label_math(e^.x, format = log))
+      tmpplot <- tmpplot +
+        scale_x_continuous(
+          trans = log_trans(),
+          breaks = breaks_log(n = 10, base = exp(1)),
+          labels = label_math(e^.x, format = log)
+        )
     }
     if (tmp[i, interceptB] & tmp[i, sigmaB]) {
-      tmpplot <- tmpplot + 
-        scale_y_continuous(trans = log_trans(),
-                  breaks = breaks_log(n = 10, base = exp(1)),
-                  labels = label_math(e^.x, format = log))
+      tmpplot <- tmpplot +
+        scale_y_continuous(
+          trans = log_trans(),
+          breaks = breaks_log(n = 10, base = exp(1)),
+          labels = label_math(e^.x, format = log)
+        )
     }
     scatterplot[[i]] <- tmpplot
   }
