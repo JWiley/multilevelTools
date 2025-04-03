@@ -34,7 +34,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    withr,
     cmdstanr
 Encoding: UTF-8
 LazyData: true

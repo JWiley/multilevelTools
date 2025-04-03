@@ -39,26 +39,6 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("iteration"))
 }
 
 ## clear R CMD CHECK notes
-if (getRversion() >= "2.15.1")  utils::globalVariables(c("var", "Estimate", "Q2.5", "Q97.5"))
-
-#' Convert re.data() output to a dataset for plotting
-#' 
-#' @param data A data.table object, long format random effects
-#' @param var A character string, the name of the random effect to plot
-#' @return A data.table object with the random effect in a format suitable for plotting
-#' @importFrom stats quantile
-#' @keywords internal
-.make.replotdat <- function(data, var) {
-  out <- data[, .(
-    Estimate = mean(get(var)),
-    Q2.5 = quantile(get(var), .025),
-    Q97.5 = quantile(get(var), .975)),
-    by = ID][order(Estimate)]
-  out[, ID := factor(ID, levels = ID)]
-  return(out)
-}
-
-## clear R CMD CHECK notes
 if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
   "interceptA", "interceptB", "sigmaA", "sigmaB", "x", "y", "vars"))
 
@@ -68,6 +48,9 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' @param usevars a character vector of random effects to plot
 #' @param newdata a data.table object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point
 #' @param idvar a character string specifying the grouping variable name for the random effects 
+#' @param CI a numeric value between 0 and 1 specifying the interval to use. Defaults to 0.95.
+#' @param robust a logical value indicating whether to use robust estimates or not. Defaults to FALSE.
+#'   Passed on to \link[brms]{posterior_summary()} and \link{.summary.ID}.
 #' @return a list with the following components:
 #' * \code{plot}: a list of ggplot objects
 #' * \code{plotdat}: a list of data.table objects with the data used to generate the plots
@@ -94,31 +77,30 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' library(cmdstanr)
 #' library(ggpubr)
 #' 
-#' dmixed <- withr::with_seed(
-#'   seed = 12345, code = {
-#'     nGroups <- 100
-#'     nObs <- 20
-#'     theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
-#'     theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
-#'     theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
-#'     theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
-#'     theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
-#'     theta.location <- theta.location %*% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
-#'     theta.location[, 1] <- theta.location[, 1] - 2.5
-#'     theta.location[, 2] <- theta.location[, 2] + 1
-#'     dmixed <- data.table(
-#'       x = rep(rep(0:1, each = nObs / 2), times = nGroups))
-#'     dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+#' current.seed <- .Random.seed
+#' set.seed(12345)
+#' nGroups <- 100
+#' nObs <- 20
+#' theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
+#' theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
+#' theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
+#' theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
+#' theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
+#' theta.location <- theta.location %*% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
+#' theta.location[, 1] <- theta.location[, 1] - 2.5
+#' theta.location[, 2] <- theta.location[, 2] + 1
 #' 
-#'     for (i in seq_len(nGroups)) {
-#'       dmixed[ID == i, y := rnorm(
-#'         n = nObs,
-#'         mean = theta.location[i, 1] + theta.location[i, 2] * x,
-#'         sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
-#'         ]
-#'     }
-#'     copy(dmixed)
-#'   })
+#' dmixed <- data.table(
+#'   x = rep(rep(0:1, each = nObs / 2), times = nGroups))
+#'   dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+#' 
+#'   for (i in seq_len(nGroups)) {
+#'     dmixed[ID == i, y := rnorm(
+#'       n = nObs,
+#'       mean = theta.location[i, 1] + theta.location[i, 2] * x,
+#'       sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
+#'       ]
+#'   }
 #' 
 #' ls.me <- brm(bf(
 #'   y ~ 1 + x + (1 + x | p | ID),
@@ -136,9 +118,30 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' 
 #' do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
 #' do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
+#' 
+#' ## set seed back to what it was
+#' set.seed(current.seed)
+#' 
+#' ## cleanup
+#' rm(current.seed, nGroups, nObs, theta.location, dmixed, ls.me, out)
 #' }
 #' }
-ranefdata <- function(object, usevars, newdata, idvar) {
+ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE) {
+  if (!isTRUE(inherits(object, "brmsfit"))) {
+    stop("object must be a brmsfit object")
+  }
+
+  stopifnot(identical(length(CI), 1L))
+  stopifnot(is.numeric(CI))
+  stopifnot(CI > 0 & CI < 1)
+
+  lowerlimit <- (1 - CI) / 2
+  upperlimit <- 1 - lowerlimit
+  lowerlabel <- paste0("Q", lowerlimit * 100)
+  upperlabel <- paste0("Q", upperlimit * 100)
+
+  stopifnot(identical(length(robust), 1L))
+
   intercept <- grepl("Intercept", usevars)
 
   dpars <- family(object)$dpars
@@ -150,9 +153,10 @@ ranefdata <- function(object, usevars, newdata, idvar) {
     sigma <- rep(FALSE, length(usevars))
   }
 
-  fes <- fixef(object)
+  fes <- fixef(object, robust = robust, probs = c(lowerlimit, upperlimit))
   fes <- cbind(vars = rownames(fes), as.data.table(fes))
   setkey(fes, vars)
+  setnames(fes, c(lowerlabel, upperlabel), c("LL", "UL"))
 
   expect_true(usevars[!intercept] %ain% fes[, vars])
 
@@ -171,7 +175,8 @@ ranefdata <- function(object, usevars, newdata, idvar) {
           object,
           newdata = newdata, re_formula = NA,
           dpar = "sigma"
-        )))
+        ), probs = c(lowerlimit, upperlimit), robust = robust))
+        setnames(yhat[[i]], c(lowerlabel, upperlabel), c("LL", "UL"))
         relong[, (usevars[i]) := exp(
           get(usevars[i]) +
             log(yhat[[i]][1, Estimate])
@@ -181,7 +186,8 @@ ranefdata <- function(object, usevars, newdata, idvar) {
           object,
           newdata = newdata, re_formula = NA,
           dpar = NULL
-        )))
+        ), probs = c(lowerlimit, upperlimit), robust = robust))
+        setnames(yhat[[i]], c(lowerlabel, upperlabel), c("LL", "UL"))
         relong[, (usevars[i]) := (
           get(usevars[i]) +
             (yhat[[i]][1, Estimate]))]
@@ -199,11 +205,11 @@ ranefdata <- function(object, usevars, newdata, idvar) {
   names(plot) <- names(plotdat) <- usevars
 
   for (i in seq_along(usevars)) {
-    plotdat[[i]] <- .make.replotdat(relong, usevars[i])
-    tmpplot <- ggplot(plotdat[[i]], aes(ID, Estimate, ymin = Q2.5, ymax = Q97.5)) +
+    plotdat[[i]] <- .summary.ID(relong, usevars[i], idvar = idvar, CI = CI, robust = robust)
+    tmpplot <- ggplot(plotdat[[i]], aes(ID, Estimate, ymin = LL, ymax = UL)) +
       annotate("rect",
         xmin = -Inf, xmax = Inf,
-        ymin = yhat[[i]][1, Q2.5], ymax = yhat[[i]][1, Q97.5],
+        ymin = yhat[[i]][1, LL], ymax = yhat[[i]][1, UL],
         fill = "grey80"
       ) +
       geom_hline(yintercept = yhat[[i]][1, Estimate], linetype = "dashed") +

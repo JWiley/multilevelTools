@@ -4,7 +4,7 @@
 \alias{ranefdata}
 \title{Create data and plots for brms random effect models}
 \usage{
-ranefdata(object, usevars, newdata, idvar)
+ranefdata(object, usevars, newdata, idvar, CI = 0.95, robust = FALSE)
 }
 \arguments{
 \item{object}{a \code{brmsfit} objectx}
@@ -14,6 +14,11 @@ ranefdata(object, usevars, newdata, idvar)
 \item{newdata}{a data.table object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point}
 
 \item{idvar}{a character string specifying the grouping variable name for the random effects}
+
+\item{CI}{a numeric value between 0 and 1 specifying the interval to use. Defaults to 0.95.}
+
+\item{robust}{a logical value indicating whether to use robust estimates or not. Defaults to FALSE.
+Passed on to \link[brms]{posterior_summary()} and \link{.summary.ID}.}
 }
 \value{
 a list with the following components:
@@ -35,31 +40,30 @@ library(brms)
 library(cmdstanr)
 library(ggpubr)
 
-dmixed <- withr::with_seed(
-  seed = 12345, code = {
-    nGroups <- 100
-    nObs <- 20
-    theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
-    theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
-    theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
-    theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
-    theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
-    theta.location <- theta.location \%*\% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
-    theta.location[, 1] <- theta.location[, 1] - 2.5
-    theta.location[, 2] <- theta.location[, 2] + 1
-    dmixed <- data.table(
-      x = rep(rep(0:1, each = nObs / 2), times = nGroups))
-    dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+current.seed <- .Random.seed
+set.seed(12345)
+nGroups <- 100
+nObs <- 20
+theta.location <- matrix(rnorm(nGroups * 2), nrow = nGroups, ncol = 2)
+theta.location[, 1] <- theta.location[, 1] - mean(theta.location[, 1])
+theta.location[, 2] <- theta.location[, 2] - mean(theta.location[, 2])
+theta.location[, 1] <- theta.location[, 1] / sd(theta.location[, 1])
+theta.location[, 2] <- theta.location[, 2] / sd(theta.location[, 2])
+theta.location <- theta.location \%*\% chol(matrix(c(1.5, -.25, -.25, .5^2), 2))
+theta.location[, 1] <- theta.location[, 1] - 2.5
+theta.location[, 2] <- theta.location[, 2] + 1
 
-    for (i in seq_len(nGroups)) {
-      dmixed[ID == i, y := rnorm(
-        n = nObs,
-        mean = theta.location[i, 1] + theta.location[i, 2] * x,
-        sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
-        ]
-    }
-    copy(dmixed)
-  })
+dmixed <- data.table(
+  x = rep(rep(0:1, each = nObs / 2), times = nGroups))
+  dmixed[, ID := rep(seq_len(nGroups), each = nObs)]
+
+  for (i in seq_len(nGroups)) {
+    dmixed[ID == i, y := rnorm(
+      n = nObs,
+      mean = theta.location[i, 1] + theta.location[i, 2] * x,
+      sd = exp(1 + theta.location[i, 1] + theta.location[i, 2] * x))
+      ]
+  }
 
 ls.me <- brm(bf(
   y ~ 1 + x + (1 + x | p | ID),
@@ -77,6 +81,12 @@ out <- ranefdata(
 
 do.call(ggarrange, c(out$replots, ncol=2,nrow=2))
 do.call(ggarrange, c(out$scatterplots, ncol=2,nrow=3))
+
+## set seed back to what it was
+set.seed(current.seed)
+
+## cleanup
+rm(current.seed, nGroups, nObs, theta.location, dmixed, ls.me, out)
 }
 }
 }

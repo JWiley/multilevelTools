@@ -476,3 +476,52 @@ weighted.sma <- function(x, window, decay = c("exponential", "linear", "none"), 
   return(out)
 }
 
+## clear R CMD CHECK notes
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("var", "Estimate", "LL", "UL"))
+
+#' Summarize a Variable in a Long Dataset by ID
+#' 
+#' @param data A data.table object, long format
+#' @param var A character string, the name of the variable to summarize
+#' @param CI A numeric value, the confidence interval to use. Default is .95.
+#' @param robust A logical. Default is \code{FALSE}.
+#'   If \code{TRUE}, the function will use the median as the estimate.
+#'   If \code{FALSE}, the function will use the mean as the estimate.
+#' @param idvar A character string, the name of the grouping variable
+#' @return A data.table object with the mean/median, lower limit, and upper limit of the variable
+#'   specified in \code{var} for each level of the grouping variable specified in \code{idvar}.
+#' @importFrom stats quantile
+#' @keywords internal
+.summary.ID <- function(data, var, idvar, CI = .95, robust = FALSE) {
+  stopifnot(is.data.table(data))
+  stopifnot(nrow(data) > 0L)
+
+  stopifnot(identical(length(var), 1L))
+  stopifnot(identical(length(idvar), 1L))
+  stopifnot(var %in% names(data))
+  stopifnot(idvar %in% names(data))
+  stopifnot(var != idvar)
+
+  stopifnot(identical(length(CI), 1L))
+  stopifnot(is.numeric(CI))
+  stopifnot(CI > 0 & CI < 1)
+
+  lowerlimit <- (1 - CI) / 2
+  upperlimit <- 1 - lowerlimit
+
+  stopifnot(identical(length(robust), 1L))
+
+  if (isTRUE(robust)) {
+    centerfun <- median
+  } else {
+    centerfun <- mean
+  }
+
+  out <- data[, .(
+    Estimate = centerfun(get(var)),
+    LL = quantile(get(var), lowerlimit),
+    UL = quantile(get(var), upperlimit)),
+    by = idvar][order(Estimate)]
+  out[, (idvar) := factor(get(idvar), levels = get(idvar))]
+  return(out)
+}

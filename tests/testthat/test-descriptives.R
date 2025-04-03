@@ -165,3 +165,26 @@ test_that("acfByID works", {
   ## add .1 for tolerance
   expect_true(all(ac$AutoCorrelation >= -1.1 & ac$AutoCorrelation <= 1.1))
 })
+
+
+test_that(".summary.ID works", {
+  x <- .summary.ID(as.data.table(mtcars), var = "mpg", idvar = "cyl")
+  expect_s3_class(x, "data.table")
+  expect_equal(nrow(x), 3L)
+  expect_equal(ncol(x), 4L)
+
+  x <- .summary.ID(as.data.table(mtcars), var = "mpg", idvar = "cyl", robust = TRUE)
+  expect_s3_class(x, "data.table")
+  expect_equal(nrow(x), 3L)
+  expect_equal(ncol(x), 4L)
+
+  expect_error(.summary.ID(mtcars))
+  expect_error(.summary.ID(as.data.table(mtcars), var = c("mpg", "other"), idvar = "cyl"))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = c("cyl", "other")))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = "cyl", CI = c(.95, .99)))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = "mpg"))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "test", idvar = "mpg"))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = "test"))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = "cyl", CI = c(1.5)))
+  expect_error(.summary.ID(as.data.table(mtcars), var = "mpg", idvar = "cyl", CI = "test"))
+})
