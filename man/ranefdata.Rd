@@ -18,7 +18,7 @@ ranefdata(object, usevars, newdata, idvar, CI = 0.95, robust = FALSE)
 \item{CI}{a numeric value between 0 and 1 specifying the interval to use. Defaults to 0.95.}
 
 \item{robust}{a logical value indicating whether to use robust estimates or not. Defaults to FALSE.
-Passed on to \link[brms]{posterior_summary()} and \link{.summary.ID}.}
+Passed on to \code{\link[brms]{posterior_summary}} and \code{\link{.summary.ID}}.}
 }
 \value{
 a list with the following components:

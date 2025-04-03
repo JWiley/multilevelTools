@@ -32,9 +32,10 @@ if(getRversion() >= "2.15.1") {
 #'   fail. You may also want to turn these off if they are not working well,
 #'   or are not of value in your diagnostics.
 #' @param ... Additional arguments. Not currently used.
-#' @return A logical (\code{is.residualDiagnostics}) or
+#' @return A logical (\code{\link[JWileymisc]{is.residualDiagnostics}}) or
 #'   a residualDiagnostics object (list) for
-#'   \code{as.residualDiagnostics} and \code{residualDiagnostics}.
+#'   \code{\link[JWileymisc]{as.residualDiagnostics}} and 
+#'   \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @importFrom stats model.frame resid fitted coef predict residuals
 #' @importFrom data.table data.table := as.data.table
 #' @importFrom JWileymisc residualDiagnostics testDistribution is.residualDiagnostics as.residualDiagnostics .quantilePercentiles
@@ -142,7 +143,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #' @param robust Whether to use robust mean and standard deviation estimates
 #'   for normal distribution
 #' @param distr A character string given the assumed distribution.
-#'   Passed on to \code{\link{testDistribution}}.
+#'   Passed on to \code{\link[JWileymisc]{testDistribution}}.
 #'   Defaults to \dQuote{normal}.
 #' @param standardized A logical whether to use standardized residuals.
 #'   Defaults to \code{TRUE} generally where possible but may depend on
@@ -150,7 +151,8 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @return A logical (\code{is.modelDiagnostics}) or
 #'   a modelDiagnostics object (list) for
-#'   \code{as.modelDiagnostics} and \code{modelDiagnostics}.
+#'   \code{\link[JWileymisc]{as.modelDiagnostics}} and 
+#'   \code{\link[JWileymisc]{modelDiagnostics}}.
 #' @importFrom JWileymisc as.na testDistribution modelDiagnostics as.modelDiagnostics
 #' @importFrom nlme VarCorr ranef
 #' @importFrom data.table as.data.table :=
@@ -287,9 +289,10 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
 #'   fail. You may also want to turn these off if they are not working well,
 #'   or are not of value in your diagnostics.
 #' @param ... Additional arguments. Not currently used.
-#' @return A logical (\code{is.residualDiagnostics}) or
+#' @return A logical (\code{\link[JWileymisc]{is.residualDiagnostics}}) or
 #'   a residualDiagnostics object (list) for
-#'   \code{as.residualDiagnostics} and \code{residualDiagnostics}.
+#'   \code{\link[JWileymisc]{as.residualDiagnostics}} and 
+#'   \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @importFrom nlme getGroupsFormula
 #' @importFrom stats get_all_vars
 #' @importFrom data.table data.table := as.data.table
@@ -396,15 +399,16 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' @param robust Whether to use robust mean and standard deviation estimates
 #'   for normal distribution
 #' @param distr A character string given the assumed distribution.
-#'   Passed on to \code{\link{testDistribution}}.
+#'   Passed on to \code{\link[JWileymisc]{testDistribution}}.
 #'   Defaults to \dQuote{normal}.
 #' @param standardized A logical whether to use standardized pearson residuals.
 #'   Defaults to \code{TRUE} generally where possible but may depend on
 #'   method.
 #' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
-#' @return A logical (\code{is.modelDiagnostics}) or
+#' @return A logical (\code{\link[JWileymisc]{is.modelDiagnostics}}) or
 #'   a modelDiagnostics object (list) for
-#'   \code{as.modelDiagnostics} and \code{modelDiagnostics}.
+#'   \code{\link[JWileymisc]{as.modelDiagnostics}} and 
+#'   \code{\link[JWileymisc]{modelDiagnostics}}.
 #' @importFrom JWileymisc as.na testDistribution modelDiagnostics as.modelDiagnostics
 #' @importFrom nlme VarCorr ranef getGroupsFormula random.effects
 #' @importFrom data.table as.data.table :=

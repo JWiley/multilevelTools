@@ -490,7 +490,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("var", "Estimate", "LL"
 #' @param idvar A character string, the name of the grouping variable
 #' @return A data.table object with the mean/median, lower limit, and upper limit of the variable
 #'   specified in \code{var} for each level of the grouping variable specified in \code{idvar}.
-#' @importFrom stats quantile
+#' @importFrom stats quantile median
 #' @keywords internal
 .summary.ID <- function(data, var, idvar, CI = .95, robust = FALSE) {
   stopifnot(is.data.table(data))

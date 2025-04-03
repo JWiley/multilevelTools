@@ -50,7 +50,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' @param idvar a character string specifying the grouping variable name for the random effects 
 #' @param CI a numeric value between 0 and 1 specifying the interval to use. Defaults to 0.95.
 #' @param robust a logical value indicating whether to use robust estimates or not. Defaults to FALSE.
-#'   Passed on to \link[brms]{posterior_summary()} and \link{.summary.ID}.
+#'   Passed on to \code{\link[brms]{posterior_summary}} and \code{\link{.summary.ID}}.
 #' @return a list with the following components:
 #' * \code{plot}: a list of ggplot objects
 #' * \code{plotdat}: a list of data.table objects with the data used to generate the plots

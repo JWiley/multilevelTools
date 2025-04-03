@@ -25,7 +25,7 @@ Defaults to .001.}
 for normal distribution}
 
 \item{distr}{A character string given the assumed distribution.
-Passed on to \code{\link{testDistribution}}.
+Passed on to \code{\link[JWileymisc]{testDistribution}}.
 Defaults to \dQuote{normal}.}
 
 \item{standardized}{A logical whether to use standardized pearson residuals.
@@ -35,9 +35,10 @@ method.}
 \item{...}{Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.}
 }
 \value{
-A logical (\code{is.modelDiagnostics}) or
+A logical (\code{\link[JWileymisc]{is.modelDiagnostics}}) or
   a modelDiagnostics object (list) for
-  \code{as.modelDiagnostics} and \code{modelDiagnostics}.
+  \code{\link[JWileymisc]{as.modelDiagnostics}} and 
+  \code{\link[JWileymisc]{modelDiagnostics}}.
 }
 \description{
 This function creates a number of diagnostics

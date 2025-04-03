@@ -49,9 +49,10 @@ or are not of value in your diagnostics.}
 \item{...}{Additional arguments. Not currently used.}
 }
 \value{
-A logical (\code{is.residualDiagnostics}) or
+A logical (\code{\link[JWileymisc]{is.residualDiagnostics}}) or
   a residualDiagnostics object (list) for
-  \code{as.residualDiagnostics} and \code{residualDiagnostics}.
+  \code{\link[JWileymisc]{as.residualDiagnostics}} and 
+  \code{\link[JWileymisc]{residualDiagnostics}}.
 }
 \description{
 residualDiagnostics methods for lme objects
