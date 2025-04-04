@@ -37,7 +37,7 @@ method.}
 \value{
 A logical (\code{\link[JWileymisc]{is.modelDiagnostics}}) or
   a modelDiagnostics object (list) for
-  \code{\link[JWileymisc]{as.modelDiagnostics}} and 
+  \code{\link[JWileymisc]{as.modelDiagnostics}} and
   \code{\link[JWileymisc]{modelDiagnostics}}.
 }
 \description{

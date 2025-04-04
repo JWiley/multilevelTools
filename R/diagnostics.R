@@ -407,7 +407,7 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
 #' @return A logical (\code{\link[JWileymisc]{is.modelDiagnostics}}) or
 #'   a modelDiagnostics object (list) for
-#'   \code{\link[JWileymisc]{as.modelDiagnostics}} and 
+#'   \code{\link[JWileymisc]{as.modelDiagnostics}} and
 #'   \code{\link[JWileymisc]{modelDiagnostics}}.
 #' @importFrom JWileymisc as.na testDistribution modelDiagnostics as.modelDiagnostics
 #' @importFrom nlme VarCorr ranef getGroupsFormula random.effects

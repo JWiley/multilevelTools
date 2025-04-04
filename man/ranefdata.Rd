@@ -64,6 +64,7 @@ dmixed <- data.table(
       ]
   }
 
+## note this model takes several minutes, even on a high performance machine
 ls.me <- brm(bf(
   y ~ 1 + x + (1 + x | p | ID),
   sigma ~ 1 + x + (1 + x | p | ID)),
