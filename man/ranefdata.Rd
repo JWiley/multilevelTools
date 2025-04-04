@@ -37,7 +37,6 @@ Create data and plots for brms random effect models
 if (FALSE) {
 library(data.table)
 library(brms)
-library(cmdstanr)
 library(ggpubr)
 
 current.seed <- .Random.seed
@@ -71,7 +70,7 @@ ls.me <- brm(bf(
   family = "gaussian",
   data = dmixed, seed = 1234,
   silent = 2, refresh = 0, iter = 2000, warmup = 1000, thin = 1,
-  chains = 4L, cores = 4L, backend = "cmdstanr")
+  chains = 4L, cores = 4L)
 
 out <- ranefdata(
   ls.me,

@@ -74,7 +74,6 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' if (FALSE) {
 #' library(data.table)
 #' library(brms)
-#' library(cmdstanr)
 #' library(ggpubr)
 #' 
 #' current.seed <- .Random.seed
@@ -102,13 +101,14 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #'       ]
 #'   }
 #' 
+#' ## note this model takes several minutes, even on a high performance machine
 #' ls.me <- brm(bf(
 #'   y ~ 1 + x + (1 + x | p | ID),
 #'   sigma ~ 1 + x + (1 + x | p | ID)),
 #'   family = "gaussian",
 #'   data = dmixed, seed = 1234,
 #'   silent = 2, refresh = 0, iter = 2000, warmup = 1000, thin = 1,
-#'   chains = 4L, cores = 4L, backend = "cmdstanr")
+#'   chains = 4L, cores = 4L)
 #' 
 #' out <- ranefdata(
 #'   ls.me,
