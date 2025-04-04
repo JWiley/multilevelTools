@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   lmer-vignette: lmer-vignette.html
-last_built: 2025-04-04T04:45Z
+last_built: 2025-04-04T04:55Z
 urls:
   reference: https://joshuawiley.com/multilevelTools/reference
   article: https://joshuawiley.com/multilevelTools/articles
