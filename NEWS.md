@@ -1,3 +1,15 @@
+# multilevelTools 0.2.0
+
+## New Features
+* `evaluateLags()` function to evaluate how far back lags should go to improve model fit.
+* `ranefdata()` function to extract random effects from a `brms` model and
+     return and plot them. Designed to make caterpilar plots with posterior summaries.
+
+## Changes
+
+* Moved testthat to 3rd edition.
+* Updated GitHub actions
+
 # multilevelTools 0.1.3
 
 ## Bug Fixes
