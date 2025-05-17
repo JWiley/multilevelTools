@@ -486,8 +486,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("var1", "var2", "sdcor", 
 #' @param ... Additional arguments passed to \code{confint}
 #' @importFrom JWileymisc modelTest as.na as.modelTest
 #' @importFrom data.table as.data.table := setnames
-#' @importFrom lme4 isGLMM isNLMM isLMM isREML nobars findbars
+#' @importFrom lme4 isGLMM isNLMM isLMM isREML
 #' @importFrom lme4 ngrps lmer glmer refitML lmerControl glmerControl
+#' @importFrom reformulas nobars findbars
 #' @importFrom stats family formula nobs update
 #' @importFrom lmerTest lsmeansLT
 #' @method modelTest merMod
