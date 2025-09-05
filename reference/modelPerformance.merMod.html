@@ -82,47 +82,21 @@ the marginal and conditional R2 are calculated as described in the references.</
     <p>a named vector with the marginal and conditional R2 values,
   if <code>CLUSTER = FALSE</code>, otherwise, a data table with the pseudo R2
   for each cluster unit.
- A list with a <code>data.table</code> with the following elements:</p><dl><dt>Model</dt>
-<dd><p>A character string indicating the model type, here merMod</p></dd>
-
-  <dt>Estimator</dt>
-<dd><p>A character string indicating whether the model was estimated with REML or ML</p></dd>
-
-  <dt>N_Obs</dt>
-<dd><p>The number of observations</p></dd>
-
-  <dt>N_Groups</dt>
-<dd><p>A character string indicating the number of unique units in each grouping/clustering variable.</p></dd>
-
-  <dt>AIC</dt>
-<dd><p>Akaike Information Criterion</p></dd>
-
-  <dt>BIC</dt>
-<dd><p>Bayesian Information Criterion</p></dd>
-
-  <dt>LL</dt>
-<dd><p>log likelihood</p></dd>
-
-  <dt>LLDF</dt>
-<dd><p>log likelihood degrees of freedom</p></dd>
-
-  <dt>Sigma</dt>
-<dd><p>Residual standard deviation</p></dd>
-
-  <dt>MarginalR2</dt>
-<dd><p>in sample variance explained by the fixed effects</p></dd>
-
-  <dt>ConditionalR2</dt>
-<dd><p>in sample variance explained by the fixed and random effects</p></dd>
-
-  <dt>MarginalF2</dt>
-<dd><p>Cohen's F2 effect size R2 / (1 - R2) based off the Marginal R2</p></dd>
-
-  <dt>ConditionalF2</dt>
-<dd><p>Cohen's F2 effect size R2 / (1 - R2) based off the Conditional R2</p></dd>
-
-
-</dl></div>
+ A list with a <code>data.table</code> with the following elements:
+ - Model: A character string indicating the model type, here merMod
+ - Estimator: A character string indicating whether the model was estimated with REML or ML
+ - N_Obs: The number of observations
+ - N_Groups: A character string indicating the number of unique units in each grouping/clustering variable.
+ - AIC: Akaike Information Criterion
+ - BIC: Bayesian Information Criterion
+ - LL: log likelihood
+ - LLDF: log likelihood degrees of freedom
+ - Sigma: Residual standard deviation
+ - MarginalR2: in sample variance explained by the fixed effects
+ - ConditionalR2: in sample variance explained by the fixed and random effects
+ - MarginalF2: Cohen's F2 effect size R2 / (1 - R2) based off the Marginal R2
+ - ConditionalF2: Cohen's F2 effect size R2 / (1 - R2) based off the Conditional R2</p>
+    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>For estimating the marginal and conditional R-squared values,
@@ -179,7 +153,7 @@ the marginal and conditional R2 are calculated as described in the references.</
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
