@@ -26,7 +26,7 @@
 #'
 #' rm(tmp)
 meanDecompose <- function(formula, data) {
-  v <- as.character(attr(terms(formula), "variables"))[-1]
+  v <- all.vars(formula)
 
   if (!is.data.table(data)) {
     data <- as.data.table(data)[, v, with = FALSE]
@@ -141,7 +141,7 @@ iccMixed <- function(dv, id, data, family = c("gaussian", "binomial")) {
 #' This function estimates the (approximate) effective sample
 #' size.
 #'
-#' @param n The number of unique/indepedent units of observation
+#' @param n The number of unique/independent units of observation
 #' @param k The (average) number of observations per unit
 #' @param icc The estimated ICC.  If missing, will
 #'   estimate (and requires that the family argument be
@@ -349,7 +349,7 @@ acfByID <- function(xvar, timevar, idvar, data, lag.max = 10L,
 #' and weights it with a variety of optional decays (e.g., exponential, linear, none).
 #' Whether to omit missing data or not is based on the missing threshold, which is a
 #' proportion and indicates the tolerance. If the weighted proportion missing exceeds
-#' this threshold, then that observvation is missing, otherwise, missing data are excluded
+#' this threshold, then that observation is missing, otherwise, missing data are excluded
 #' and the weighted simple moving average calculated on the non missing data.
 #'
 #' @param x Time series data on which to calculate the weighted simple moving average.

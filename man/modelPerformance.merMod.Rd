@@ -16,21 +16,19 @@ a named vector with the marginal and conditional R2 values,
   if \code{CLUSTER = FALSE}, otherwise, a data table with the pseudo R2
   for each cluster unit.
  A list with a \code{data.table} with the following elements:
-  \describe{
-  \item{Model}{A character string indicating the model type, here merMod}
-  \item{Estimator}{A character string indicating whether the model was estimated with REML or ML}
-  \item{N_Obs}{The number of observations}
-  \item{N_Groups}{A character string indicating the number of unique units in each grouping/clustering variable.}
-  \item{AIC}{Akaike Information Criterion}
-  \item{BIC}{Bayesian Information Criterion}
-  \item{LL}{log likelihood}
-  \item{LLDF}{log likelihood degrees of freedom}
-  \item{Sigma}{Residual standard deviation}
-  \item{MarginalR2}{in sample variance explained by the fixed effects}
-  \item{ConditionalR2}{in sample variance explained by the fixed and random effects}
-  \item{MarginalF2}{Cohen's F2 effect size R2 / (1 - R2) based off the Marginal R2}
-  \item{ConditionalF2}{Cohen's F2 effect size R2 / (1 - R2) based off the Conditional R2}
-  }
+ - Model: A character string indicating the model type, here merMod
+ - Estimator: A character string indicating whether the model was estimated with REML or ML
+ - N_Obs: The number of observations
+ - N_Groups: A character string indicating the number of unique units in each grouping/clustering variable.
+ - AIC: Akaike Information Criterion
+ - BIC: Bayesian Information Criterion
+ - LL: log likelihood
+ - LLDF: log likelihood degrees of freedom
+ - Sigma: Residual standard deviation
+ - MarginalR2: in sample variance explained by the fixed effects
+ - ConditionalR2: in sample variance explained by the fixed and random effects
+ - MarginalF2: Cohen's F2 effect size R2 / (1 - R2) based off the Marginal R2
+ - ConditionalF2: Cohen's F2 effect size R2 / (1 - R2) based off the Conditional R2
 }
 \description{
 For pseudo R2 by cluster, the squared correlation between observed

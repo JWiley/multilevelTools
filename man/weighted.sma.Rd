@@ -39,7 +39,7 @@ This function estimates the simple moving average for a specific window
 and weights it with a variety of optional decays (e.g., exponential, linear, none).
 Whether to omit missing data or not is based on the missing threshold, which is a
 proportion and indicates the tolerance. If the weighted proportion missing exceeds
-this threshold, then that observvation is missing, otherwise, missing data are excluded
+this threshold, then that observation is missing, otherwise, missing data are excluded
 and the weighted simple moving average calculated on the non missing data.
 }
 \examples{

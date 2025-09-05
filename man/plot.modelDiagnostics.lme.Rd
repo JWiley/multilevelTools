@@ -12,7 +12,7 @@
 \item{y}{Included to match the generic. Not used.}
 
 \item{plot}{A logical value whether or not to plot the results or
-simply return the graaphical  objects.}
+simply return the graphical objects.}
 
 \item{ask}{A logical whether to ask before changing plots.
 Only applies to interactive environments.}

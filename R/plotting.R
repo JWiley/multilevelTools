@@ -11,7 +11,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("EffectType", "OriginalO
 #' @param x A fitted model object from \code{lmer()}.
 #' @param y Included to match the generic. Not used.
 #' @param plot A logical value whether or not to plot the results or
-#'   simply return the graaphical  objects.
+#'   simply return the graphical objects.
 #' @param ask A logical whether to ask before changing plots.
 #'   Only applies to interactive environments.
 #' @param ncol The number of columns to use for plots.
@@ -96,7 +96,7 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
 #' @param x A fitted model object from \code{lme()}.
 #' @param y Included to match the generic. Not used.
 #' @param plot A logical value whether or not to plot the results or
-#'   simply return the graaphical  objects.
+#'   simply return the graphical objects.
 #' @param ask A logical whether to ask before changing plots.
 #'   Only applies to interactive environments.
 #' @param ncol The number of columns to use for plots.

@@ -7,7 +7,7 @@
 nEffective(n, k, icc, dv, id, data, family = c("gaussian", "binomial"))
 }
 \arguments{
-\item{n}{The number of unique/indepedent units of observation}
+\item{n}{The number of unique/independent units of observation}
 
 \item{k}{The (average) number of observations per unit}
 

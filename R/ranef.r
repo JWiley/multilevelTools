@@ -158,12 +158,12 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
   setkey(fes, vars)
   setnames(fes, c(lowerlabel, upperlabel), c("LL", "UL"))
 
-  expect_true(usevars[!intercept] %ain% fes[, vars])
+  stopifnot(usevars[!intercept] %ain% fes[, vars])
 
   res <- ranef(object, summary = FALSE)[[idvar]]
   relong <- ranef2long(object, idvar)
 
-  expect_true(usevars %ain% names(relong)) ## all usevars in the randome effects
+  stopifnot(usevars %ain% names(relong)) ## all usevars in the randome effects
 
   yhat <- vector("list", length(usevars))
   names(yhat) <- usevars
