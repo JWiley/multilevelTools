@@ -15,7 +15,7 @@ scored prior to running this function.}
 indicates which rows of the dataset belong to the same person
 or group for the multilevel analysis.}
 
-\item{data}{A data table or data frame to be used for analysis.}
+\item{data}{A \code{data.table} or \code{data.frame} to be used for analysis.}
 
 \item{savemodel}{A logical value indicating whether the underlying model
 should be saved and returned. Defaults to \code{FALSE}.}
@@ -32,7 +32,6 @@ to calculate between and within reliability using coefficient
 omega.
 }
 \examples{
-
   data(aces_daily, package = "JWileymisc")
   omegaSEM(
     items = c("COPEPrb", "COPEPrc", "COPEExp"),

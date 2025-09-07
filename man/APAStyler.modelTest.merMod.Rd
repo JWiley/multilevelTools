@@ -30,7 +30,7 @@ APA style).}
 
 \item{pcontrol}{A list controlling how p values are formatted.}
 
-\item{...}{Additional arguments passed to \code{confint}. Notably
+\item{...}{Additional arguments passed to \code{\link[stats]{confint}}. Notably
 \code{nsim} and \code{boot.type} if the bootstrap method is used.}
 }
 \value{

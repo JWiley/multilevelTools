@@ -7,27 +7,27 @@
 \method{modelTest}{merMod}(object, method = c("Wald", "profile", "boot"), control, ...)
 }
 \arguments{
-\item{object}{A \code{merMod} class object, the fitted result of
-\code{lmer}.}
+\item{object}{A \code{link[lme4]{merMod-class}} object, the fitted result of
+\code{\link[lme4]{lmer}}.}
 
 \item{method}{A character vector indicating the types of confidence
 intervals to calculate. One of \dQuote{Wald}, \dQuote{profile}, or
 \dQuote{boot}.}
 
-\item{control}{A \code{lmerControl()} results used to control how
+\item{control}{A \code{\link[lme4]{lmerControl}} results used to control how
 models are estimated when updating.}
 
 \item{...}{Additional arguments passed to \code{confint}}
 }
 \description{
-This function extends the current \code{drop1} method for
+This function extends the current \code{\link[stats]{drop1}} method for
 \code{merMod} class objects from the lme4 package. Where
 the default method to be able to drop both fixed and random
 effects at once.
 }
 \details{
-At the moment, the function is aimed to \code{lmer} models
-and has very few features for \code{glmer} or \code{nlmer}
+At the moment, the function is aimed to \code{\link[lme4]{lmer}} models
+and has very few features for \code{\link[lme4]{glmer}} or \code{\link[lme4]{nlmer}}
 models. The primary motivation was to provide a way to
 provide an overall test of whether a variable
 \dQuote{matters}.  In multilevel data, a variable may be
@@ -45,9 +45,9 @@ terms from both the fixed and random portions. Secondly,
 mixed effects models do not accomodate all types of models. For example,
 if a model includes only a random slope with no random intercept,
 if the random slope was dropped, there would be no more random effects,
-and at that point, \code{lmer} or \code{glmer} will not run the model.
+and at that point, \code{\link[lme4]{lmer}} or \code{\link[lme4]{glmer}} will not run the model.
 It is theoretically possible to instead fit the model using
-\code{lm} or \code{glm} but this becomes more complex for certain
+\code{\link[stats]{lm}} or \code{\link[stats]{glm}} but this becomes more complex for certain
 model comparisons and calculations and is not currently implemented.
 Marginal and conditional R2 values are calculated for each term,
 and these are used also to calculate something akin to an
@@ -70,7 +70,7 @@ and interpret these with caution.
 ## these examples are slow to run
 library(JWileymisc)
 m1 <- lme4::lmer(extra ~ group + (1 | ID),
-data = sleep, REML=FALSE)
+  data = sleep, REML = FALSE)
 modelTest(m1)
 
 \donttest{

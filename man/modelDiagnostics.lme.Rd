@@ -14,7 +14,7 @@
 )
 }
 \arguments{
-\item{object}{A fitted model object  of class lme.}
+\item{object}{A fitted model object from \code{\link[nlme]{lme}}.}
 
 \item{ev.perc}{A real number between 0 and 1 indicating the
 proportion of the theoretical distribution beyond which
@@ -42,7 +42,7 @@ A logical (\code{\link[JWileymisc]{is.modelDiagnostics}}) or
 }
 \description{
 This function creates a number of diagnostics
-for \code{lme} models.
+for \code{\link[nlme]{lme}} models.
 }
 \examples{
 

@@ -38,9 +38,9 @@ for all IDs in the dataset.}
 \item{na.function}{A character string giving the name of the function
 to use to address any missing data.  Functions come from the
 \pkg{zoo} package, and must be one of:
-\dQuote{na.approx}, \dQuote{na.spline}, \dQuote{na.locf}.}
+\code{\link[zoo]{na.approx}}, \code{\link[zoo]{na.spline}}, \code{\link[zoo]{na.locf}}.}
 
-\item{...}{Additional arguments passed to \code{zoo}.}
+\item{...}{Additional arguments passed on.}
 }
 \value{
 A data.table of the estimated autocorrelations by ID and lag

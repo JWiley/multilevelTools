@@ -21,7 +21,7 @@ if(getRversion() >= "2.15.1") {
 #'   change all parts of the output (which default to 2 decimals per
 #'   APA style).
 #' @param pcontrol A list controlling how p values are formatted.
-#' @param ... Additional arguments passed to \code{confint}. Notably
+#' @param ... Additional arguments passed to \code{\link[stats]{confint}}. Notably
 #'   \code{nsim} and \code{boot.type} if the bootstrap method is used.
 #' @return a data table of character data
 #' @keywords misc

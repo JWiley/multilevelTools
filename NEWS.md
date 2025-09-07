@@ -1,3 +1,8 @@
+# multilevelTools 0.2.1
+
+## Changes
+* Improved documentation links to functions in other packages.
+
 # multilevelTools 0.2.0
 
 ## New Features

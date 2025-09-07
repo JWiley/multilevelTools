@@ -265,8 +265,8 @@ meanDeviations <- function(x, na.rm = TRUE) {
 #' @param na.function A character string giving the name of the function
 #'   to use to address any missing data.  Functions come from the
 #'   \pkg{zoo} package, and must be one of:
-#'   \dQuote{na.approx}, \dQuote{na.spline}, \dQuote{na.locf}.
-#' @param ... Additional arguments passed to \code{zoo}.
+#'   \code{\link[zoo]{na.approx}}, \code{\link[zoo]{na.spline}}, \code{\link[zoo]{na.locf}}.
+#' @param ... Additional arguments passed on.
 #' @return A data.table of the estimated autocorrelations by ID and lag
 #' @keywords multivariate
 #' @importFrom data.table copy is.data.table as.data.table data.table

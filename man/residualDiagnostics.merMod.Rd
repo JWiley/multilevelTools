@@ -16,8 +16,8 @@
 )
 }
 \arguments{
-\item{object}{An object with class \code{merMod}. Currently only
-\code{lmer()} models are supported.}
+\item{object}{An object with class \code{\link[lme4]{merMod-class}}. Currently only
+\code{\link[lme4]{lmer}} models are supported.}
 
 \item{ev.perc}{The extreme value percentile to use. Defaults to
 .001.}
@@ -27,7 +27,7 @@ Defaults to \code{FALSE}.}
 
 \item{distr}{A character string specifying the assumed distribution.
 Currently \dQuote{normal}, but may expand in the future if
-\code{glmer()} models are supported.}
+\code{\link[lme4]{glmer}} models are supported.}
 
 \item{standardized}{A logical value whether to use standardized
 residual values or not. Defaults to \code{TRUE}.}

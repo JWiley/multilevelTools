@@ -14,8 +14,8 @@
 )
 }
 \arguments{
-\item{object}{A fitted model object, either of class merMod from
-the lme4 package or merModLmerTest from the lmerTest package.}
+\item{object}{A fitted model object, either of \code{\link[lme4]{merMod-class}} from
+the \pkg{lme4} package or merModLmerTest from the \pkg{lmerTest} package.}
 
 \item{ev.perc}{A real number between 0 and 1 indicating the
 proportion of the theoretical distribution beyond which
@@ -36,14 +36,14 @@ method.}
 \item{...}{Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.}
 }
 \value{
-A logical (\code{is.modelDiagnostics}) or
+A logical \code{\link[JWileymisc]{is.modelDiagnostics}} or
   a modelDiagnostics object (list) for
   \code{\link[JWileymisc]{as.modelDiagnostics}} and 
   \code{\link[JWileymisc]{modelDiagnostics}}.
 }
 \description{
 This function creates a number of diagnostics
-for \code{merMod} models.
+for \code{\link[lme4]{merMod-class}} models.
 }
 \examples{
 

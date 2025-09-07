@@ -3,12 +3,12 @@
 ## clear R CMD CHECK notes
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("EffectType", "OriginalOrder"))
 
-#' Plot Diagnostics for an lmer model
+#' Plot Diagnostics for an \code{\link[lme4]{lmer}} model
 #'
 #' This function creates a number of diagnostic plots
-#' from lmer models.
+#' from \code{\link[lme4]{lmer}} models.
 #'
-#' @param x A fitted model object from \code{lmer()}.
+#' @param x A fitted model object from \code{\link[lme4]{lmer}}.
 #' @param y Included to match the generic. Not used.
 #' @param plot A logical value whether or not to plot the results or
 #'   simply return the graphical objects.
@@ -88,12 +88,12 @@ plot.modelDiagnostics.merMod <- function(x, y, plot = TRUE, ask = TRUE, ncol = 1
 }
 
 
-#' Plot Diagnostics for an lme model
+#' Plot Diagnostics for an \code{\link[nlme]{lme}} model
 #'
 #' This function creates a number of diagnostic plots
 #' from lme models.
 #'
-#' @param x A fitted model object from \code{lme()}.
+#' @param x A fitted model object from \code{\link[nlme]{lme}}.
 #' @param y Included to match the generic. Not used.
 #' @param plot A logical value whether or not to plot the results or
 #'   simply return the graphical objects.

@@ -7,15 +7,15 @@ if(getRversion() >= "2.15.1") {
 
 #' residualDiagnostics methods for merMod objects
 #'
-#' @param object An object with class \code{merMod}. Currently only
-#'   \code{lmer()} models are supported.
+#' @param object An object with class \code{\link[lme4]{merMod-class}}. Currently only
+#'   \code{\link[lme4]{lmer}} models are supported.
 #' @param ev.perc The extreme value percentile to use. Defaults to
 #'   .001.
 #' @param robust A logical value, whether to use robust estimates or not.
 #'   Defaults to \code{FALSE}.
 #' @param distr A character string specifying the assumed distribution.
 #'   Currently \dQuote{normal}, but may expand in the future if
-#'   \code{glmer()} models are supported.
+#'   \code{\link[lme4]{glmer}} models are supported.
 #' @param standardized A logical value whether to use standardized
 #'   residual values or not. Defaults to \code{TRUE}.
 #' @param cut An integer, how many unique predicted values
@@ -132,10 +132,10 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #' modelDiagnostics method for merMod objects
 #'
 #' This function creates a number of diagnostics
-#' for \code{merMod} models.
+#' for \code{\link[lme4]{merMod-class}} models.
 #'
-#' @param object A fitted model object, either of class merMod from
-#'   the lme4 package or merModLmerTest from the lmerTest package.
+#' @param object A fitted model object, either of \code{\link[lme4]{merMod-class}} from
+#'   the \pkg{lme4} package or merModLmerTest from the \pkg{lmerTest} package.
 #' @param ev.perc A real number between 0 and 1 indicating the
 #'   proportion of the theoretical distribution beyond which
 #'   values are considered extreme values (possible outliers).
@@ -149,7 +149,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".SD", "isEV", "Original
 #'   Defaults to \code{TRUE} generally where possible but may depend on
 #'   method.
 #' @param ... Additional arguments, passed to \code{\link[JWileymisc]{residualDiagnostics}}.
-#' @return A logical (\code{is.modelDiagnostics}) or
+#' @return A logical \code{\link[JWileymisc]{is.modelDiagnostics}} or
 #'   a modelDiagnostics object (list) for
 #'   \code{\link[JWileymisc]{as.modelDiagnostics}} and 
 #'   \code{\link[JWileymisc]{modelDiagnostics}}.
@@ -263,9 +263,9 @@ modelDiagnostics.merMod <- function(object, ev.perc = .001,
   as.modelDiagnostics(out)
 }
 
-#' residualDiagnostics methods for lme objects
+#' residualDiagnostics methods for \code{\link[nlme]{lme}} objects
 #'
-#' @param object An object with class \code{lme}.
+#' @param object An object from \code{\link[nlme]{lme}}.
 #' @param ev.perc The extreme value percentile to use. Defaults to
 #'   .001.
 #' @param robust A logical value, whether to use robust estimates or not.
@@ -389,9 +389,9 @@ residualDiagnostics.lme <- function(object, ev.perc = .001,
 #' modelDiagnostics method for lme objects
 #'
 #' This function creates a number of diagnostics
-#' for \code{lme} models.
+#' for \code{\link[nlme]{lme}} models.
 #'
-#' @param object A fitted model object  of class lme.
+#' @param object A fitted model object from \code{\link[nlme]{lme}}.
 #' @param ev.perc A real number between 0 and 1 indicating the
 #'   proportion of the theoretical distribution beyond which
 #'   values are considered extreme values (possible outliers).
@@ -531,4 +531,3 @@ modelDiagnostics.lme <- function(object, ev.perc = .001,
 
   as.modelDiagnostics(out)
 }
-

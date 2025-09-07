@@ -7,9 +7,9 @@
 \method{modelCompare}{merMod}(model1, model2, ...)
 }
 \arguments{
-\item{model1}{A model estimated by \code{lmer}.}
+\item{model1}{A model estimated by \code{\link[lme4]{lmer}}.}
 
-\item{model2}{A model estimated by \code{lmer}.}
+\item{model2}{A model estimated by \code{\link[lme4]{lmer}}.}
 
 \item{...}{Additional arguments, not currently used but included to match generic.}
 }

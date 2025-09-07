@@ -2,16 +2,16 @@
 % Please edit documentation in R/ranef.r
 \name{ranefdata}
 \alias{ranefdata}
-\title{Create data and plots for brms random effect models}
+\title{Create data and plots for \code{\link[brms]{brm}} random effect models}
 \usage{
 ranefdata(object, usevars, newdata, idvar, CI = 0.95, robust = FALSE)
 }
 \arguments{
-\item{object}{a \code{brmsfit} objectx}
+\item{object}{a \code{\link[brms]{brmsfit-class}} object}
 
 \item{usevars}{a character vector of random effects to plot}
 
-\item{newdata}{a data.table object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point}
+\item{newdata}{a \code{data.table} object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point}
 
 \item{idvar}{a character string specifying the grouping variable name for the random effects}
 
@@ -30,7 +30,7 @@ a list with the following components:
 * \code{idvar}: a character string specifying the grouping variable name for the random effects
 }
 \description{
-Create data and plots for brms random effect models
+Create data and plots for \code{\link[brms]{brm}} random effect models
 }
 \examples{
 \donttest{

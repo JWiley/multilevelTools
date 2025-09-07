@@ -2,7 +2,7 @@
 % Please edit documentation in R/diagnostics.R
 \name{residualDiagnostics.lme}
 \alias{residualDiagnostics.lme}
-\title{residualDiagnostics methods for lme objects}
+\title{residualDiagnostics methods for \code{\link[nlme]{lme}} objects}
 \usage{
 \method{residualDiagnostics}{lme}(
   object,
@@ -16,7 +16,7 @@
 )
 }
 \arguments{
-\item{object}{An object with class \code{lme}.}
+\item{object}{An object from \code{\link[nlme]{lme}}.}
 
 \item{ev.perc}{The extreme value percentile to use. Defaults to
 .001.}
@@ -55,7 +55,7 @@ A logical (\code{\link[JWileymisc]{is.residualDiagnostics}}) or
   \code{\link[JWileymisc]{residualDiagnostics}}.
 }
 \description{
-residualDiagnostics methods for lme objects
+residualDiagnostics methods for \code{\link[nlme]{lme}} objects
 }
 \examples{
 

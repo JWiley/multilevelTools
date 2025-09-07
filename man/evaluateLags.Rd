@@ -7,7 +7,7 @@
 evaluateLags(formula, lagvar, nlags = 0L, idvar, data, ...)
 }
 \arguments{
-\item{formula}{A \code{character} string giving the \code{lmer()} formula
+\item{formula}{A \code{character} string giving the \code{\link[lme4]{lmer}} formula
 to use as a base. The variable to be tested with lags gets added as fixed effects
 only to this, currently.}
 

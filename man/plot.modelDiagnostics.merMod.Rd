@@ -2,12 +2,12 @@
 % Please edit documentation in R/plotting.R
 \name{plot.modelDiagnostics.merMod}
 \alias{plot.modelDiagnostics.merMod}
-\title{Plot Diagnostics for an lmer model}
+\title{Plot Diagnostics for an \code{\link[lme4]{lmer}} model}
 \usage{
 \method{plot}{modelDiagnostics.merMod}(x, y, plot = TRUE, ask = TRUE, ncol = 1, nrow = 1, ...)
 }
 \arguments{
-\item{x}{A fitted model object from \code{lmer()}.}
+\item{x}{A fitted model object from \code{\link[lme4]{lmer}}.}
 
 \item{y}{Included to match the generic. Not used.}
 
@@ -32,7 +32,7 @@ a list including plots of the residuals,
 }
 \description{
 This function creates a number of diagnostic plots
-from lmer models.
+from \code{\link[lme4]{lmer}} models.
 }
 \examples{
 

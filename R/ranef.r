@@ -42,11 +42,11 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("iteration"))
 if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
   "interceptA", "interceptB", "sigmaA", "sigmaB", "x", "y", "vars"))
 
-#' Create data and plots for brms random effect models
+#' Create data and plots for \code{\link[brms]{brm}} random effect models
 #' 
-#' @param object a \code{brmsfit} objectx
+#' @param object a \code{\link[brms]{brmsfit-class}} object
 #' @param usevars a character vector of random effects to plot
-#' @param newdata a data.table object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point
+#' @param newdata a \code{data.table} object with the data used to generate the random effects, this is used as an anchor for the random intercepts so they have a meaningful 0 point
 #' @param idvar a character string specifying the grouping variable name for the random effects 
 #' @param CI a numeric value between 0 and 1 specifying the interval to use. Defaults to 0.95.
 #' @param robust a logical value indicating whether to use robust estimates or not. Defaults to FALSE.
