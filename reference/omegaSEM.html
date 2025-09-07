@@ -17,7 +17,7 @@ omega."><meta name="twitter:card" content="summary"><meta name="twitter:creator"
 
     <a class="navbar-brand me-2" href="../index.html">multilevelTools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ or group for the multilevel analysis.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A data table or data frame to be used for analysis.</p></dd>
+<dd><p>A <code>data.table</code> or <code>data.frame</code> to be used for analysis.</p></dd>
 
 
 <dt id="arg-savemodel">savemodel<a class="anchor" aria-label="anchor" href="#arg-savemodel"></a></dt>
@@ -105,8 +105,7 @@ should be saved and returned. Defaults to <code>FALSE</code>.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">aces_daily</span>, package <span class="op">=</span> <span class="st">"JWileymisc"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">aces_daily</span>, package <span class="op">=</span> <span class="st">"JWileymisc"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu">omegaSEM</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"COPEPrb"</span>, <span class="st">"COPEPrc"</span>, <span class="st">"COPEExp"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    id <span class="op">=</span> <span class="st">"UserID"</span>,</span></span>
