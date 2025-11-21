@@ -206,7 +206,7 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
 
   for (i in seq_along(usevars)) {
     plotdat[[i]] <- .summary.ID(relong, usevars[i], idvar = idvar, CI = CI, robust = robust)
-    tmpplot <- ggplot(plotdat[[i]], aes(ID, Estimate, ymin = LL, ymax = UL)) +
+    tmpplot <- ggplot(plotdat[[i]], aes(.data[[idvar]], Estimate, ymin = LL, ymax = UL)) +
       annotate("rect",
         xmin = -Inf, xmax = Inf,
         ymin = yhat[[i]][1, LL], ymax = yhat[[i]][1, UL],
@@ -276,7 +276,7 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
       xlab(tmp[i, A]) +
       ylab(tmp[i, B])
 
-    if (tmp[i, interceptA] & tmp[i, sigmaA]) {
+    if (tmp[i, interceptA] && tmp[i, sigmaA]) {
       tmpplot <- tmpplot +
         scale_x_continuous(
           trans = log_trans(),
@@ -284,7 +284,7 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
           labels = label_math(e^.x, format = log)
         )
     }
-    if (tmp[i, interceptB] & tmp[i, sigmaB]) {
+    if (tmp[i, interceptB] && tmp[i, sigmaB]) {
       tmpplot <- tmpplot +
         scale_y_continuous(
           trans = log_trans(),
