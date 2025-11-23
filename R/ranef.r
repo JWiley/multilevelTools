@@ -62,7 +62,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("e", ".x", "A", "B",
 #' @importFrom brms posterior_epred posterior_summary
 #' @importFrom testthat expect_true
 #' @importFrom extraoperators %ain%
-#' @importFrom ggplot2 ggplot aes annotate geom_hex geom_pointrange geom_hline ggtitle
+#' @importFrom ggplot2 ggplot aes annotate geom_hex geom_linerange geom_point geom_pointrange geom_hline ggtitle
 #' @importFrom ggplot2 stat_smooth scale_fill_continuous theme coord_flip
 #' @importFrom ggplot2 scale_x_continuous scale_y_continuous element_blank xlab ylab
 #' @importFrom scales breaks_log log_trans label_math
@@ -213,7 +213,8 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
         fill = "grey80"
       ) +
       geom_hline(yintercept = yhat[[i]][1, Estimate], linetype = "dashed") +
-      geom_pointrange()
+      geom_linerange(colour = "grey70", linewidth = 0.5, alpha = .5) +
+      geom_point(colour = "black", size = .5)
 
     if (sigma[i] && intercept[i]) {
       tmpplot <- tmpplot +
@@ -227,7 +228,7 @@ ranefdata <- function(object, usevars, newdata, idvar, CI = .95, robust = FALSE)
       xlab("ID") +
       ylab(usevars[i]) +
       theme_pubr() +
-      theme(axis.text.y = element_blank()) +
+      theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), axis.line.y = element_blank()) +
       coord_flip()
 
     plot[[i]] <- tmpplot

@@ -1,3 +1,9 @@
+# multilevelTools 0.2.2
+
+## Changes
+* Minor adjustments to graphs produced by `ranefdata()`
+  to improve visibility of points and lines.
+
 # multilevelTools 0.2.1
 
 ## Changes
