@@ -1,5 +1,13 @@
 # Changelog
 
+## multilevelTools 0.2.2
+
+### Changes
+
+- Minor adjustments to graphs produced by
+  [`ranefdata()`](https://joshuawiley.com/multilevelTools/reference/ranefdata.md)
+  to improve visibility of points and lines.
+
 ## multilevelTools 0.2.1
 
 CRAN release: 2025-09-07

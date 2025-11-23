@@ -11,13 +11,13 @@ Source:
 [`DESCRIPTION`](https://github.com/JWiley/multilevelTools/blob/main/DESCRIPTION)
 
 Wiley J (2025). *multilevelTools: Multilevel and Mixed Effects Model
-Diagnostics and Effect Sizes*. R package version 0.2.1,
+Diagnostics and Effect Sizes*. R package version 0.2.2,
 <https://joshuawiley.com/multilevelTools/>.
 
     @Manual{,
       title = {multilevelTools: Multilevel and Mixed Effects Model Diagnostics and Effect Sizes},
       author = {Joshua F. Wiley},
       year = {2025},
-      note = {R package version 0.2.1},
+      note = {R package version 0.2.2},
       url = {https://joshuawiley.com/multilevelTools/},
     }
